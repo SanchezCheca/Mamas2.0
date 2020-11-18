@@ -10,18 +10,10 @@
         <a href="Vistas/inicioSesion.php">Inicio de sesión</a>
         
         <?php
-        if (isset($_REQUEST['enviar'])) {
-            $texto = $_REQUEST['nombre'];
-            $textoEncriptado = crypt($texto);
-            
-            echo 'Texto: ' . $texto . '<br>';
-            echo 'Texto encriptado: ' . $textoEncriptado . '<br>';
-            
-            if (hash_equals($textoEncriptado, crypt($texto, $textoEncriptado))) {
-                echo 'La contraseña es correcta!';
-            } else {
-                echo 'esto falla';
-            }
+        session_start();
+        if (isset($_SESSION['mensaje'])) {
+            echo $_SESSION['mensaje'];
+            unset($_SESSION['mensaje']);
         }
         ?>
         <form name="prueba" action="index.php" method="POST">

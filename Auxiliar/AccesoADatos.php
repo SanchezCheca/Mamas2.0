@@ -6,6 +6,9 @@
  *
  * @author daniel
  */
+
+require_once 'Variables.php';
+
 class AccesoADatos {
 
     private static $conexion;
@@ -40,11 +43,10 @@ class AccesoADatos {
         $usuario = null;
 
         self::new();
-        $consulta = "SELECT * FROM usuarios WHERE correo=? AND pass=?";
+        $consulta = "SELECT * FROM usuarios WHERE correo=?";
         $stmt = self::$conexion->prepare($consulta);
-        $stmt->bind_param("ss", $val1, $val2);
+        $stmt->bind_param("s", $val1);
         $val1 = $correo;
-        $val2 = $pass;
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -54,8 +56,15 @@ class AccesoADatos {
             $correo = $fila['correo'];
             $nombre = $fila['nombre'];
             $activo = $fila['activo'];
+            
+            $passEncriptada = $fila['pass'];
 
-            $usuario = new Usuario($id, $rol, $correo, $nombre, $activo);
+            //COMPRUEBA QUE LA CONTRASEÑA SEA CORRECTA
+            if (hash_equals($passEncriptada, crypt($pass, $passEncriptada))) {
+                //Contraseña correcta, se crea el objeto
+                $usuario = new Usuario($id, $rol, $correo, $nombre, $activo);
+            }
+
         }
         $result->free();
         self::closeDB();
@@ -120,11 +129,20 @@ class AccesoADatos {
      * @param type $nombre
      * @param type $pass
      */
-    public static function insertarUsuario($rol, $correo, $nombre, $pass) {
+    public static function insertarUsuario($correo, $nombre, $pass) {
         $resultado = true;
         
+        //ENCRIPTA LA CONTRASEÑA
+        $passEncriptada = crypt($pass);
+        
         self::new();
-        //$query = 'INSERT INTO usuarios VALUES(id, ' . $rol . ', "' . $correo . '", '
+        $query = 'INSERT INTO usuarios VALUES(id, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
+        if (!self::$conexion->query($query)) {
+            $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
+        }
+        self::closeDB();
+        
+        return $resultado;
     }
 
 //    public static function insertUser($correo, $nombre, $pass) {
