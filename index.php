@@ -8,15 +8,20 @@
      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  
      <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-         crossorigin="anonymous"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-         crossorigin="anonymous"></script>
+     
      <title>Página principal</title>
+       <!-- MDB icon -->
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body style="height: 100%;">
  
@@ -45,10 +50,10 @@
           <!-- Left -->
           <ul class="navbar-nav mr-auto ml-5 ">
             <li class="nav-item ">
-              <a class=" waves-effect  btn btn-primary" href="Inicio.html" target="_blank">Inicio</a>
+                <a class=" waves-effect  btn btn-primary" href="index.php" target="_blank">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class=" waves-effect btn btn-primary " href="registro.html" target="_blank">Registro</a>
+                <a class=" waves-effect btn btn-primary " href="Vistas/registro.php" target="_blank">Registro</a>
             </li>
             
           </ul>
@@ -81,7 +86,7 @@
 
   <!-- Register -->
   <p>Not a member?
-      <a href="registro.html">Register</a>
+      <a href="Vistas/registro.php">Register</a>
   </p>
 
   <!-- Social login -->
@@ -107,7 +112,16 @@
 <!-- Footer -->
 
 
-
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript"></script>
 
    
 </body>
