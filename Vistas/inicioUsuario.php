@@ -47,7 +47,7 @@
                   <!-- Left -->
                   <ul class="navbar-nav mr-auto ml-5 ">
                     <li class="nav-item ">
-                      <a class=" waves-effect  btn btn-primary" href="Inicio.html" target="_blank">Inicio</a>
+                        <a class=" waves-effect  btn btn-primary" href="../index.php" target="_blank">Inicio</a>
                     </li>
                     <li class="nav-item">
                       <a class=" waves-effect btn btn-primary " href="" target="_blank">Mis aulas</a>
