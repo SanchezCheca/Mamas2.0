@@ -43,8 +43,12 @@ if (isset($_SESSION['usuarioIniciado'])) {
                 if (isset($usuarioIniciado)) {
                     //Si ha iniciado sesión
                     ?>
-                    <a class=" waves-effect  btn btn-primary" href="#">Exámenes</a>
-                    <a class=" waves-effect  btn btn-primary" href="#">Aulas</a>
+                    <li class="nav-item">
+                        <a class=" waves-effect  btn btn-primary" href="#">Exámenes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class=" waves-effect  btn btn-primary" href="#">Aulas</a>
+                    </li>
                     <?php
                     //Muestra opciones de perfil
                     ?>

@@ -1,6 +1,4 @@
-x<!DOCTYPE html>
-
-
+<!DOCTYPE html>
 <html lang="es">
     <head>
         <!-- Required meta tags -->
@@ -22,52 +20,54 @@ x<!DOCTYPE html>
         <title>Página principal</title>
     </head>
     <body style="height: 100%;">
-        <?php include 'Recursos/header.php'; ?>
-
-        <?php
-        //---------DA LA OPCIÓN DE INICIAR SESIÓN SI NO LO HA HECHO
-        if (isset($usuarioIniciado)) {
-            ?>
-        <div class="row mt-5"></div>
-        <div class="row my-4">
-            <div class="col-12 d-flex justify-content-center">
-                <h4>Hola, <?php echo $usuarioIniciado->getNombre(); ?></h4>
-            </div>
-        </div>
-        <?php
-        } else {
-            ?>
-            <!-- CUERPO -->
-            <div class="row mt-5"></div>
-            <div class="col-12 mt-3 p-3 d-flex justify-content-center">
-                <h4>¡Hola! Tienes que iniciar sesión para acceder</h4>
-            </div>
-            <main class="row align-items-center justify-content-center">
-
-                <!-- login -->
-                <form class="text-center border border-light col-md-4 mx-auto" action="Controladores/controladorPrincipal.php" method="POST">
-
-                    <h2 class="mb-4 display-4">Iniciar sesión</h2>
-
-                    <!-- Email -->
-                    <input type="email" name="correo" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
-
-                    <!-- Password -->
-                    <input type="password" name="pass" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Contraseña">
-
-                    <!-- Sign in button -->
-                    <input type="submit" name="inicioSesion" class="btn btn-info btn-block my-4" value="Iniciar sesión">
-                    <!-- Register -->
-                    <p>¿No tienes cuenta?
-                        <a href="Vistas/registro.php">Registrarme</a>
-                    </p>
-
-                </form>
-            </main>
+        <div class="container">
+            <?php include 'Recursos/header.php'; ?>
+            
             <?php
-        }
-        ?>
+            //---------DA LA OPCIÓN DE INICIAR SESIÓN SI NO LO HA HECHO
+            if (isset($usuarioIniciado)) {
+                ?>
+                <div class="row mt-5"></div>
+                <div class="row my-4">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h4>Hola, <?php echo $usuarioIniciado->getNombre(); ?></h4>
+                    </div>
+                </div>
+                <?php
+            } else {
+                ?>
+                <!-- CUERPO -->
+                <div class="row mt-5"></div>
+                <div class="col-12 mt-3 p-3 d-flex justify-content-center">
+                    <h4>¡Hola! Tienes que iniciar sesión para acceder</h4>
+                </div>
+                <main class="row align-items-center justify-content-center">
 
-        <?php include 'Recursos/footer.php'; ?>
+                    <!-- login -->
+                    <form class="text-center border border-light col-md-4 mx-auto" action="Controladores/controladorPrincipal.php" method="POST">
+
+                        <h2 class="mb-4 display-4">Iniciar sesión</h2>
+
+                        <!-- Email -->
+                        <input type="email" name="correo" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+
+                        <!-- Password -->
+                        <input type="password" name="pass" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Contraseña">
+
+                        <!-- Sign in button -->
+                        <input type="submit" name="inicioSesion" class="btn btn-info btn-block my-4" value="Iniciar sesión">
+                        <!-- Register -->
+                        <p>¿No tienes cuenta?
+                            <a href="Vistas/registro.php">Registrarme</a>
+                        </p>
+
+                    </form>
+                </main>
+                <?php
+            }
+            ?>
+                
+            <?php include 'Recursos/footer.php'; ?>
+        </div>
     </body>
 </html>
