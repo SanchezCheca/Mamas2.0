@@ -93,7 +93,7 @@ class AccesoADatos {
 
         return $usuario;
     }
-    
+
     /**
      * Devuelve true si existe el usuario cuyo correo recibe por parámetro
      * @param type $correo
@@ -114,7 +114,19 @@ class AccesoADatos {
         return $existe;
     }
 
-    
+    /**
+     * Inserta un usuario en la BD encriptando la contraseña. Devuelve el éxito de la operación
+     * @param type $correo
+     * @param type $nombre
+     * @param type $pass
+     */
+    public static function insertarUsuario($rol, $correo, $nombre, $pass) {
+        $resultado = true;
+        
+        self::new();
+        //$query = 'INSERT INTO usuarios VALUES(id, ' . $rol . ', "' . $correo . '", '
+    }
+
 //    public static function insertUser($correo, $nombre, $pass) {
 //        $resultado = true;
 //
@@ -128,5 +140,4 @@ class AccesoADatos {
 //
 //        return $resultado;
 //    }
-
 }
