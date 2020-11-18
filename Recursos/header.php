@@ -1,5 +1,23 @@
 <?php
+//COMPRUEBA EL DIRECTORIO ACTUAL PARA ESTABLECER UNA RUTA ADECUADA A LOS ENLACES
+$dir = $_SERVER['PHP_SELF'];
+
+if (substr($dir, -9) == 'index.php') {
+    //Estamos en inicio
+    $ruta = '';
+} else {
+    //NO estamos en inicio
+    $ruta = '../';
+}
+
+require_once $ruta . 'Modelo/Usuario.php';
+
 session_start();
+
+//---------------COMPRUEBA SI EL USUARIO HA INICIADO SESIÓN Y LO GUARDA
+if (isset($_SESSION['usuarioIniciado'])) {
+    $usuarioIniciado = $_SESSION['usuarioIniciado'];
+}
 ?>
 
 <!-- Navigation -->
@@ -19,11 +37,30 @@ session_start();
             <!-- Left -->
             <ul class="navbar-nav mr-auto ml-5 ">
                 <li class="nav-item ">
-                    <a class=" waves-effect  btn btn-primary" href="Vistas/inicioSesion.php">Inicio</a>
+                    <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'index.php' ?>">Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a class=" waves-effect btn btn-primary " href="registro.html">Registro</a>
-                </li>
+                <?php
+                if (isset($usuarioIniciado)) {
+                    //Si ha iniciado sesión
+                    ?>
+                    <a class=" waves-effect  btn btn-primary" href="#">Exámenes</a>
+                    <a class=" waves-effect  btn btn-primary" href="#">Aulas</a>
+                    <?php
+                    //Muestra opciones de perfil
+                    ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Perfil
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Mi perfil</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="<?php echo $ruta . 'Controladores/controladorPrincipal.php?cerrarSesion=!'; ?>">Cerrar sesión</a>
+                        </div>
+                    </li>
+                    <?php
+                }
+                ?>
             </ul>
         </div>
 

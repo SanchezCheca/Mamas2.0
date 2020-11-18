@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+x<!DOCTYPE html>
 
 
 <html lang="es">
@@ -6,7 +6,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
+
         <!-- Mi CSS -->
         <link rel="stylesheet" href="css/estilos.css">
 
@@ -22,31 +22,51 @@
         <title>Página principal</title>
     </head>
     <body style="height: 100%;">
-        <?php include 'Recursos/header.php';?>
-        
-        
-        <!-- CUERPO -->
-        <main class="row align-items-center justify-content-center">
-            <!-- Default form login -->
-            <form class="text-center border border-light p-5 mt-5 col-md-4 mx-auto" action="#!">
+        <?php include 'Recursos/header.php'; ?>
 
-                <h2 class=" mb-4 display-4">Iniciar sesión</h2>
+        <?php
+        //---------DA LA OPCIÓN DE INICIAR SESIÓN SI NO LO HA HECHO
+        if (isset($usuarioIniciado)) {
+            ?>
+        <div class="row mt-5"></div>
+        <div class="row my-4">
+            <div class="col-12 d-flex justify-content-center">
+                <h4>Hola, <?php echo $usuarioIniciado->getNombre(); ?></h4>
+            </div>
+        </div>
+        <?php
+        } else {
+            ?>
+            <!-- CUERPO -->
+            <div class="row mt-5"></div>
+            <div class="col-12 mt-3 p-3 d-flex justify-content-center">
+                <h4>¡Hola! Tienes que iniciar sesión para acceder</h4>
+            </div>
+            <main class="row align-items-center justify-content-center">
 
-                <!-- Email -->
-                <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+                <!-- login -->
+                <form class="text-center border border-light col-md-4 mx-auto" action="Controladores/controladorPrincipal.php" method="POST">
 
-                <!-- Password -->
-                <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Contraseña">
+                    <h2 class="mb-4 display-4">Iniciar sesión</h2>
 
-                <!-- Sign in button -->
-                <button class="btn btn-info btn-block my-4" type="submit">Iniciar sesión</button>
-                <!-- Register -->
-                <p>¿No tienes cuenta?
-                    <a href="registro.html">Registrarme</a>
-                </p>
+                    <!-- Email -->
+                    <input type="email" name="correo" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
 
-            </form>
-        </main>
+                    <!-- Password -->
+                    <input type="password" name="pass" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Contraseña">
+
+                    <!-- Sign in button -->
+                    <input type="submit" name="inicioSesion" class="btn btn-info btn-block my-4" value="Iniciar sesión">
+                    <!-- Register -->
+                    <p>¿No tienes cuenta?
+                        <a href="Vistas/registro.php">Registrarme</a>
+                    </p>
+
+                </form>
+            </main>
+            <?php
+        }
+        ?>
 
         <?php include 'Recursos/footer.php'; ?>
     </body>
