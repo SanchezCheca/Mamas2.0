@@ -11,7 +11,19 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        echo 'hola';
+        if (isset($_REQUEST['enviar'])) {
+            $texto = $_REQUEST['nombre'];
+            $textoEncriptado = crypt($texto);
+            
+            echo 'Texto: ' . $texto . '<br>';
+            echo 'Texto encriptado: ' . $textoEncriptado . '<br>';
+            
+            if (hash_equals($textoEncriptado, crypt($texto, $textoEncriptado))) {
+                echo 'La contraseña es correcta!';
+            } else {
+                echo 'esto falla';
+            }
+        }
         ?>
     </body>
 </html>
