@@ -8,6 +8,7 @@
  */
 
 require_once 'Variables.php';
+require_once '../Modelo/Usuario.php';
 
 class AccesoADatos {
 
@@ -165,8 +166,18 @@ class AccesoADatos {
           self::new();
           $usuarios=[];
           $query= "Select id, rol, correo, nombre, activo from usuarios";
-          while ($fila= mysqli_query(self::$conexion, $query)){
-              
+          if ($resultado= mysqli_query(self::$conexion, $query)){
+              while($fila=$resultado->fetch_array()){
+                  $id=$fila[0];
+                  $rol=$fila[1];
+                   $correo=$fila[2];
+                    $nombre=$fila[3];
+                    $activo=$fila[4];
+                    $usuario=new Usuario($id, $rol, $correo, $nombre, $activo);
+                    $usuarios[]=$usuario;
+              }
           }
+          self::closeDB();
+          return $usuarios;
     }
 }
