@@ -144,6 +144,7 @@ class AccesoADatos {
         
         return $resultado;
     }
+    
 
 //    public static function insertUser($correo, $nombre, $pass) {
 //        $resultado = true;
@@ -158,4 +159,14 @@ class AccesoADatos {
 //
 //        return $resultado;
 //    }
+    
+    
+    public static function getUsuarios(){
+          self::new();
+          $usuarios=[];
+          $query= "Select id, rol, correo, nombre, activo from usuarios";
+          while ($fila= mysqli_query(self::$conexion, $query)){
+              
+          }
+    }
 }

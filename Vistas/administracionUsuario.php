@@ -25,7 +25,13 @@
         <link rel="stylesheet" href="../css/miestilo.css">
     </head>
     <body style="height: 100%;">
-
+<?php
+session_start();
+if(isset($_SESSION['usuarios'])){
+    $usuarios=$_SESSION['usuarios'];
+    
+}
+?>
 
         <!-- Navigation -->
         <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
@@ -49,13 +55,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
           <!-- Left -->
-          <ul class="navbar-nav mr-auto  offset-7">
+          <ul class="navbar-nav mr-auto  offset-3">
+               <li class="nav-item ">
+                <form action="../Controladores/controladorCRUD.php" method="POST" name="administrador">
+                    <button type="submit" class=" waves-effect  btn btn-primary" name="cargar" >Cargar Usuarios</button>
+                <form>
+            </li>
             <li class="nav-item ">
                 <form action="../Controladores/controladorCRUD.php" method="POST" name="volver">
                     <button type="submit" class=" waves-effect  btn btn-primary" name="cerrarSesion" >Cerrar Sesión</button>
                 <form>
             </li>
-           
+          
           </ul>
  
 
@@ -88,11 +99,11 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Cell</td>
-                                <td>Cell</td>
-                                <td>Cell</td>
-                                <td>Cell</td>
+                                <th scope="row"></th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                      <a type="button" class="btn-floating btn-lg  boton bg-primary"><i class="fas fa-user-edit"></i></a>
                                       <a type="button" class="btn-floating btn-lg  boton bg-primary"><i class="fas fa-user-times"></i></a>
