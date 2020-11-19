@@ -8,14 +8,16 @@ class Usuario {
     private $correo;
     private $nombre;
     private $activo;
+    private $aulas;
     
     //--------------------------CONSTRUCTOR
-    function __construct($id, $rol, $correo, $nombre, $activo) {
+    function __construct($id, $rol, $correo, $nombre, $activo, $aulas) {
         $this->id = $id;
         $this->rol = $rol;
         $this->correo = $correo;
         $this->nombre = $nombre;
         $this->activo = $activo;
+        $this->aulas = $aulas;
     }
 
     //--------------------------GETTER
@@ -37,6 +39,10 @@ class Usuario {
 
     function getActivo() {
         return $this->activo;
+    }
+    
+    function getAulas() {
+        return $this->aulas;
     }
 
     //--------------------------TO STRING

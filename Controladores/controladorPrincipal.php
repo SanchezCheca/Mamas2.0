@@ -2,6 +2,7 @@
 
 require_once '../Auxiliar/AccesoADatos.php';
 require_once '../Modelo/Usuario.php';
+require_once '../Modelo/Aula.php';
 
 session_start();
 

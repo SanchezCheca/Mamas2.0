@@ -27,7 +27,6 @@
             //---------DA LA OPCIÓN DE INICIAR SESIÓN SI NO LO HA HECHO
             if (isset($usuarioIniciado)) {
                 ?>
-                <div class="row mt-5"></div>
                 <div class="row my-4">
                     <div class="col-12 d-flex justify-content-center">
                         <h4>Hola, <?php echo $usuarioIniciado->getNombre(); ?></h4>

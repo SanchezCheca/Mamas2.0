@@ -61,8 +61,29 @@ class AccesoADatos {
 
             //COMPRUEBA QUE LA CONTRASEÑA SEA CORRECTA
             if (hash_equals($passEncriptada, crypt($pass, $passEncriptada))) {
-                //Contraseña correcta, se crea el objeto
-                $usuario = new Usuario($id, $rol, $correo, $nombre, $activo);
+                //Contraseña correcta, carga las aulas del alumno/profesor
+                $aulas = null;
+                if ($rol == 0) {
+                    //El usuario es un alumno
+                    $consultaAulas = 'SELECT * FROM aulas WHERE id = (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
+                    $resultadoAulas = self::$conexion->query($consultaAulas);
+                    
+                    while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                        $idAula = $filaAula['id'];
+                        $idProfesor = $filaAula['idProfesor'];
+                        $nombreAula = $filaAula['nombre'];
+                        
+                        $aula = new Aula($idAula, $nombreAula, $idProfesor);
+                        $aulas[] = $aula;
+                    }
+                    
+                } else {
+                    //El usuario es un profesor
+                    
+                }
+                
+                
+                $usuario = new Usuario($id, $rol, $correo, $nombre, $activo, $aulas);
             }
 
         }

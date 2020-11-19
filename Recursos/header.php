@@ -11,6 +11,7 @@ if (substr($dir, -9) == 'index.php') {
 }
 
 require_once $ruta . 'Modelo/Usuario.php';
+require_once $ruta . 'Modelo/Aula.php';
 
 session_start();
 
@@ -47,7 +48,7 @@ if (isset($_SESSION['usuarioIniciado'])) {
                         <a class=" waves-effect  btn btn-primary" href="#">Exámenes</a>
                     </li>
                     <li class="nav-item">
-                        <a class=" waves-effect  btn btn-primary" href="#">Aulas</a>
+                        <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'Vistas/aulas.php'; ?>">Aulas</a>
                     </li>
                     <?php
                     //Muestra opciones de perfil
@@ -70,6 +71,9 @@ if (isset($_SESSION['usuarioIniciado'])) {
 
     </div>
 </header>
+<!-- Espacio para esquivar la barra de navegación -->
+<div class="row mt-5 mb-4"></div>
+
 <!-- Mensajes de error/alerta -->
 <div class="bg-warning mensaje">
     <div class="col-12">
