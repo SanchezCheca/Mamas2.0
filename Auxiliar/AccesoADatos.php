@@ -6,7 +6,6 @@
  *
  * @author daniel
  */
-
 require_once 'Variables.php';
 
 class AccesoADatos {
@@ -56,7 +55,7 @@ class AccesoADatos {
             $correo = $fila['correo'];
             $nombre = $fila['nombre'];
             $activo = $fila['activo'];
-            
+
             $passEncriptada = $fila['pass'];
 
             //COMPRUEBA QUE LA CONTRASEÑA SEA CORRECTA
@@ -67,25 +66,31 @@ class AccesoADatos {
                     //El usuario es un alumno
                     $consultaAulas = 'SELECT * FROM aulas WHERE id = (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
                     $resultadoAulas = self::$conexion->query($consultaAulas);
-                    
+
                     while ($filaAula = $resultadoAulas->fetch_assoc()) {
                         $idAula = $filaAula['id'];
                         $idProfesor = $filaAula['idProfesor'];
                         $nombreAula = $filaAula['nombre'];
-                        
+
                         $aula = new Aula($idAula, $nombreAula, $idProfesor);
                         $aulas[] = $aula;
                     }
-                    
                 } else {
                     //El usuario es un profesor
-                    
+                    $consultaAulas = 'SELECT * FROM aulas WHERE idProfesor = ' . $id;
+                    $resultadoAulas = self::$conexion->query($consultaAulas);
+
+                    while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                        $idAula = $filaAula['id'];
+                        $nombreAula = $filaAula['nombre'];
+
+                        $aula = new Aula($idAula, $nombreAula, $id);
+                        $aulas[] = $aula;
+                    }
                 }
-                
-                
+
                 $usuario = new Usuario($id, $rol, $correo, $nombre, $activo, $aulas);
             }
-
         }
         $result->free();
         self::closeDB();
@@ -152,31 +157,38 @@ class AccesoADatos {
      */
     public static function insertarUsuario($correo, $nombre, $pass) {
         $resultado = true;
-        
+
         //ENCRIPTA LA CONTRASEÑA
         $passEncriptada = crypt($pass);
-        
+
         self::new();
         $query = 'INSERT INTO usuarios VALUES(id, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
         if (!self::$conexion->query($query)) {
             $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
         }
         self::closeDB();
-        
+
         return $resultado;
     }
 
-//    public static function insertUser($correo, $nombre, $pass) {
-//        $resultado = true;
-//
-//        self::new();
-//        $query = 'INSERT INTO usuarios VALUES(id, 0, "' . $nombre . '", "' . $correo . '", "' . $pass . '")';
-//
-//        if (!self::$conexion->query($query)) {
-//            $resultado = "Error al insertar: " . mysqli_error(self::$conexion) . '<br/>';
-//        }
-//        self::closeDB();
-//
-//        return $resultado;
-//    }
+    /**
+     * Devuelve, en formato json, todos los alumnos activos (id, correo)
+     */
+    public static function getListaAlumnos() {
+        $alumnos = null;
+        
+        self::new();
+        $query = 'SELECT * FROM usuarios WHERE rol=0 AND activo=1';
+        $resultado = self::$conexion->query($query);
+        
+        while ($fila = $resultado->fetch_assoc()) {
+            $id = $fila['id'];
+            $correo = $fila['correo'];
+            
+            $alumnos[] = array('id' => $id, 'correo' => $correo);
+        }
+        
+        $alumnos = json_encode($alumnos);
+        return $alumnos;
+    }
 }

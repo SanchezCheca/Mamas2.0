@@ -12,10 +12,18 @@ if (isset($_REQUEST['registro'])) {
     $correo = $_REQUEST['correo'];
     $pass = $_REQUEST['pass'];
 
-    if (AccesoADatos::insertarUsuario($correo, $nombre, $pass)) {
-        $mensaje = 'Se ha registrado el usuario ' . $nombre;
-        $_SESSION['mensaje'] = $mensaje;
+    if (AccesoADatos::isUsuario($correo)) {
+        $mensaje = 'ERROR: El correo ya está registrado.';
+    } else {
+        if (AccesoADatos::insertarUsuario($correo, $nombre, $pass)) {
+            $mensaje = 'Se ha registrado el usuario ' . $nombre;
+        } else {
+            $mensaje = 'Ha ocurrido algún error.';
+        }
     }
+
+    $_SESSION['mensaje'] = $mensaje;
+
     header('Location: ../index.php');
 }
 

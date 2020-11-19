@@ -25,7 +25,7 @@
 
             <main class="row align-items-center justify-content-center">
                 <!-- Default form register -->
-                <form name="registro" class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php" method="POST">
+                <form name="registro" class="text-center border border-light p-5 align-self-center" action="../Controladores/controladorPrincipal.php" method="POST">
                     <h2 class=" mb-4 display-4">Crear cuenta</h2>
                     <input type="text" name="nombre" id="defaultRegisterFormFirstName" class="form-control mb-4" placeholder="Nombre">
                     <!-- E-mail -->
