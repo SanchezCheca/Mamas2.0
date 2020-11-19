@@ -4,7 +4,7 @@ class Usuario {
     
     //--------------------------PROPIEDADES
     private $id;
-    private $rol;
+    private $rol;   //0: Alumno     1: Profesor     2: Profesor-Administrador
     private $correo;
     private $nombre;
     private $activo;
