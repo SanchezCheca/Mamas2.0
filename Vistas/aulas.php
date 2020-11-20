@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="es">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -38,11 +38,13 @@
                 $listaAlumnos = json_decode($alumnos);
                 ?>
 
-                <div class="row justify-content-center">
+                <!-- Caja para añadir alumnos --> 
+                <div class="row justify-content-center" id="cajaGeneral">
                     <div class="col-sm-3"></div>
                     <div class="col-12 col-sm-6" id="cajaCrear">
-                        <table class="table" id="tablaAlumnos">
-                            <!-- Esta tabla permanecerá oculta hasta pulsar el boton "añadir alumnos" -->
+                        <!-- Esta tabla permanecerá oculta hasta pulsar el boton "añadir alumnos" -->
+                        <table class="table table-hover" id="tablaAlumnos">
+                            <caption>Listado de alumnos</caption>
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">ID</th>
@@ -55,12 +57,12 @@
                                 <?php
                                 foreach ($listaAlumnos as $o) {
                                     echo '<tr>';
-                                    
+
                                     echo '<td>' . $o->id . '</td>';
                                     echo '<td>' . $o->correo . '</td>';
                                     echo '<td>' . $o->nombre . '</td>';
                                     echo '<td><div class="bg-info text-light d-flex justify-content-center rounded annadir">Añadir</div></td>';
-                                    
+
                                     echo '</tr>';
                                 }
                                 ?>
@@ -68,8 +70,24 @@
                         </table>
                     </div>
                     <div class="col-sm-3"></div>
+
+                    <!-- Formulario aceptar -->
+                    <div class="col-12 d-flex justify-content-center py-2">
+                        <form id="formularioAula" name="crearAula" action="../Controladores/controladorPrincipal.php" method="POST">
+
+                            <input type="text" name="nombre" class="form-control" placeholder="Nombre del Aula">
+                            <input type="submit" class="btn btn-success" name="crearAula" value="Crear Aula">
+                        </form>
+                    </div>
+
+                    <!-- Boton añadir alumnos -->
+                    <div class="col-12 d-flex justify-content-center py-2" id="botonAdd">
+                        <button class="btn btn-info" id="anadirAlumnos">Añadir alumnos</button>
+                    </div>
+
                 </div>
 
+                <!-- Boton nueva aula -->
                 <div class="col-12 m-3 d-flex justify-content-center">
                     <button class="btn btn-primary" id="botonNueva">+ Nueva Aula</button>
                 </div>
