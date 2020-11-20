@@ -6,7 +6,8 @@
     opacity: 1;
     transition: opacity 2s;
 }
-body
+.annadir:hover
 {
-    background-color: pink;
+    width: 100%;
+    cursor: cell;
 }

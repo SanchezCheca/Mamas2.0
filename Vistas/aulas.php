@@ -31,18 +31,45 @@
 
             <?php
             //Añade botón crearAula si se trata de un profesor
-            //Hace una consulta a BD y guarda en la sesión un vec. asoc. con todos los alumnos disponibles para ser usado por el js
-            require_once '../Auxiliar/AccesoADatos.php';
-            $alumnos = AccesoADatos::getListaAlumnos();
-            $_SESSION['alumnos'] = $alumnos;
-
             if ($usuarioIniciado->getRol() >= 1) {
+                //Hace una consulta a BD y guarda en la sesión un vec. asoc. con todos los alumnos disponibles para ser usado por el js
+                require_once '../Auxiliar/AccesoADatos.php';
+                $alumnos = AccesoADatos::getListaAlumnos();
+                $listaAlumnos = json_decode($alumnos);
                 ?>
-            <div class="row justify-content-center">
-                <div class="col-sm-3"></div>
-                <div class="col-12 col-sm-6" id="cajaCrear"></div>
-                <div class="col-sm-3"></div>
-            </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-sm-3"></div>
+                    <div class="col-12 col-sm-6" id="cajaCrear">
+                        <table class="table" id="tablaAlumnos">
+                            <!-- Esta tabla permanecerá oculta hasta pulsar el boton "añadir alumnos" -->
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col"></th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($listaAlumnos as $o) {
+                                    echo '<tr>';
+                                    
+                                    echo '<td>' . $o->id . '</td>';
+                                    echo '<td>' . $o->correo . '</td>';
+                                    echo '<td>' . $o->nombre . '</td>';
+                                    echo '<td><div class="bg-info text-light d-flex justify-content-center rounded annadir">Añadir</div></td>';
+                                    
+                                    echo '</tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
                 <div class="col-12 m-3 d-flex justify-content-center">
                     <button class="btn btn-primary" id="botonNueva">+ Nueva Aula</button>
                 </div>

@@ -172,7 +172,7 @@ class AccesoADatos {
     }
 
     /**
-     * Devuelve, en formato json, todos los alumnos activos (id, correo)
+     * Devuelve, en formato json, todos los alumnos activos (id, correo, nombre)
      */
     public static function getListaAlumnos() {
         $alumnos = null;
@@ -184,8 +184,9 @@ class AccesoADatos {
         while ($fila = $resultado->fetch_assoc()) {
             $id = $fila['id'];
             $correo = $fila['correo'];
+            $nombre = $fila['nombre'];
             
-            $alumnos[] = array('id' => $id, 'correo' => $correo);
+            $alumnos[] = array('id' => $id, 'correo' => $correo, 'nombre' => $nombre);
         }
         
         $alumnos = json_encode($alumnos);
