@@ -6,3 +6,7 @@
     opacity: 1;
     transition: opacity 2s;
 }
+body
+{
+    background-color: pink;
+}

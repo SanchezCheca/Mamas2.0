@@ -8,9 +8,10 @@
 
         <!-- Mi CSS -->
         <link rel="stylesheet" href="../css/estilos.css">
-        
+
         <!-- JS necesario -->
-        <script src="../js/aulas.js"></script>
+        <script type="text/javascript" src="../js/aulas.js"></script>
+
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -22,26 +23,28 @@
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
         <title>Mis aulas - Mamas 2.0</title>
+
     </head>
-    <body>
+    <body onload="cargar()">
         <div class="container">
             <?php include '../Recursos/header.php'; ?>
 
             <?php
             //Añade botón crearAula si se trata de un profesor
-            
             //Hace una consulta a BD y guarda en la sesión un vec. asoc. con todos los alumnos disponibles para ser usado por el js
             require_once '../Auxiliar/AccesoADatos.php';
             $alumnos = AccesoADatos::getListaAlumnos();
             $_SESSION['alumnos'] = $alumnos;
-            echo $alumnos;
-            
+
             if ($usuarioIniciado->getRol() >= 1) {
                 ?>
-                <div class="row">
-                    <div class="col-12 m-3 d-flex justify-content-center">
-                        <button onclick="nuevaAula()" class="btn btn-primary" id="botonNueva">+ Nueva Aula</button>
-                    </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-3"></div>
+                <div class="col-12 col-sm-6" id="cajaCrear"></div>
+                <div class="col-sm-3"></div>
+            </div>
+                <div class="col-12 m-3 d-flex justify-content-center">
+                    <button class="btn btn-primary" id="botonNueva">+ Nueva Aula</button>
                 </div>
                 <?php
             }
