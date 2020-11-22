@@ -21,57 +21,19 @@
 
 <body>
   <div class="container-fluid">
-    <header
-      class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
-      <div class="container">
-        <!-- Navbar -->
-
-
-        <!-- Brand -->
-
-        <h2>Mamás2.0</h2>
-
-
-        <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Links -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-          <!-- Left -->
-          <ul class="navbar-nav mr-auto ml-5 ">
-            <li class="nav-item ">
-                <a class=" waves-effect  btn btn-primary" href="../index.php" target="_blank">Inicio</a>
-            </li>
-            <li class="nav-item">
-                <a class=" waves-effect btn btn-primary " href="registro.php" target="_blank">Registro</a>
-            </li>
-
-          </ul>
-
-
-        </div>
-
-
-
-
-      </div>
-    </header>
+    
 
     <main class="row align-items-center justify-content-center">
 
       <!-- Default form register -->
       <form class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php">
 
-        <h2 class=" mb-4 display-4">Registro</h2>
+        <h2 class=" mb-4 display-4">Registrar Usuario</h2>
 
         <div class="form-row mb-4">
           <div class="col">
             <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" name="nombre" placeholder="Nombre">
+            <input type="text" id="defaultRegisterFormFirstName" class="form-control" name="nombre" placeholder="Nombre del usuario">
           </div>
          
         </div>
@@ -88,7 +50,7 @@
 
 
         <!-- Sign up button -->
-        <button class="btn btn-info my-4 btn-block" type="submit" name="registro">Registrarse</button>
+        <button class="btn btn-info my-4 btn-block" type="submit" name="registroUser">Registrar Usuario</button>
 
 
 

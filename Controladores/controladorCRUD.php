@@ -36,3 +36,10 @@ if(isset($_REQUEST['editar'])){
         }
         die();
 }
+if(isset($_REQUEST['cerrarSesion'])){
+     header('Location: ../index.php');
+}
+
+if(isset($_REQUEST['anadir'])){
+     header('Location: ../Vistas/registroAdmin.php');
+}

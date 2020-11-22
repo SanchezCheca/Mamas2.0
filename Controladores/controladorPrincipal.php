@@ -18,6 +18,24 @@ if (isset($_REQUEST['registro'])) {
     header('Location: ../index.php');
 }
 
+
+//---------------------REGISTRO USUARIO
+
+if (isset($_REQUEST['registroUser'])) {
+    $nombre = $_REQUEST['nombre'];
+    $correo = $_REQUEST['correo'];
+    $pass = $_REQUEST['pass'];
+    
+    if (AccesoADatos::insertarUsuario($correo, $nombre, $pass)) {
+        $mensaje = 'Correcto';
+        $_SESSION['mensaje'] = $mensaje;
+    }
+    header('Location: ../Vistas/administracionUsuario.php');
+}
+
+
+
+
 //---------------------VIENE DE INICIO DE SESIÓN
 if (isset($_REQUEST['inicioSesion'])) {
     $correo = $_REQUEST['correo'];
