@@ -1,3 +1,4 @@
+
 <?php
 class Variables {
     public static $HOST = 'localhost';

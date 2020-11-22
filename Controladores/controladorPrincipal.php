@@ -1,9 +1,9 @@
 <?php
-
-require_once '../Auxiliar/AccesoADatos.php';
-require_once '../Modelo/Usuario.php';
-
 session_start();
+require_once '../Auxiliar/AccesoADatos.php';
+
+
+
 
 //---------------------VIENE DE FORMULARIO DE REGISTRO
 if (isset($_REQUEST['registro'])) {
