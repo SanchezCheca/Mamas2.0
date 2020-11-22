@@ -7,19 +7,19 @@
  * @author daniel
  */
 
-require_once 'Variables.php';
-require_once '../Modelo/Usuario.php';
+
+
 
 class AccesoADatos {
 
-    private static $conexion;
+    static private $conexion;
 
     /**
      * Crea una nueva conexión a BD
      */
     public static function new() {
         // Utilizando la forma procedimental.
-        self::$conexion = new mysqli(Variables::$HOST, Variables::$USUARIO, Variables::$PASS, Variables::$BD);
+        self::$conexion =  mysqli_connect('localhost', 'nestor', 'Chubaca2020', 'mamas2');
 
         if (self::$conexion->connect_errno) {
             print "Fallo al conectar a MySQL: " . mysqli_connect_error();
@@ -137,7 +137,7 @@ class AccesoADatos {
         $passEncriptada = crypt($pass);
         
         self::new();
-        $query = 'INSERT INTO usuarios VALUES(id, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
+        $query = 'INSERT INTO usuarios VALUES (default, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
         if (!self::$conexion->query($query)) {
             $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
         }

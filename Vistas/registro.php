@@ -64,23 +64,23 @@
     <main class="row align-items-center justify-content-center">
 
       <!-- Default form register -->
-      <form class="text-center border border-light p-5 mt-5 align-self-center" action="#!">
+      <form class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php">
 
         <h2 class=" mb-4 display-4">Registro</h2>
 
         <div class="form-row mb-4">
           <div class="col">
             <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Nombre">
+            <input type="text" id="defaultRegisterFormFirstName" class="form-control" name="nombre" placeholder="Nombre">
           </div>
          
         </div>
 
         <!-- E-mail -->
-        <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail">
+        <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" name="correo" placeholder="E-mail">
 
         <!-- Password -->
-        <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Contraseña"
+        <input type="password" id="defaultRegisterFormPassword" class="form-control" name="pass" placeholder="Contraseña"
           aria-describedby="defaultRegisterFormPasswordHelpBlock">
         <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
           8 caracteres y un digito
@@ -88,7 +88,7 @@
 
 
         <!-- Sign up button -->
-        <button class="btn btn-info my-4 btn-block" type="submit">Registrarse</button>
+        <button class="btn btn-info my-4 btn-block" type="submit" name="registro">Registrarse</button>
 
 
 
