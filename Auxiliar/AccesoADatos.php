@@ -215,11 +215,11 @@ class AccesoADatos {
     
        public static function cambiarPassword($email){
            $resultado = false;
-        
+          $passEncriptada = crypt('1234');
       
         
         self::new();
-        $query = "Update  usuarios set pass = '1234' where correo= '" . $email . "'" ; 
+        $query = "Update  usuarios set pass = '" .   $passEncriptada . "' where correo= '" . $email . "'" ; 
         if (self::$conexion->query($query)) {
             $resultado=true;
         }

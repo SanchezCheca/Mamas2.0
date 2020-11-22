@@ -31,7 +31,13 @@ try {
     $mail->Body = '1234';    // Contenido del mensaje (acepta HTML)
 
     $mail->send();
-    $_SESSION['mensaje'] = 'Te hemos enviado un correo con tu nueva contraseña';
+    if(AccesoADatos::cambiarPassword($_REQUEST['email'])){
+        $_SESSION['mensaje'] = 'Te hemos enviado un correo con tu nueva contraseña';
+    }else{
+        $_SESSION['mensaje'] = 'No se ha podido cambiar la contraseña';
+    }
+    
+    
     header('Location: Vistas/contrasena.php');
 } catch (Exception $e) {
     echo 'El mensaje no se ha podido enviar, error: ', $mail->ErrorInfo;
