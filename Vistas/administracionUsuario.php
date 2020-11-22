@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="../css/miestilo.css">
     </head>
     <body style="height: 100%;">
+       
 <?php
 //El require debe ir antes, para que sepa a que clase pertenece, sino, cuando pase por el session, recoge los datos, pero al no estar antes el require, no sabe de que clase son
 require_once '../Modelo/Usuario.php';
@@ -82,7 +83,12 @@ session_start();
                                                     <main class="row ">
 
                                                         <div class="col-md-8 mx-auto mt-5 vh-80 d-flex flex-column justify-content-center align-items-center">
-                                                            <button type="button" class="btn btn-rounded btn-primary  mb-5 fixed-top  marginmio"><i class="fas fa-user-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Alumno</button>
+                                                            
+                                                             <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir">
+                                                                 
+                                                                 <button type="button" class="btn btn-rounded btn-primary  mb-5 fixed-top  marginmio"><i class="fas fa-user-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Alumno</button>
+                                                             
+                                                             </form>
                                                             <div class="table-responsive text-nowrap ">
                                                                 <table class="table ">
                                                                     <thead>
@@ -113,8 +119,8 @@ session_start();
                                                                                     <td><input type="text" name="rol" value="<?php echo $aux->getRol()?>"></td>
                                                                                     <td><input type="text" name="activado" value="<?php echo $aux->getActivo()?>"></td>
                                                                                     <td>
-                                                                                        <a type="button" class="btn-floating btn-lg  boton bg-primary"><i class="fas fa-user-edit"></i></a>
-                                                                                        <a type="button" class="btn-floating btn-lg  boton bg-primary"><i class="fas fa-user-times"></i></a>
+                                                                                        <button type="submit" name="editar" class="btn-floating btn-lg  boton bg-primary"><i class="fas fa-user-edit"></i></button>
+                                                                                        <button type="submit" name="eliminar" class="btn-floating btn-lg  boton bg-primary"><i class="fas fa-user-times"></i></button>
                                                                                     </td>
 
                                                                                 </tr>

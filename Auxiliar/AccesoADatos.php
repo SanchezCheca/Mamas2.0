@@ -180,4 +180,35 @@ class AccesoADatos {
           self::closeDB();
           return $usuarios;
     }
+    
+    public static function eliminarUsuario($id){
+           $resultado = false;
+        
+      
+        
+        self::new();
+        $query = "Delete from usuarios where id = " . $id ;
+        if (self::$conexion->query($query)) {
+            $resultado=true;
+        }
+        self::closeDB();
+        
+        return $resultado;
+    }
+    
+       public static function editarUsuario($id , $nombre, $email, $rol, $activado){
+           $resultado = false;
+        
+      
+        
+        self::new();
+        $query = "Update  usuarios set rol = " . $rol . ", correo= '" . $email . "', nombre= '" . $nombre . "', activo=" . $activado . 
+                " where id=" . $id; 
+        if (self::$conexion->query($query)) {
+            $resultado=true;
+        }
+        self::closeDB();
+        
+        return $resultado;
+    }
 }
