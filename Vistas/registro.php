@@ -66,32 +66,29 @@
       <!-- Default form register -->
       <form class="text-center border border-light p-5 mt-5 align-self-center" action="#!">
 
-        <h2 class=" mb-4 display-4">Sign up</h2>
+        <h2 class=" mb-4 display-4">Registro</h2>
 
         <div class="form-row mb-4">
           <div class="col">
             <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
+            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Nombre">
           </div>
-          <div class="col">
-            <!-- Last name -->
-            <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
-          </div>
+         
         </div>
 
         <!-- E-mail -->
         <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail">
 
         <!-- Password -->
-        <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password"
+        <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Contraseña"
           aria-describedby="defaultRegisterFormPasswordHelpBlock">
         <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-          At least 8 characters and 1 digit
+          8 caracteres y un digito
         </small>
 
 
         <!-- Sign up button -->
-        <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+        <button class="btn btn-info my-4 btn-block" type="submit">Registrarse</button>
 
 
 
