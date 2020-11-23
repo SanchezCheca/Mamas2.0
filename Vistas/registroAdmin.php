@@ -15,31 +15,37 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
-  <title>Página principal</title>
+  <title>Registro Admin</title>
  
 </head>
 
-<body>
+<body onload="validacionRegistro()">
   <div class="container-fluid">
     
 
     <main class="row align-items-center justify-content-center">
 
       <!-- Default form register -->
-      <form class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php">
+      <form class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php" novalidate>
 
         <h2 class=" mb-4 display-4">Registrar Usuario</h2>
 
         <div class="form-row mb-4">
           <div class="col">
             <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" name="nombre" placeholder="Nombre del usuario">
+            <input type="text" id="nombre" class="form-control" name="nombre" pattern="^([A-Za-zÀ-ú]$" placeholder="Nombre del usuario" required>
+              <div id="nombreError" >
+
+              </div>
           </div>
          
         </div>
 
         <!-- E-mail -->
-        <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" name="correo" placeholder="E-mail">
+        <input type="email" id="mail" class="form-control mb-4" name="correo" placeholder="E-mail" required>
+            <div id="mailError" >
+
+                    </div>
 
         <!-- Password -->
         <input type="password" id="defaultRegisterFormPassword" class="form-control" name="pass" placeholder="Contraseña"
@@ -80,6 +86,7 @@
 
 
   </div>
+    <script src="../js/validacion.js"></script>
 </body>
 
 </html>
