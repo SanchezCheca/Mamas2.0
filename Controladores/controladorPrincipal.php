@@ -56,3 +56,14 @@ if (isset($_REQUEST['cerrarSesion'])) {
     $_SESSION['mensaje'] = $mensaje;
     header('Location: ../index.php');
 }
+
+//---------------------BOTON CREAR AULA
+if (isset($_REQUEST['irACrearAula'])) {
+    //Hace una consulta a BD y guarda en la sesión un vec. asoc. con todos los alumnos disponibles
+    require_once '../Auxiliar/AccesoADatos.php';
+    $alumnos = AccesoADatos::getListaAlumnos();
+    $listaAlumnos = json_decode($alumnos);
+    $_SESSION['listaAlumnos'] = $listaAlumnos;
+    
+    header('Location: ../Vistas/crearAula.php');
+}

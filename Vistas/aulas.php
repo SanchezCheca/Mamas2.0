@@ -9,10 +9,6 @@
         <!-- Mi CSS -->
         <link rel="stylesheet" href="../css/estilos.css">
 
-        <!-- JS necesario -->
-        <script type="text/javascript" src="../js/aulas.js"></script>
-
-
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
               integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -32,64 +28,12 @@
             <?php
             //Añade botón crearAula si se trata de un profesor
             if ($usuarioIniciado->getRol() >= 1) {
-                //Hace una consulta a BD y guarda en la sesión un vec. asoc. con todos los alumnos disponibles para ser usado por el js
-                require_once '../Auxiliar/AccesoADatos.php';
-                $alumnos = AccesoADatos::getListaAlumnos();
-                $listaAlumnos = json_decode($alumnos);
                 ?>
-
-                <!-- Caja para añadir alumnos --> 
-                <div class="row justify-content-center" id="cajaGeneral">
-                    <div class="col-sm-3"></div>
-                    <div class="col-12 col-sm-6" id="cajaCrear">
-                        <!-- Esta tabla permanecerá oculta hasta pulsar el boton "añadir alumnos" -->
-                        <table class="table table-hover" id="tablaAlumnos">
-                            <caption>Listado de alumnos</caption>
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Correo</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col"></th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($listaAlumnos as $o) {
-                                    echo '<tr>';
-
-                                    echo '<td>' . $o->id . '</td>';
-                                    echo '<td>' . $o->correo . '</td>';
-                                    echo '<td>' . $o->nombre . '</td>';
-                                    echo '<td><div class="bg-info text-light d-flex justify-content-center rounded annadir">Añadir</div></td>';
-
-                                    echo '</tr>';
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-3"></div>
-
-                    <!-- Formulario aceptar -->
-                    <div class="col-12 d-flex justify-content-center py-2">
-                        <form id="formularioAula" name="crearAula" action="../Controladores/controladorPrincipal.php" method="POST">
-
-                            <input type="text" name="nombre" class="form-control" placeholder="Nombre del Aula">
-                            <input type="submit" class="btn btn-success" name="crearAula" value="Crear Aula">
-                        </form>
-                    </div>
-
-                    <!-- Boton añadir alumnos -->
-                    <div class="col-12 d-flex justify-content-center py-2" id="botonAdd">
-                        <button class="btn btn-info" id="anadirAlumnos">Añadir alumnos</button>
-                    </div>
-
-                </div>
-
                 <!-- Boton nueva aula -->
                 <div class="col-12 m-3 d-flex justify-content-center">
-                    <button class="btn btn-primary" id="botonNueva">+ Nueva Aula</button>
+                    <form name="irACrearAula" action="../Controladores/controladorPrincipal.php" method="POST">
+                        <input type="submit" class="btn btn-primary" name="irACrearAula" value="+ Nueva Aula">
+                    </form>
                 </div>
                 <?php
             }

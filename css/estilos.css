@@ -11,3 +11,7 @@
     width: 100%;
     cursor: cell;
 }
+.retirar:hover
+{
+    cursor: s-resize;
+}

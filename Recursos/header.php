@@ -75,7 +75,7 @@ if (isset($_SESSION['usuarioIniciado'])) {
 <div class="row mt-5 mb-4"></div>
 
 <!-- Mensajes de error/alerta -->
-<div class="bg-warning mensaje">
+<div class="row bg-warning mensaje">
     <div class="col-12">
         <?php
         if (isset($_SESSION['mensaje'])) {
