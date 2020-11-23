@@ -43,3 +43,4 @@ if(isset($_REQUEST['cerrarSesion'])){
 if(isset($_REQUEST['anadir'])){
      header('Location: ../Vistas/registroAdmin.php');
 }
+

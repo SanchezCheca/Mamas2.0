@@ -11,6 +11,21 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
               integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+        <script src="https://www.google.com/recaptcha/api.js?render=6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd"></script>
+
+        <script>
+
+
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd', {action: 'iniciosesion'}).then(function (token) {
+                   var recaptchaResponse = document.getElementById('recaptchaResponse');
+                            recaptchaResponse.value = token;
+                });
+            });
+
+        </script>
+
+
         <title>Página principal</title>
     </head>
     <body style="height: 100%;" onload="validacion()">
@@ -58,24 +73,32 @@
 
         </header>
         <main class="row align-items-center justify-content-center">
-
+               
             <!-- Default form login -->
-            <form class="text-center border border-light p-5 mt-5 col-md-4 mx-auto" action="" novalidate>
+            <form class="text-center border border-light p-5 mt-5 col-md-4 mx-auto" action="Controladores/controladorPrincipal.php" method="POST" novalidate>
 
                 <h2 class=" mb-4 display-4">Iniciar Sesión</h2>
 
                 <!-- Email -->
-                <input type="email" id="mail" class="form-control mb-4" placeholder="E-mail" required>
+                <input type="email" id="mail" class="form-control mb-4" name="correo" placeholder="E-mail" required>
                 <div id="mailError" >
 
                 </div>
 
                 <!-- Password -->
-                <input type="password" id="password" class="form-control mb-4" placeholder="Password">
+                <input type="password" id="password" name="pass" class="form-control mb-4" placeholder="Password">
 
-
+              <?php 
+              session_start();
+              if(isset($_SESSION['mensaje'])){
+                  $mensaje=$_SESSION['mensaje'];
+                  echo $mensaje;
+                    unset($_SESSION['mensaje']);
+              }
+         
+              ?>
                 <!-- Sign in button -->
-                <button class="btn btn-info btn-block my-4" type="submit">Iniciar Sesión</button>
+                <button class="btn btn-info btn-block my-4" name="iniciosesion" type="submit">Iniciar Sesión</button>
 
                 <!-- Register -->
                 <p>¿No eres miembro?
@@ -86,24 +109,25 @@
                 </p>
 
                 <!-- Social login -->
-
-
+               
+                 <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
             </form>
             <!-- Default form login -->
-
+           
         </main>
 
 
         <!-- Footer -->
 
-        <footer class=" row  bg-primary fixed-bottom ">
+        <footer class=" row   fixed-bottom ">
             <div class="container">
                 <!-- Copyright -->
                 <div class="footer-copyright text-center py-3">© 2020 Copyright:
-                    <a href="" class="text-light"> Daniel y Néstor</a>
+                    <a href="" class=""> Daniel y Néstor</a>
                 </div>
                 <!-- Copyright -->
             </div>
+            
         </footer>
         <!-- Footer -->
 
@@ -115,7 +139,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-        <script src="js/validacion.js"> </script>
+        <script src="js/validacion.js"></script>
     </body>
 
 </html>

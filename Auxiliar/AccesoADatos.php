@@ -7,7 +7,7 @@
  * @author daniel
  */
 
-
+require_once '../Modelo/Usuario.php';
 
 
 class AccesoADatos {

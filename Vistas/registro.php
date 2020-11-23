@@ -15,7 +15,25 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-        <title>Página principal</title>
+
+
+        <script src="https://www.google.com/recaptcha/api.js?render=6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd"></script>
+
+        <script>
+
+
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd', {action: 'iniciosesion'}).then(function (token) {
+                    var recaptchaResponse = document.getElementById('recaptchaResponse');
+                    recaptchaResponse.value = token;
+                });
+            });
+
+        </script>
+
+
+
+        <title>Registro</title>
 
     </head>
 
@@ -64,7 +82,7 @@
             <main class="row align-items-center justify-content-center">
 
                 <!-- Default form register -->
-                <form class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php" novalidate>
+                <form class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php" method="POST" novalidate>
 
                     <h2 class=" mb-4 display-4">Registro</h2>
 
@@ -93,13 +111,20 @@
                     <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                         8 caracteres y un digito
                     </small>
-
+                    <?php
+                    session_start();
+                    if (isset($_SESSION['mensaje'])) {
+                        $mensaje = $_SESSION['mensaje'];
+                        echo $mensaje;
+                        unset($_SESSION['mensaje']);
+                    }
+                    ?>
 
                     <!-- Sign up button -->
                     <button class="btn btn-info my-4 btn-block" type="submit" name="registro">Registrarse</button>
 
 
-
+                    <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
 
                 </form>
             </main>
