@@ -93,9 +93,47 @@ class AccesoADatos {
             }
         }
         $result->free();
+        $resultadoAulas->free();
         self::closeDB();
 
         return $usuario;
+    }
+
+    /**
+     * Devuelve las aulas a las que pertenece (alumno) o que administra (profesor)
+     * según el rol e id del usuario
+     * @param type $idAlumno
+     */
+    public static function getAulas($rol, $id) {
+        //Contraseña correcta, carga las aulas del alumno/profesor
+        $aulas = null;
+        if ($rol == 0) {
+            //El usuario es un alumno
+            $consultaAulas = 'SELECT * FROM aulas WHERE id = (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
+            $resultadoAulas = self::$conexion->query($consultaAulas);
+
+            while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                $idAula = $filaAula['id'];
+                $idProfesor = $filaAula['idProfesor'];
+                $nombreAula = $filaAula['nombre'];
+
+                $aula = new Aula($idAula, $nombreAula, $idProfesor);
+                $aulas[] = $aula;
+            }
+        } else {
+            //El usuario es un profesor
+            $consultaAulas = 'SELECT * FROM aulas WHERE idProfesor = ' . $id;
+            $resultadoAulas = self::$conexion->query($consultaAulas);
+
+            while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                $idAula = $filaAula['id'];
+                $nombreAula = $filaAula['nombre'];
+
+                $aula = new Aula($idAula, $nombreAula, $id);
+                $aulas[] = $aula;
+            }
+        }
+        return $aulas;
     }
 
     /**
@@ -176,20 +214,60 @@ class AccesoADatos {
      */
     public static function getListaAlumnos() {
         $alumnos = null;
-        
+
         self::new();
         $query = 'SELECT * FROM usuarios WHERE rol=0 AND activo=1';
         $resultado = self::$conexion->query($query);
-        
+
         while ($fila = $resultado->fetch_assoc()) {
             $id = $fila['id'];
             $correo = $fila['correo'];
             $nombre = $fila['nombre'];
-            
+
             $alumnos[] = array('id' => $id, 'correo' => $correo, 'nombre' => $nombre);
         }
-        
+
         $alumnos = json_encode($alumnos);
         return $alumnos;
     }
+
+    /**
+     * Crea un nuevo aula con el id de profesor y el nombre que recibe como parametro
+     * Devuelve el id del aula creada
+     */
+    public static function addAula($id, $nombre) {
+        $resultado = null;
+
+        self::new();
+        $query = 'INSERT INTO aulas VALUES(id, ' . $id . ', "' . $nombre . '")';
+        self::$conexion->query($query);
+
+        $query = 'SELECT id FROM aulas ORDER BY id DESC LIMIT 1';
+        $resultado = self::$conexion->query($query);
+
+        if ($fila = $resultado->fetch_assoc()) {
+            $resultado = $fila['id'];
+        }
+
+        self::closeDB();
+
+        return $resultado;
+    }
+
+    /**
+     * Asigna el alumno con id $idAlumno al aula con id $idAula
+     */
+    public static function asignarAlumnoAula($idAula, $idAlumno) {
+        $resultado = true;
+
+        self::new();
+        $query = 'INSERT INTO aula_alumno VALUES(' . $idAula . ', ' . $idAlumno . ')';
+        if (!self::$conexion->query($query)) {
+            $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
+        }
+        self::closeDB();
+
+        return $resultado;
+    }
+
 }

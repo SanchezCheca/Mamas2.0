@@ -57,7 +57,7 @@ if (isset($_REQUEST['cerrarSesion'])) {
     header('Location: ../index.php');
 }
 
-//---------------------BOTON CREAR AULA
+//---------------------BOTON "Ir a crear aula"
 if (isset($_REQUEST['irACrearAula'])) {
     //Hace una consulta a BD y guarda en la sesión un vec. asoc. con todos los alumnos disponibles
     require_once '../Auxiliar/AccesoADatos.php';
@@ -66,4 +66,38 @@ if (isset($_REQUEST['irACrearAula'])) {
     $_SESSION['listaAlumnos'] = $listaAlumnos;
     
     header('Location: ../Vistas/crearAula.php');
+}
+
+//---------------------BOTON "Crear Aula"
+if (isset($_REQUEST['crearAula'])) {
+    $nombre = $_REQUEST['nombre'];
+    $alumnos = $_REQUEST['alumnosAula'];
+    $mensaje = '';
+    $hayError = false;
+
+    if (isset($_SESSION['usuarioIniciado'])) {
+        $usuarioIniciado = $_SESSION['usuarioIniciado'];
+    } else {
+        $mensaje = 'Ha ocurrido algún error.';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../Vistas/aulas.php');
+    }
+    
+    $idAula = AccesoADatos::addAula($usuarioIniciado->getId(), $nombre);
+
+    if ($idAula != null) {
+        foreach ($alumnos as $valor) {
+            if (!$hayError) {
+                AccesoADatos::asignarAlumnoAula($idAula, $valor);
+            }
+        }
+
+        $mensaje = 'Se ha creado el aula "' . $nombre . '" con ' . count($alumnos) . ' alumno(s).';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../Vistas/aulas.php');
+    } else {
+        $mensaje = 'Ha ocurrido algún error.';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../Vistas/aulas.php');
+    }
 }

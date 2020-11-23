@@ -26,6 +26,8 @@
             <?php include '../Recursos/header.php'; ?>
 
             <?php
+            
+
             //Añade botón crearAula si se trata de un profesor
             if ($usuarioIniciado->getRol() >= 1) {
                 ?>
@@ -40,12 +42,12 @@
             ?>
 
             <!-- Lista de aulas -->
-            <div class="row">
+            <div class="row my-3">
                 <?php
                 //Se pintan las aulas a las que pertenece el alumno/profesor
                 if ($usuarioIniciado->getAulas() == null) {
                     ?>
-                    <div class="col-12 d-flex justify-content-center">
+                    <div class="col-12 my-3 d-flex justify-content-center">
                         <p>No hay aulas que mostrar.</p>
                     </div>
                     <?php

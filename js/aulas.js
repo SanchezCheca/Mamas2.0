@@ -39,7 +39,7 @@ function cargar() {
             //Crea el atributo oculto que llevara la informacion del alumno
             var atributoOculto = document.createElement('input');
             atributoOculto.setAttribute('type', 'hidden');
-            atributoOculto.setAttribute('name', 'alumnosAula');
+            atributoOculto.setAttribute('name', 'alumnosAula[]');
             atributoOculto.setAttribute('value', id);
 
             formulario.appendChild(atributoOculto);
@@ -55,7 +55,6 @@ function cargar() {
 
             //Busca el atributo oculto que lleva la informacion del alumno
             var alumnosAdded = document.querySelectorAll('#formularioAula input');
-            
             for (var i = 0; i < alumnosAdded.length; i++) {
                 if (alumnosAdded[i].getAttribute('type') == 'hidden' && alumnosAdded[i].getAttribute('value') == id) {
                     alumnosAdded[i].remove();

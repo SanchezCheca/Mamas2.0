@@ -44,6 +44,10 @@ class Usuario {
     function getAulas() {
         return $this->aulas;
     }
+    
+    function setAulas($aulas) {
+        $this->aulas = $aulas;
+    }
 
     //--------------------------TO STRING
     public function __toString() {
