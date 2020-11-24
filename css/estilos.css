@@ -1,0 +1,17 @@
+.mensaje
+{
+    position: absolute;
+    left: 1vh;
+    top: 10vh;
+    opacity: 1;
+    transition: opacity 2s;
+}
+.annadir:hover
+{
+    width: 100%;
+    cursor: cell;
+}
+.retirar:hover
+{
+    cursor: s-resize;
+}

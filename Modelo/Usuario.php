@@ -4,18 +4,20 @@ class Usuario {
     
     //--------------------------PROPIEDADES
     private $id;
-    private $rol;
+    private $rol;   //0: Alumno     1: Profesor     2: Profesor-Administrador
     private $correo;
     private $nombre;
     private $activo;
+    private $aulas;
     
     //--------------------------CONSTRUCTOR
-    function __construct($id, $rol, $correo, $nombre, $activo) {
+    function __construct($id, $rol, $correo, $nombre, $activo, $aulas) {
         $this->id = $id;
         $this->rol = $rol;
         $this->correo = $correo;
         $this->nombre = $nombre;
         $this->activo = $activo;
+        $this->aulas = $aulas;
     }
 
     //--------------------------GETTER
@@ -37,6 +39,14 @@ class Usuario {
 
     function getActivo() {
         return $this->activo;
+    }
+    
+    function getAulas() {
+        return $this->aulas;
+    }
+    
+    function setAulas($aulas) {
+        $this->aulas = $aulas;
     }
 
     //--------------------------TO STRING

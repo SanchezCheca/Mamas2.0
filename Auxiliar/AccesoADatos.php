@@ -6,20 +6,18 @@
  *
  * @author daniel
  */
-
-require_once '../Modelo/Usuario.php';
-
+require_once 'Variables.php';
 
 class AccesoADatos {
 
-    static private $conexion;
+    private static $conexion;
 
     /**
      * Crea una nueva conexión a BD
      */
     public static function new() {
         // Utilizando la forma procedimental.
-        self::$conexion =  mysqli_connect('localhost', 'nestor', 'Chubaca2020', 'mamas2');
+        self::$conexion = new mysqli(Variables::$HOST, Variables::$USUARIO, Variables::$PASS, Variables::$BD);
 
         if (self::$conexion->connect_errno) {
             print "Fallo al conectar a MySQL: " . mysqli_connect_error();
@@ -57,20 +55,85 @@ class AccesoADatos {
             $correo = $fila['correo'];
             $nombre = $fila['nombre'];
             $activo = $fila['activo'];
-            
+
             $passEncriptada = $fila['pass'];
 
             //COMPRUEBA QUE LA CONTRASEÑA SEA CORRECTA
             if (hash_equals($passEncriptada, crypt($pass, $passEncriptada))) {
-                //Contraseña correcta, se crea el objeto
-                $usuario = new Usuario($id, $rol, $correo, $nombre, $activo);
-            }
+                //Contraseña correcta, carga las aulas del alumno/profesor
+                $aulas = null;
+                if ($rol == 0) {
+                    //El usuario es un alumno
+                    $consultaAulas = 'SELECT * FROM aulas WHERE id = (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
+                    $resultadoAulas = self::$conexion->query($consultaAulas);
 
+                    while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                        $idAula = $filaAula['id'];
+                        $idProfesor = $filaAula['idProfesor'];
+                        $nombreAula = $filaAula['nombre'];
+
+                        $aula = new Aula($idAula, $nombreAula, $idProfesor);
+                        $aulas[] = $aula;
+                    }
+                } else {
+                    //El usuario es un profesor
+                    $consultaAulas = 'SELECT * FROM aulas WHERE idProfesor = ' . $id;
+                    $resultadoAulas = self::$conexion->query($consultaAulas);
+
+                    while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                        $idAula = $filaAula['id'];
+                        $nombreAula = $filaAula['nombre'];
+
+                        $aula = new Aula($idAula, $nombreAula, $id);
+                        $aulas[] = $aula;
+                    }
+                }
+
+                $usuario = new Usuario($id, $rol, $correo, $nombre, $activo, $aulas);
+            }
         }
         $result->free();
+        $resultadoAulas->free();
         self::closeDB();
 
         return $usuario;
+    }
+
+    /**
+     * Devuelve las aulas a las que pertenece (alumno) o que administra (profesor)
+     * según el rol e id del usuario
+     * @param type $idAlumno
+     */
+    public static function getAulas($rol, $id) {
+        //Contraseña correcta, carga las aulas del alumno/profesor
+        $aulas = null;
+        if ($rol == 0) {
+            //El usuario es un alumno
+            $consultaAulas = 'SELECT * FROM aulas WHERE id = (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
+            $resultadoAulas = self::$conexion->query($consultaAulas);
+
+            while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                $idAula = $filaAula['id'];
+                $idProfesor = $filaAula['idProfesor'];
+                $nombreAula = $filaAula['nombre'];
+
+                $aula = new Aula($idAula, $nombreAula, $idProfesor);
+                $aulas[] = $aula;
+            }
+        } else {
+            //El usuario es un profesor
+            $consultaAulas = 'SELECT * FROM aulas WHERE idProfesor = ' . $id;
+            $resultadoAulas = self::$conexion->query($consultaAulas);
+
+            while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                $idAula = $filaAula['id'];
+                $nombreAula = $filaAula['nombre'];
+
+                $aula = new Aula($idAula, $nombreAula, $id);
+                $aulas[] = $aula;
+            }
+        }
+        return $aulas;
     }
 
     /**
@@ -132,100 +195,79 @@ class AccesoADatos {
      */
     public static function insertarUsuario($correo, $nombre, $pass) {
         $resultado = true;
-        
+
         //ENCRIPTA LA CONTRASEÑA
         $passEncriptada = crypt($pass);
-        
+
         self::new();
-        $query = 'INSERT INTO usuarios VALUES (default, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
+        $query = 'INSERT INTO usuarios VALUES(id, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
         if (!self::$conexion->query($query)) {
             $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
         }
         self::closeDB();
-        
-        return $resultado;
-    }
-    
 
-//    public static function insertUser($correo, $nombre, $pass) {
-//        $resultado = true;
-//
-//        self::new();
-//        $query = 'INSERT INTO usuarios VALUES(id, 0, "' . $nombre . '", "' . $correo . '", "' . $pass . '")';
-//
-//        if (!self::$conexion->query($query)) {
-//            $resultado = "Error al insertar: " . mysqli_error(self::$conexion) . '<br/>';
-//        }
-//        self::closeDB();
-//
-//        return $resultado;
-//    }
-    
-    
-    public static function getUsuarios(){
-          self::new();
-          $usuarios=[];
-          $query= "Select id, rol, correo, nombre, activo from usuarios";
-          if ($resultado= mysqli_query(self::$conexion, $query)){
-              while($fila=$resultado->fetch_array()){
-                  $id=$fila[0];
-                  $rol=$fila[1];
-                   $correo=$fila[2];
-                    $nombre=$fila[3];
-                    $activo=$fila[4];
-                    $usuario=new Usuario($id, $rol, $correo, $nombre, $activo);
-                    $usuarios[]=$usuario;
-              }
-          }
-          self::closeDB();
-          return $usuarios;
-    }
-    
-    public static function eliminarUsuario($id){
-           $resultado = false;
-        
-      
-        
-        self::new();
-        $query = "Delete from usuarios where id = " . $id ;
-        if (self::$conexion->query($query)) {
-            $resultado=true;
-        }
-        self::closeDB();
-        
         return $resultado;
     }
-    
-       public static function editarUsuario($id , $nombre, $email, $rol, $activado){
-           $resultado = false;
-        
-      
-        
+
+    /**
+     * Devuelve, en formato json, todos los alumnos activos (id, correo, nombre)
+     */
+    public static function getListaAlumnos() {
+        $alumnos = null;
+
         self::new();
-        $query = "Update  usuarios set rol = " . $rol . ", correo= '" . $email . "', nombre= '" . $nombre . "', activo=" . $activado . 
-                " where id=" . $id; 
-        if (self::$conexion->query($query)) {
-            $resultado=true;
+        $query = 'SELECT * FROM usuarios WHERE rol=0 AND activo=1';
+        $resultado = self::$conexion->query($query);
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $id = $fila['id'];
+            $correo = $fila['correo'];
+            $nombre = $fila['nombre'];
+
+            $alumnos[] = array('id' => $id, 'correo' => $correo, 'nombre' => $nombre);
         }
+
+        $alumnos = json_encode($alumnos);
+        return $alumnos;
+    }
+
+    /**
+     * Crea un nuevo aula con el id de profesor y el nombre que recibe como parametro
+     * Devuelve el id del aula creada
+     */
+    public static function addAula($id, $nombre) {
+        $resultado = null;
+
+        self::new();
+        $query = 'INSERT INTO aulas VALUES(id, ' . $id . ', "' . $nombre . '")';
+        self::$conexion->query($query);
+
+        $query = 'SELECT id FROM aulas ORDER BY id DESC LIMIT 1';
+        $resultado = self::$conexion->query($query);
+
+        if ($fila = $resultado->fetch_assoc()) {
+            $resultado = $fila['id'];
+        }
+
         self::closeDB();
-        
+
         return $resultado;
     }
-    
-    
-       public static function cambiarPassword($email){
-           $resultado = false;
-          $passEncriptada = crypt('1234');
-      
-        
+
+    /**
+     * Asigna el alumno con id $idAlumno al aula con id $idAula
+     */
+    public static function asignarAlumnoAula($idAula, $idAlumno) {
+        $resultado = true;
+
         self::new();
-        $query = "Update  usuarios set pass = '" .   $passEncriptada . "' where correo= '" . $email . "'" ; 
-        if (self::$conexion->query($query)) {
-            $resultado=true;
+        $query = 'INSERT INTO aula_alumno VALUES(' . $idAula . ', ' . $idAlumno . ')';
+        if (!self::$conexion->query($query)) {
+            $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
         }
         self::closeDB();
-        
+
         return $resultado;
     }
+
 }
-
