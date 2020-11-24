@@ -270,4 +270,69 @@ class AccesoADatos {
         return $resultado;
     }
 
+    public static function getUsuarios() {
+        self::new();
+        $usuarios = [];
+        $query = "Select id, rol, correo, nombre, activo from usuarios";
+        if ($resultado = self::$conexion->query($query)) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $id = $fila['id'];
+                $rol = $fila['rol'];
+                $correo = $fila['correo'];
+                $nombre = $fila['nombre'];
+                $activo = $fila['activo'];
+                $usuario = new Usuario($id, $rol, $correo, $nombre, $activo, null);
+                $usuarios[] = $usuario;
+            }
+        }
+        self::closeDB();
+        return $usuarios;
+    }
+
+    public static function eliminarUsuario($id) {
+        $resultado = false;
+
+
+
+        self::new();
+        $query = "Delete from usuarios where id = " . $id;
+        if (self::$conexion->query($query)) {
+            $resultado = true;
+        }
+        self::closeDB();
+
+        return $resultado;
+    }
+
+    public static function editarUsuario($id, $nombre, $email, $rol, $activado) {
+        $resultado = false;
+
+
+
+        self::new();
+        $query = "Update  usuarios set rol = " . $rol . ", correo= '" . $email . "', nombre= '" . $nombre . "', activo=" . $activado .
+                " where id=" . $id;
+        if (self::$conexion->query($query)) {
+            $resultado = true;
+        }
+        self::closeDB();
+
+        return $resultado;
+    }
+
+    public static function cambiarPassword($email) {
+        $resultado = false;
+        $passEncriptada = crypt('1234');
+
+
+        self::new();
+        $query = "Update  usuarios set pass = '" . $passEncriptada . "' where correo= '" . $email . "'";
+        if (self::$conexion->query($query)) {
+            $resultado = true;
+        }
+        self::closeDB();
+
+        return $resultado;
+    }
+
 }

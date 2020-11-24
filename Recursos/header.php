@@ -51,6 +51,15 @@ if (isset($_SESSION['usuarioIniciado'])) {
                         <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'Vistas/aulas.php'; ?>">Aulas</a>
                     </li>
                     <?php
+                    //Muestra enlace al CRUD de usuarios
+                    if ($usuarioIniciado->getRol() == 2) {
+                        ?>
+                    <li>
+                        <a class="waves-effect btn btn-primary" href="<?php echo $ruta . 'Vistas/administracionUsuario.php'; ?>">Administrar usuarios</a>
+                    </li>
+                        <?php
+                    }
+
                     //Muestra opciones de perfil
                     ?>
                     <li class="nav-item dropdown">

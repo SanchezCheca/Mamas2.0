@@ -36,7 +36,7 @@ if (isset($_REQUEST['iniciosesion'])) {
     $recaptcha_response = $_POST['recaptcha_response'];
     $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response);
     $recaptcha = json_decode($recaptcha);
-    if ($recaptcha->score >= 0.7) {
+    if ($recaptcha->score <= 0.7) {
         $correo = $_REQUEST['correo'];
         $pass = $_REQUEST['pass'];
 
@@ -48,7 +48,7 @@ if (isset($_REQUEST['iniciosesion'])) {
             $mensaje = 'ERROR: Correo y/o contraseña incorrectos.';
         }
     }else{
-         $mensaje = 'No ha funcionado el captcha(eres un robot)';
+         $mensaje = 'No ha funcionado el captcha (eres un robot).';
     }
 
     $_SESSION['mensaje'] = $mensaje;
