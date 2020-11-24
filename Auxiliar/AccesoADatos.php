@@ -7,18 +7,19 @@
  * @author daniel
  */
 
-require_once 'Variables.php';
+require_once '../Modelo/Usuario.php';
+
 
 class AccesoADatos {
 
-    private static $conexion;
+    static private $conexion;
 
     /**
      * Crea una nueva conexión a BD
      */
     public static function new() {
         // Utilizando la forma procedimental.
-        self::$conexion = new mysqli(Variables::$HOST, Variables::$USUARIO, Variables::$PASS, Variables::$BD);
+        self::$conexion =  mysqli_connect('localhost', 'nestor', 'Chubaca2020', 'mamas2');
 
         if (self::$conexion->connect_errno) {
             print "Fallo al conectar a MySQL: " . mysqli_connect_error();
@@ -136,7 +137,7 @@ class AccesoADatos {
         $passEncriptada = crypt($pass);
         
         self::new();
-        $query = 'INSERT INTO usuarios VALUES(id, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
+        $query = 'INSERT INTO usuarios VALUES (default, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
         if (!self::$conexion->query($query)) {
             $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
         }
@@ -144,6 +145,7 @@ class AccesoADatos {
         
         return $resultado;
     }
+    
 
 //    public static function insertUser($correo, $nombre, $pass) {
 //        $resultado = true;
@@ -158,4 +160,72 @@ class AccesoADatos {
 //
 //        return $resultado;
 //    }
+    
+    
+    public static function getUsuarios(){
+          self::new();
+          $usuarios=[];
+          $query= "Select id, rol, correo, nombre, activo from usuarios";
+          if ($resultado= mysqli_query(self::$conexion, $query)){
+              while($fila=$resultado->fetch_array()){
+                  $id=$fila[0];
+                  $rol=$fila[1];
+                   $correo=$fila[2];
+                    $nombre=$fila[3];
+                    $activo=$fila[4];
+                    $usuario=new Usuario($id, $rol, $correo, $nombre, $activo);
+                    $usuarios[]=$usuario;
+              }
+          }
+          self::closeDB();
+          return $usuarios;
+    }
+    
+    public static function eliminarUsuario($id){
+           $resultado = false;
+        
+      
+        
+        self::new();
+        $query = "Delete from usuarios where id = " . $id ;
+        if (self::$conexion->query($query)) {
+            $resultado=true;
+        }
+        self::closeDB();
+        
+        return $resultado;
+    }
+    
+       public static function editarUsuario($id , $nombre, $email, $rol, $activado){
+           $resultado = false;
+        
+      
+        
+        self::new();
+        $query = "Update  usuarios set rol = " . $rol . ", correo= '" . $email . "', nombre= '" . $nombre . "', activo=" . $activado . 
+                " where id=" . $id; 
+        if (self::$conexion->query($query)) {
+            $resultado=true;
+        }
+        self::closeDB();
+        
+        return $resultado;
+    }
+    
+    
+       public static function cambiarPassword($email){
+           $resultado = false;
+          $passEncriptada = crypt('1234');
+      
+        
+        self::new();
+        $query = "Update  usuarios set pass = '" .   $passEncriptada . "' where correo= '" . $email . "'" ; 
+        if (self::$conexion->query($query)) {
+            $resultado=true;
+        }
+        self::closeDB();
+        
+        return $resultado;
+    }
 }
+
