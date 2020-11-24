@@ -194,15 +194,18 @@ class AccesoADatos {
      * @param type $pass
      */
     public static function insertarUsuario($correo, $nombre, $pass) {
-        $resultado = true;
+        
 
         //ENCRIPTA LA CONTRASEÑA
         $passEncriptada = crypt($pass);
 
         self::new();
-        $query = 'INSERT INTO usuarios VALUES(id, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
+        $query = 'INSERT INTO usuarios VALUES(default, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
         if (!self::$conexion->query($query)) {
             $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
+            $resultado=false;
+        }else{
+            $resultado = true;
         }
         self::closeDB();
 
