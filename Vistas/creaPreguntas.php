@@ -23,79 +23,76 @@ and open the template in the editor.
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
-        <script>
-            // Material Select Initialization
-            $(document).ready(function () {
-                $('.mdb-select').materialSelect();
-            });
-        </script>
+
 
     </head>
     <body>
-        <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
+        <div class="container">
+            <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
 
-            <!-- Navbar -->
+                <!-- Navbar -->
 
-            <div class="container">
-                <div class="col-md-6">
-                    <!-- Brand -->
+                <div class="container">
+                    <div class="col-md-6">
+                        <!-- Brand -->
 
-                    <h2 class="font-weight-bold">Crear Preguntas</h2>
-                </div>
-                <div class="col-md-6">
-                    <!-- Collapse -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                        <h2 class="font-weight-bold">Crear Preguntas</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Collapse -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
 
-                    <!-- Links -->
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Links -->
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                        <!-- Left -->
-                        <ul class="navbar-nav mr-auto  offset-3">
+                            <!-- Left -->
+                            <ul class="navbar-nav mr-auto  offset-3">
 
-                            <li class="nav-item ">
-                                <form action="../Controladores/controladorCRUD.php" method="POST" name="volver">
-                                    <button type="submit" class=" waves-effect  btn btn-primary" name="cerrarSesion" >Cerrar Sesión</button>
-                                </form>
-                            </li>
+                                <li class="nav-item ">
+                                    <form action="../Controladores/controladorCRUD.php" method="POST" name="volver">
+                                        <button type="submit" class=" waves-effect  btn btn-primary" name="cerrarSesion" >Cerrar Sesión</button>
+                                    </form>
+                                </li>
 
-                        </ul>
+                            </ul>
 
+
+                        </div>
 
                     </div>
 
+
                 </div>
 
+            </header>
 
-            </div>
-
-        </header>
-   
-
- 
-
-        <!--Blue select-->
-        <select class="mdb-select md-form colorful-select dropdown-primary">
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-            <option value="5">Option 5</option>
-        </select>
-        <label class="mdb-main-label">Blue select</label>
-        <!--/Blue select-->
-
-    
+            <main>
+                <div class="container mt-5 mx-auto align-items-center justify-content-center d-flex flex-column vh-80" >
+                    <div class="row col-md-8 mt-5 ">
+                         <select class="browser-default custom-select">
+                        <option selected>Seleccione un tipo de pregunta</option>
+                        <option value="1">Tipo Test</option>
+                        <option value="2">Desarrollo</option>
+                        <option value="3">Opciones</option>
+                        </select>
+                    </div>
+                </div>
+            </main>
 
 
 
 
-    <?php include '../Recursos/footer.php'; ?>
-    
-     </body>
-    
+
+
+
+
+            <?php include '../Recursos/footer.php'; ?>
+        </div>
+    </body>
+
     <!-- jQuery -->
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
