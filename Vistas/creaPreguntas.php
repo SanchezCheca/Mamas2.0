@@ -27,6 +27,9 @@ and open the template in the editor.
 
     </head>
     <body>
+        <?php
+        session_start();
+        ?>
         <div class="container">
             <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
 
@@ -70,16 +73,149 @@ and open the template in the editor.
             </header>
 
             <main>
+
+
                 <div class="container mt-5 mx-auto align-items-center justify-content-center d-flex flex-column vh-80" >
                     <div class="row col-md-8 mt-5 ">
-                         <select class="browser-default custom-select">
-                        <option selected>Seleccione un tipo de pregunta</option>
-                        <option value="1">Tipo Test</option>
-                        <option value="2">Desarrollo</option>
-                        <option value="3">Opciones</option>
-                        </select>
+                        <form action="../Controladores/controladorPrincipal.php" method="POST" name="pregunta">
+                            <select class="browser-default custom-select" name="preguntas"  onchange="this.form.submit()">
+                                <?php
+                                if (!isset($_SESSION['tipopregunta'])) {
+                                    ?>
+                                    <option disabled selected>Selecciona una opción</option>
+                                    <option value="1">Tipo Test</option>
+                                    <option value="2">Desarrollo</option>
+                                    <option value="3">Opciones</option>
+                                    <?php
+                                } else {
+
+                                    $tipo = $_SESSION['tipopregunta'];
+                                    switch ($tipo) {
+                                        case 1:
+                                            ?>
+                                            <option value="1" selected>Tipo Test</option>
+                                            <option value="2">Desarrollo</option>
+                                            <option value="3">Opciones</option>
+
+                                            <?php
+                                            break;
+                                        case 2:
+                                            ?>
+                                            <option value="1" >Tipo Test</option>
+                                            <option value="2" selected>Desarrollo</option>
+                                            <option value="3">Opciones</option>
+                                            <?php
+                                            break;
+                                        case 3:
+                                            ?>
+                                            <option value="1" >Tipo Test</option>
+                                            <option value="2" >Desarrollo</option>
+                                            <option value="3" selected>Opciones</option>
+                                        <?php
+                                    }
+                                    ?>
+
+                                    <?php
+                                }
+                                ?>
+
+                            </select>
+                        </form>
                     </div>
+
+
+
+
+
+
+
+
+
+
                 </div>
+
+
+                <div class="row">
+                    
+                    <form action="../Controladores/controladorPrincipal.php" name="formularioPreguntas">
+                        <div class="w-100 text-center mt-3">
+                            <h3>Pregunta</h3>
+                            <textarea id="ta_resp_texto" name="titulo" placeholder="Enunciado de la pregunta" rows="5" class="w-50"></textarea>
+                        </div>
+                        <?php
+                        if (isset($_SESSION['tipopregunta'])) {
+                            $tipo = $_SESSION['tipopregunta'];
+                            switch ($tipo) {
+
+                                case 1:
+                                    ?>
+                                    <div class="w-100 text-center">
+                                        <h3>Seleccione la respuesta correcta</h3>
+                                        <input type="radio" class="mr-2" id="opcionA" name="opcion" value="a">
+                                        <input type="text" name="inputA">
+                                        <input type="radio" class="ml-2" id="opcionB" name="opcion" value="b">
+                                        <input type="text" name="inputB">
+                                    </div>
+                                    <div class="w-100 text-center mt-2">
+                                        <input type="radio" class="mr-2" id="opcionC" name="opcion" value="c">
+                                        <input type="text" name="inputC">
+                                        <input type="radio" class="ml-2" id="opcionD" name="opcion" value="d">
+                                        <input type="text" name="inputD">
+                                    </div>
+                                    <?php
+                                    break;
+
+
+                                case 2:
+                                    ?>
+                                    <div class="w-100 text-center">
+                                        <h3>Respuesta</h3>
+                                        <textarea id="desarrollo" name="desarrollo" rows="5" class="w-50"></textarea>
+                                    </div>
+                                    <?php
+                                    break;
+                                case 3:
+                                    ?>
+                                    <div class="w-100 text-center">
+                                        <h3>Seleccione las respuestas correctas</h3>
+                                        <label class="mr-2"><input type="checkbox" id="comboA" name="comoboa">
+                                            <input type="text" name="inputa"></label>
+                                        <label class="ml-2"><input type="checkbox" id="comboB" name="combob">
+                                            <input type="text" name="inputb"></label>
+                                    </div>
+                                    <div class="w-100 text-center">
+                                        <label class="mr-2"><input type="checkbox" id="comboC" name="comboc">
+                                            <input type="text" name="inputc"></label>
+                                        <label class="ml-2"><input type="checkbox" id="comboD" name="combod">
+                                            <input type="text" name="inputd"></label>
+                                    </div>
+                                    <?php
+                                    break;
+                            }
+                        } else {
+                            $_SESSION['tipo'] = 'texto';
+                            ?>
+                            <div class="w-100 text-center">
+                                <h3>Respuesta</h3>
+                                <textarea id="ta_resp_texto" name="ta_resp_correcta_texto" rows="5" class="w-50"></textarea>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                        <div class="w-100 text-center mt-3">
+                            <button type="submit" name="anadirPregunta" class="btn btn-outline-success">Añadir pregunta</button>
+                        </div>
+                    </form>
+
+
+
+
+                </div>
+
+
+
+
+
             </main>
 
 
