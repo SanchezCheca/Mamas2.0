@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-          <!-- Bootstrap CSS -->
+        <!-- Bootstrap CSS -->
 
         <title>Crear Preguntas</title>
         <!-- MDB icon -->
@@ -23,9 +23,16 @@ and open the template in the editor.
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
+        <script>
+            // Material Select Initialization
+            $(document).ready(function () {
+                $('.mdb-select').materialSelect();
+            });
+        </script>
+
     </head>
     <body>
-         <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
+        <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
 
             <!-- Navbar -->
 
@@ -47,7 +54,7 @@ and open the template in the editor.
 
                         <!-- Left -->
                         <ul class="navbar-nav mr-auto  offset-3">
-                    
+
                             <li class="nav-item ">
                                 <form action="../Controladores/controladorCRUD.php" method="POST" name="volver">
                                     <button type="submit" class=" waves-effect  btn btn-primary" name="cerrarSesion" >Cerrar Sesión</button>
@@ -65,24 +72,38 @@ and open the template in the editor.
             </div>
 
         </header>
-    </body>
+   
+
+ 
+
+        <!--Blue select-->
+        <select class="mdb-select md-form colorful-select dropdown-primary">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+            <option value="5">Option 5</option>
+        </select>
+        <label class="mdb-main-label">Blue select</label>
+        <!--/Blue select-->
+
     
-    <main>
-        
-    </main>
+
+
+
+
+    <?php include '../Recursos/footer.php'; ?>
     
+     </body>
     
-    
-    
-        <?php include '../Recursos/footer.php'; ?>
-        <!-- jQuery -->
-        <script type="text/javascript" src="../js/jquery.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="../js/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="../js/mdb.min.js"></script>
-        <!-- Your custom scripts (optional) -->
-        <script type="text/javascript"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="../js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="../js/mdb.min.js"></script>
+    <!-- Your custom scripts (optional) -->
+    <script type="text/javascript"></script>
 </html>
