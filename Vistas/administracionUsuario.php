@@ -57,7 +57,7 @@
                         <ul class="navbar-nav mr-auto  offset-3">
                             <li class="nav-item ">
                                 <form action="../Controladores/controladorCRUD.php" method="POST" name="administrador">
-                                    <button type="submit" class=" waves-effect  btn btn-primary" name="cargar" >Cargar Usuarios</button>
+                                    <button type="submit" class=" waves-effect  btn btn-primary" name="anadir" >Añadir Usuario</button>
                                 </form>
                             </li>
                             <li class="nav-item ">
@@ -86,7 +86,7 @@
 
                 <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir">
 
-                    <button type="submit" name="anadir" class="btn btn-rounded btn-primary  mb-5   marginmio"><i class="fas fa-user-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Alumno</button>
+                    <button type="submit" name="cargar" class="btn btn-rounded btn-primary  mb-5   marginmio"><i class="fas fa-redo-alt pr-2" style="font-size: 20px" aria-hidden="true"></i>Cargar Usuarios</button>
 
                 </form>
                 <div class="table-responsive text-nowrap ">
@@ -146,15 +146,7 @@
 
         <!-- Footer -->
 
-        <footer class=" row  bg-primary fixed-bottom vh-10 ">
-            <div class="container">
-                <!-- Copyright -->
-                <div class="footer-copyright text-center py-3">© 2020 Copyright:
-                    <a href="" class="text-light"> Daniel y Néstor</a>
-                </div>
-                <!-- Copyright -->
-            </div>
-        </footer>
+      <?php include '../Recursos/footer.php'; ?>
         <!-- Footer -->
 
 
