@@ -22,6 +22,7 @@ and open the template in the editor.
         <title>Página principal</title>
     </head>
     <body style="height: 100%;">
+        <?php include '../Recursos/header.php'; ?>
         <main class="row align-items-center justify-content-center">
 
             <!-- Default form login -->
@@ -60,15 +61,7 @@ and open the template in the editor.
         </main>
         <!-- Footer -->
 
-        <footer class=" row  bg-primary fixed-bottom ">
-            <div class="container">
-                <!-- Copyright -->
-                <div class="footer-copyright text-center py-3">© 2020 Copyright:
-                    <a href="" class="text-light"> Daniel y Néstor</a>
-                </div>
-                <!-- Copyright -->
-            </div>
-        </footer>
+       <?php include '../Recursos/footer.php'; ?>
         <!-- Footer -->
     </body>
 </html>

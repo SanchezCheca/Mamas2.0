@@ -23,7 +23,7 @@
 
 
             grecaptcha.ready(function () {
-                grecaptcha.execute('6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd', {action: 'iniciosesion'}).then(function (token) {
+                grecaptcha.execute('6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd', {action: 'registro'}).then(function (token) {
                     var recaptchaResponse = document.getElementById('recaptchaResponse');
                     recaptchaResponse.value = token;
                 });
