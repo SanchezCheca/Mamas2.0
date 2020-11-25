@@ -22,66 +22,65 @@ if (isset($_SESSION['usuarioIniciado'])) {
 ?>
 
 <!-- Navigation -->
-<header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
-    <!-- Navbar -->
-    <div class="container">
-        <!-- Brand -->
-        <h2>Mamás2.0</h2>
-        <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Links -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <!-- Left -->
-            <ul class="navbar-nav mr-auto ml-5 ">
-                <li class="nav-item ">
-                    <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'index.php' ?>">Inicio</a>
-                </li>
+<header>
+    <div class="container-fluid">
+        <!--Navbar -->
+        <nav class="mb-1 px-5 navbar navbar-expand-lg navbar-dark default-color">
+            <a class="navbar-brand" href="<?php echo $ruta . 'index.php'; ?>">Mamás2.0</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+                    aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
                 <?php
+                //Pinta la barra completa si ha iniciado sesion
                 if (isset($usuarioIniciado)) {
-                    //Si ha iniciado sesión
                     ?>
-                    <li class="nav-item">
-                        <a class=" waves-effect  btn btn-primary" href="#">Exámenes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'Vistas/aulas.php'; ?>">Aulas</a>
-                    </li>
-                    <?php
-                    //Muestra enlace al CRUD de usuarios
-                    if ($usuarioIniciado->getRol() == 2) {
-                        ?>
-                    <li>
-                        <a class="waves-effect btn btn-primary" href="<?php echo $ruta . 'Vistas/administracionUsuario.php'; ?>">Administrar usuarios</a>
-                    </li>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $ruta . 'index.php'; ?>">Inicio
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $ruta . 'Vistas/aulas.php'; ?>">Aulas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Exámenes</a>
+                        </li>
                         <?php
-                    }
-
-                    //Muestra opciones de perfil
-                    ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Perfil
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Mi perfil</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?php echo $ruta . 'Controladores/controladorPrincipal.php?cerrarSesion=!'; ?>">Cerrar sesión</a>
-                        </div>
-                    </li>
+                        //Si es administrador, muestra enlace al CRUD de usuarios
+                        if ($usuarioIniciado->getRol() == 2) {
+                            ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $ruta . 'Vistas/administracionUsuario.php'; ?>">ADMIN</a>
+                        </li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                    <ul class="navbar-nav ml-auto nav-flex-icons">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                                 aria-labelledby="navbarDropdownMenuLink-333">
+                                <a class="dropdown-item" href="#">Mi perfil</a>
+                                <a class="dropdown-item" href="<?php echo $ruta . 'Controladores/controladorPrincipal.php?cerrarSesion=1'; ?>">Cerrar sesión</a>
+                            </div>
+                        </li>
+                    </ul>
                     <?php
                 }
                 ?>
-            </ul>
-        </div>
-
+            </div>
+        </nav>
     </div>
+    <!--/.Navbar -->
 </header>
-<!-- Espacio para esquivar la barra de navegación -->
-<div class="row mt-5 mb-4"></div>
+
 
 <!-- Mensajes de error/alerta -->
 <div class="row bg-warning mensaje">

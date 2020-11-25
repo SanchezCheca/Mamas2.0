@@ -6,11 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Mi CSS -->
-        <link rel="stylesheet" href="../css/estilos.css">
-
-        <!-- JS necesario -->
-        <script type="text/javascript" src="../js/aulas.js"></script>
-
+        <link rel="stylesheet" href="css/estilos.css">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -22,6 +18,19 @@
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
         <title>Mis aulas - Mamas 2.0</title>
+
+        <!-- Recursos MDBootstrap -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/mdb.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        
+        
+        <title>Crear aula - Mamas 2.0</title>
+        
+        <!-- JS necesario -->
+        <script src="../js/aulas.js"></script>
 
     </head>
     <body onload="cargar()">
