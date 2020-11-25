@@ -31,17 +31,14 @@
 
     </head>
     <body onload="cargar()">
+        <?php include '../Recursos/header.php'; ?>
         <div class="container">
-            <?php include '../Recursos/header.php'; ?>
-
             <?php
-            
-
             //Añade botón crearAula si se trata de un profesor
             if ($usuarioIniciado->getRol() >= 1) {
                 ?>
                 <!-- Boton nueva aula -->
-                <div class="col-12 m-3 d-flex justify-content-center">
+                <div class="col-12 m-1 d-flex justify-content-center">
                     <form name="irACrearAula" action="../Controladores/controladorPrincipal.php" method="POST">
                         <input type="submit" class="btn btn-primary" name="irACrearAula" value="+ Nueva Aula">
                     </form>
@@ -63,12 +60,12 @@
                 } else {
                     foreach ($usuarioIniciado->getAulas() as $aula) {
                         ?>
-                        <div class="col-12 bg-warning rounded p-2">
+                        <div class="col-12 col-sm-6 bg-warning rounded p-2 my-2">
                             <h4><?php echo $aula->getNombre(); ?></h4>
                             <p>Id del profesor a cargo: <?php echo $aula->getIdProfesor(); ?></p>
                             <form name="verAula" action="../Controladores/controladorPrincipal" method="POST">
                                 <input type="hidden" name="idAula" value="<?php echo $aula->getId(); ?>">
-                                <input type="submit" class="btn btn-secondary" name="verAula" value="Ver aula">
+                                <input type="submit" class="btn secondary-color-dark" name="verAula" value="Ver">
                             </form>
                         </div>
                         <?php
@@ -77,7 +74,8 @@
                 ?>
             </div>
 
-            <?php include '../Recursos/footer.php'; ?>
+            
         </div>
+        <?php include '../Recursos/footer.php'; ?>
     </body>
 </html>

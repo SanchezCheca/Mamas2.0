@@ -108,3 +108,10 @@ if (isset($_REQUEST['crearAula'])) {
         header('Location: ../Vistas/aulas.php');
     }
 }
+
+//---------------------BOTON "Ver Aula"
+if (isset($_REQUEST['verAula'])) {
+    $idAula = $_REQUEST['idAula'];
+    
+    
+}

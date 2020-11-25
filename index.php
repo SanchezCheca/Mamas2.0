@@ -19,8 +19,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-        
-       <script src="https://www.google.com/recaptcha/api.js?render=6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd"></script>
+
+        <script src="https://www.google.com/recaptcha/api.js?render=6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd"></script>
         <title>Mis aulas - Mamas 2.0</title>
 
         <!-- Recursos MDBootstrap -->
@@ -46,11 +46,8 @@
         <title>Página principal</title>
     </head>
     <body style="height: 100%;" onload="validacion()">
+        <?php include 'Recursos/header.php'; ?>
         <div class="container-fluid">
-
-
-            <?php include 'Recursos/header.php'; ?>
-
             <main class="row col-md-12 align-items-center justify-content-center">
 
                 <!-- Default form login -->
@@ -88,18 +85,14 @@
 
 
             <!-- Footer -->
-           
+            
 
-         
-            
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
-            
-            
+                    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
             
             <script src="js/validacion.js"></script> 
 
@@ -114,6 +107,7 @@
 
 
         </div>
+        <?php include 'Recursos/footer.php'; ?>
     </body>
 
 </html>

@@ -194,7 +194,7 @@ class AccesoADatos {
      * @param type $pass
      */
     public static function insertarUsuario($correo, $nombre, $pass) {
-        
+
 
         //ENCRIPTA LA CONTRASEÑA
         $passEncriptada = crypt($pass);
@@ -203,8 +203,8 @@ class AccesoADatos {
         $query = 'INSERT INTO usuarios VALUES(default, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
         if (!self::$conexion->query($query)) {
             $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
-            $resultado=false;
-        }else{
+            $resultado = false;
+        } else {
             $resultado = true;
         }
         self::closeDB();
@@ -271,6 +271,50 @@ class AccesoADatos {
         self::closeDB();
 
         return $resultado;
+    }
+
+    /**
+     * Devuelve un vector con todos los alumnos que pertenecen al aula definida por su id
+     * @param type $idAula
+     */
+    public static function getAlumnosDeAula($idAula) {
+        $alumnos = null;
+
+        self::new();
+        $query = 'SELECT id, nombre FROM usuarios WHERE id IN (SELECT idAlumno FROM aula_alumno WHERE id=' . $idAula . ')';
+        if ($resultado = self::$conexion->query($query)) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $id = $fila['id'];
+                $nombre = $fila['nombre'];
+                
+                $alumnos[] = new Usuario($id, null, null, $nombre, null, null); //Devuelve solo los valores importantes para mostrar una lista
+            }
+        }
+        $resultado->free();
+        self::closeDB();
+        return $alumnos;
+    }
+    
+    /**
+     * Recupera un aula por su id
+     * @param type $id
+     */
+    public static function getAula($id) {
+        $aula = null;
+        $query = 'SELECT * FROM aulas WHERE id=' . $id;
+        
+        self::new();
+        $resultado = self::$conexion->query($query);
+        if ($fila = $resultado->fetch_assoc()) {
+            $id = $fila['id'];
+            $idProfesor = $fila['idProfesor'];
+            $nombre = $fila['nombre'];
+            
+            $aula = new Aula($id, $nombre, $idProfesor);
+        }
+        $resultado->free();
+        self::closeDB();
+        return $aula;    
     }
 
     public static function getUsuarios() {
