@@ -86,7 +86,7 @@
 
                 <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir">
 
-                    <button type="submit" name="anadir" class="btn btn-rounded btn-primary  mb-5 fixed-top  marginmio"><i class="fas fa-user-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Alumno</button>
+                    <button type="submit" name="anadir" class="btn btn-rounded btn-primary  mb-5   marginmio"><i class="fas fa-user-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Alumno</button>
 
                 </form>
                 <div class="table-responsive text-nowrap ">
