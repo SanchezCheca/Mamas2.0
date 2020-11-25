@@ -38,7 +38,7 @@
 
             <?php include 'Recursos/header.php'; ?>
 
-            <main class="row align-items-center justify-content-center">
+            <main class="row col-md-12 align-items-center justify-content-center">
 
                 <!-- Default form login -->
                 <form class="text-center border border-light p-5 mt-5 col-md-4 mx-auto" action="Controladores/controladorPrincipal.php" method="POST" novalidate>

@@ -5,15 +5,9 @@
         <group>
             <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Controladores/controladorPrincipal.php</file>
             <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/index.php</file>
-            <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Vistas/registroAdmin.php</file>
-            <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/mamas2.sql</file>
-            <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Vistas/administracionUsuario.php</file>
-            <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Controladores/controladorCRUD.php</file>
-            <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Vistas/inicioSesion.php</file>
-            <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/js/validacion.js</file>
+            <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Auxiliar/Variables.php</file>
             <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Auxiliar/AccesoADatos.php</file>
             <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Vistas/registro.php</file>
-            <file>file:/home/nestor/Documentos/Mamas2.0/Mamas2.0/Modelo/Usuario.php</file>
         </group>
     </open-files>
 </project-private>
