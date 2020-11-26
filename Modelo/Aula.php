@@ -10,7 +10,7 @@ class Aula {
     private $id;
     private $nombre;
     private $idProfesor;
-    private $idAlumnos;
+    private $alumnos;
     private $examenes;
     
     //--------------------------CONSTRUCTOR
@@ -31,6 +31,14 @@ class Aula {
 
     function getIdProfesor() {
         return $this->idProfesor;
+    }
+    
+    function getAlumnos() {
+        return $this->alumnos;
+    }
+    
+    function setAlumnos($alumnos) {
+        $this->alumnos = $alumnos;
     }
 
     //--------------------------TO STRING
