@@ -10,14 +10,16 @@ class Aula {
     private $id;
     private $nombre;
     private $idProfesor;
+    private $nombreProfesor;
     private $alumnos;
     private $examenes;
     
     //--------------------------CONSTRUCTOR
-    function __construct($id, $nombre, $idProfesor) {
+    function __construct($id, $nombre, $idProfesor, $nombreProfesor) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->idProfesor = $idProfesor;
+        $this->nombreProfesor = $nombreProfesor;
     }
     
     //--------------------------GETTER
@@ -35,6 +37,10 @@ class Aula {
     
     function getAlumnos() {
         return $this->alumnos;
+    }
+    
+    function getNombreProfesor() {
+        return $this->nombreProfesor;
     }
     
     function setAlumnos($alumnos) {

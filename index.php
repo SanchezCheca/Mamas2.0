@@ -9,6 +9,7 @@
 
         <!-- Mi CSS -->
         <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="css/footerAbajo.css">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"

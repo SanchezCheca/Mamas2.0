@@ -124,13 +124,18 @@ if (isset($_REQUEST['crearAula'])) {
 
 /**
  * ---------------------BOTON "Ver Aula"
- * Recupera el aula a ver y la guarda en la sesión. Va a 'ver aula'
+ * Recupera el aula a ver y la guarda en la sesión.
+ * Recupera los alumnos de ese aula y a la sesión.
+ * Va a 'ver aula'.
  */
 if (isset($_REQUEST['verAula'])) {
     $idAula = $_REQUEST['idAula'];
     
     $aula = AccesoADatos::getAula($idAula);
     $_SESSION['aula'] = $aula;
+    
+    $alumnos = AccesoADatos::getAlumnosDeAula($idAula);
+    $_SESSION['alumnosAula'] = $alumnos;
     
     header('Location: ../Vistas/verAula.php');
 }

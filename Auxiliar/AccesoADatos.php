@@ -72,7 +72,15 @@ class AccesoADatos {
                         $idProfesor = $filaAula['idProfesor'];
                         $nombreAula = $filaAula['nombre'];
 
-                        $aula = new Aula($idAula, $nombreAula, $idProfesor);
+                        //Recupera el NOMBRE del profesor a cargo
+                        $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $idProfesor;
+                        $resultadoExtra = self::$conexion->query($consultaExtra);
+                        $nombreProfesor = null;
+                        if ($filaExtra = $resultadoExtra->fetch_assoc()) {
+                            $nombreProfesor = $filaExtra['nombre'];
+                        }
+
+                        $aula = new Aula($idAula, $nombreAula, $idProfesor, $nombreProfesor);
                         $aulas[] = $aula;
                     }
                 } else {
@@ -84,7 +92,7 @@ class AccesoADatos {
                         $idAula = $filaAula['id'];
                         $nombreAula = $filaAula['nombre'];
 
-                        $aula = new Aula($idAula, $nombreAula, $id);
+                        $aula = new Aula($idAula, $nombreAula, $id, $nombre);
                         $aulas[] = $aula;
                     }
                 }
@@ -278,23 +286,24 @@ class AccesoADatos {
      * @param type $idAula
      */
     public static function getAlumnosDeAula($idAula) {
-        $alumnos = null;
+        $alumnos = [];
 
         self::new();
-        $query = 'SELECT id, nombre FROM usuarios WHERE id IN (SELECT idAlumno FROM aula_alumno WHERE id=' . $idAula . ')';
+        $query = 'SELECT id, nombre, correo FROM usuarios WHERE id IN (SELECT idAlumno FROM aula_alumno WHERE idAula=' . $idAula . ') ORDER BY nombre';
         if ($resultado = self::$conexion->query($query)) {
             while ($fila = $resultado->fetch_assoc()) {
                 $id = $fila['id'];
                 $nombre = $fila['nombre'];
-                
-                $alumnos[] = new Usuario($id, null, null, $nombre, null, null); //Devuelve solo los valores importantes para mostrar una lista
+                $correo = $fila['correo'];
+
+                $alumnos[] = new Usuario($id, null, $correo, $nombre, null, null); //Devuelve solo los valores importantes para mostrar una lista
             }
         }
         $resultado->free();
         self::closeDB();
         return $alumnos;
     }
-    
+
     /**
      * Recupera un aula por su id
      * @param type $id
@@ -302,19 +311,27 @@ class AccesoADatos {
     public static function getAula($id) {
         $aula = null;
         $query = 'SELECT * FROM aulas WHERE id=' . $id;
-        
+
         self::new();
         $resultado = self::$conexion->query($query);
         if ($fila = $resultado->fetch_assoc()) {
             $id = $fila['id'];
             $idProfesor = $fila['idProfesor'];
             $nombre = $fila['nombre'];
-            
-            $aula = new Aula($id, $nombre, $idProfesor);
+
+            //Recupera el NOMBRE del profesor a cargo
+            $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $idProfesor;
+            $resultadoExtra = self::$conexion->query($consultaExtra);
+            $nombreProfesor = null;
+            if ($filaExtra = $resultadoExtra->fetch_assoc()) {
+                $nombreProfesor = $filaExtra['nombre'];
+            }
+
+            $aula = new Aula($id, $nombre, $idProfesor, $nombreProfesor);
         }
         $resultado->free();
         self::closeDB();
-        return $aula;    
+        return $aula;
     }
 
     public static function getUsuarios() {

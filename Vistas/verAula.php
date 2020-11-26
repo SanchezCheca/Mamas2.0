@@ -35,14 +35,72 @@
             <?php
             if (isset($_SESSION['aula'])) {
                 $aula = $_SESSION['aula'];
+                $alumnosAula = $_SESSION['alumnosAula'];
                 ?>
                 <div class="row my-4">
+                    <?php
+                    /**
+                     * Si el usuario iniciado es el profesor a cargo del aula da la opción de editarla:
+                     * Mostrando el botón
+                     * Mostrando el aula como formulario
+                     */
+                    if ($usuarioIniciado->getRol() >= 1 && $aula->getIdProfesor() == $usuarioIniciado->getId()) {
+                        ?>
+                        <div class="col-md-3"></div>
+                        <div class="col-10 col-md-6 d-flex justify-content-center">
+                            <h1 class="h1-responsive centrar"><?php echo $aula->getNombre(); ?></h1>
+                        </div>
+                        <div class="col-2 col-md-1">
+                            <a href="verAula.php?editar=1">
+                                <img class="img-responsive" height="40em" src="../images/ajustes.png" alt="Editar aula">
+                                <i>Editar</i>
+                            </a>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <?php
+                    } else {
+                        ?>
+                        <div class="col-12 d-flex justify-content-center">
+                            <h1 class="h1-responsive"><?php echo $aula->getNombre(); ?></h1>
+                        </div>
+                        <?php
+                    }
+                    ?>
                     <div class="col-12 d-flex justify-content-center">
-                        <h3>Aula: <?php echo $aula->getNombre(); ?></h3>
+                        <p class="lead">Profesor a cargo: <a href="verPerfil.php?perfil=<?php echo $aula->getIdProfesor(); ?>" target="blank"><?php echo $aula->getNombreProfesor(); ?></a></p>
                     </div>
-                    <div class="col-12 d-flex justify-content-center">
-                        <p>Profesor a cargo: <a href="verPerfil.php?perfil=<?php echo $aula->getIdProfesor(); ?>"><?php //Nombre del profesor ?></a></p>
+                    <div class="col-12 mt-3 d-flex justify-content-center">
+                        <h4 class="h4-responsive">Alumnos</h4>
                     </div>
+
+                    <!-- Tabla de alumnos -->
+                    <div class="col-md-3"></div>
+                    <div class="col-12 col-md-6">
+                        <table class="table table-hover" id="tablaAlumnos">
+                            <caption>Listado de alumnos</caption>
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($alumnosAula as $o) {
+                                    echo '<tr>';
+
+                                    echo '<td>' . $o->getNombre() . '</td>';
+                                    echo '<td>' . $o->getCorreo() . '</td>';
+                                    echo '<td>' . $o->getId() . '</td>';
+
+                                    echo '</tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-3"></div>
                 </div>
                 <?php
             } else {

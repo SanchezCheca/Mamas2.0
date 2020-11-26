@@ -62,7 +62,7 @@
                         ?>
                         <div class="col-12 col-sm-6 bg-warning rounded p-2 my-2">
                             <h4><?php echo $aula->getNombre(); ?></h4>
-                            <p>Id del profesor a cargo: <?php echo $aula->getIdProfesor(); ?></p>
+                            <p>Profesor: <?php echo $aula->getNombreProfesor(); ?></p>
                             <form name="verAula" action="../Controladores/controladorPrincipal.php" method="POST">
                                 <input type="hidden" name="idAula" value="<?php echo $aula->getId(); ?>">
                                 <input type="submit" class="btn secondary-color-dark" name="verAula" value="Ver">
