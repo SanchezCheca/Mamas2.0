@@ -3,27 +3,27 @@
 require_once '../Auxiliar/AccesoADatos.php';
 require_once '../Modelo/Usuario.php';
 require_once '../Modelo/Aula.php';
-
+require_once '../Modelo/Pregunta.php';
+require_once '../Modelo/Opcion.php';
 session_start();
 
 //---------------------VIENE DE FORMULARIO DE REGISTRO
 if (isset($_REQUEST['registro'])) {
-      $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
+    $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
     $recaptcha_secret = '6LdGnuoZAAAAAE00TDbdo-XCFJXmNRMRsGtgksZl';
     $recaptcha_response = $_POST['recaptcha_response'];
     $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response);
     $recaptcha = json_decode($recaptcha);
-     if ($recaptcha->score >= 0.7) {
-           $nombre = $_REQUEST['nombre'];
-    $correo = $_REQUEST['correo'];
-    $pass = $_REQUEST['pass'];
+    if ($recaptcha->score >= 0.7) {
+        $nombre = $_REQUEST['nombre'];
+        $correo = $_REQUEST['correo'];
+        $pass = $_REQUEST['pass'];
 
-    if (AccesoADatos::insertarUsuario($correo, $nombre, $pass)) {
-        $mensaje = 'Correcto se ha registrado';
-        
-    }
-     }else{
-         $mensaje = 'No ha funcionado el captcha(eres un robot)';
+        if (AccesoADatos::insertarUsuario($correo, $nombre, $pass)) {
+            $mensaje = 'Correcto se ha registrado';
+        }
+    } else {
+        $mensaje = 'No ha funcionado el captcha(eres un robot)';
     }
     $_SESSION['mensaje'] = $mensaje;
     header('Location: ../index.php');
@@ -31,7 +31,7 @@ if (isset($_REQUEST['registro'])) {
 
 //---------------------VIENE DE INICIO DE SESIÓN
 if (isset($_REQUEST['iniciosesion'])) {
-     $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
+    $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
     $recaptcha_secret = '6LdGnuoZAAAAAE00TDbdo-XCFJXmNRMRsGtgksZl';
     $recaptcha_response = $_POST['recaptcha_response'];
     $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response);
@@ -47,8 +47,8 @@ if (isset($_REQUEST['iniciosesion'])) {
         } else {
             $mensaje = 'ERROR: Correo y/o contraseña incorrectos.';
         }
-    }else{
-         $mensaje = 'No ha funcionado el captcha (eres un robot).';
+    } else {
+        $mensaje = 'No ha funcionado el captcha (eres un robot).';
     }
 
     $_SESSION['mensaje'] = $mensaje;
@@ -71,7 +71,7 @@ if (isset($_REQUEST['irACrearAula'])) {
     $alumnos = AccesoADatos::getListaAlumnos();
     $listaAlumnos = json_decode($alumnos);
     $_SESSION['listaAlumnos'] = $listaAlumnos;
-    
+
     header('Location: ../Vistas/crearAula.php');
 }
 
@@ -89,7 +89,7 @@ if (isset($_REQUEST['crearAula'])) {
         $_SESSION['mensaje'] = $mensaje;
         header('Location: ../Vistas/aulas.php');
     }
-    
+
     $idAula = AccesoADatos::addAula($usuarioIniciado->getId(), $nombre);
 
     if ($idAula != null) {
@@ -112,106 +112,142 @@ if (isset($_REQUEST['crearAula'])) {
 
 //---------------------SELECCION PREGUNTAS
 if (isset($_REQUEST['preguntas'])) {
-   $tipo=$_REQUEST['preguntas'];
-   if($tipo==1){
-       $_SESSION['tipopregunta']=$tipo;
+    $tipo = $_REQUEST['preguntas'];
+    if ($tipo == 1) {
+        $_SESSION['tipopregunta'] = $tipo;
         header('Location: ../Vistas/creaPreguntas.php');
-   }
-   
-    if($tipo==2){
-       $_SESSION['tipopregunta']=$tipo;
+    }
+
+    if ($tipo == 2) {
+        $_SESSION['tipopregunta'] = $tipo;
         header('Location: ../Vistas/creaPreguntas.php');
-   }
-    if($tipo==3){
-       $_SESSION['tipopregunta']=$tipo;
+    }
+    if ($tipo == 3) {
+        $_SESSION['tipopregunta'] = $tipo;
         header('Location: ../Vistas/creaPreguntas.php');
-   }
+    }
 }
 
 //---------------------AÑADIR PREGUNTAS
 if (isset($_REQUEST['anadirPregunta'])) {
     if (isset($_SESSION['tipopregunta'])) {
         $tipo = $_SESSION['tipopregunta'];
+
         switch ($tipo) {
-             case 1:
-                $descripcion = $_REQUEST['descripcion'];
-                $opcionCorrecta = $_REQUEST['opcion'];
-                $respuestaValida_A = $_REQUEST['resp_a'];
-                $respuestaValida_B = $_REQUEST['resp_b'];
-                $respuestaValida_C = $_REQUEST['resp_c'];
-                $respuestaValida_D = $_REQUEST['resp_d'];
-                $_SESSION['opcionCorrecta'] = $opcionCorrecta;
-                switch ($opcionCorrecta) {
-                    case 'opc_a':
-                        $preguntaNueva = new Pregunta($tipo, $descripcion, $respuestaValida_A, $respuestaValida_B, $respuestaValida_C, $respuestaValida_D, $respuestaValida_A);
-                        $_SESSION['preguntaNueva'] = $preguntaNueva;
-                        break;
-                    case 'opc_b':
-                        $preguntaNueva = new Pregunta($tipo, $descripcion, $respuestaValida_A, $respuestaValida_B, $respuestaValida_C, $respuestaValida_D, $respuestaValida_B);
-                        $_SESSION['preguntaNueva'] = $preguntaNueva;
-                        break;
-                    case 'opc_c':
-                        $preguntaNueva = new Pregunta($tipo, $descripcion, $respuestaValida_A, $respuestaValida_B, $respuestaValida_C, $respuestaValida_D, $respuestaValida_C);
-                        $_SESSION['preguntaNueva'] = $preguntaNueva;
-                        break;
-                    case 'opc_d':
-                        $preguntaNueva = new Pregunta($tipo, $descripcion, $respuestaValida_A, $respuestaValida_B, $respuestaValida_C, $respuestaValida_D, $respuestaValida_D);
-                        $_SESSION['preguntaNueva'] = $preguntaNueva;
-                        break;
-                }
+            case 1:
+                $valor = $_REQUEST['valor'];
+                $titulo = $_REQUEST['titulo'];
+                $respuesta = $_REQUEST['numerico'];
+                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
 
-                if (Gestion::addPregunta($preguntaNueva)) {
-                    header('Location: Vista/profesorAddPreguntas.php');
+                if (AccesoADatos::addPregunta($preguntados)) {
+                    $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                    $opciones = new Opcion('null', $idPregunta, 1, $respuesta);
+                    if (AccesoADatos::addOpciones($opciones)) {
+
+
+                        header('Location: ../Vistas/creaPreguntas.php');
+                    }
                 }
                 break;
-            
-            
+
+
             case 2:
-                $descripcion = $_REQUEST['descripcion'];
-                $respuestaCorrecta = $_REQUEST['ta_resp_correcta_texto'];
-                $preguntaNueva = new Pregunta($tipo, $descripcion, $respuestaCorrecta, '', '', '', $respuestaCorrecta);
-                if (Gestion::addPregunta($preguntaNueva)) {
-                    header('Location: Vista/profesorAddPreguntas.php');
+                $valor = $_REQUEST['valor'];
+                $titulo = $_REQUEST['titulo'];
+                $respuesta = $_REQUEST['desarrollo'];
+                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
+                if (AccesoADatos::addPregunta($preguntados)) {
+                    header('Location: ../Vistas/creaPreguntas.php');
                 }
                 break;
-            
-           
+
+
             case 3:
+                $valor = $_REQUEST['valor'];
                 //Mirar opciones
-                $descripcion = $_REQUEST['descripcion'];
-                $respValida_A = $_REQUEST['cboxa'];
-                $respValida_B = $_REQUEST['cboxb'];
-                $respValida_C = $_REQUEST['cboxc'];
-                $respValida_D = $_REQUEST['cboxd'];
+                $titulo = $_REQUEST['titulo'];
+                $respA = $_REQUEST['comboa'];
+                $respB = $_REQUEST['combob'];
+                $respC = $_REQUEST['comboc'];
+                $respD = $_REQUEST['combod'];
 
-                $respuestaValida_A = $_REQUEST['resp_cbox_a'];
-                $respuestaValida_B = $_REQUEST['resp_cbox_b'];
-                $respuestaValida_C = $_REQUEST['resp_cbox_c'];
-                $respuestaValida_D = $_REQUEST['resp_cbox_d'];
+                $respValidaA = $_REQUEST['inputa'];
+                $respValidaB = $_REQUEST['inputb'];
+                $respValidaC = $_REQUEST['inputc'];
+                $respValidaD = $_REQUEST['inputd'];
+                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
 
-                $separador = '###';
-                $respuestaCorrecta = '';
-                if ($respValida_A == 'on') {
-                    $respCorrecta = $respCorrecta . $respuestaValida_A . $separador;
+                if (AccesoADatos::addPregunta($preguntados)) {
+                    if ($respA == 'on') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaA);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respB == 'on') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaB);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respC == 'on') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaC);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respD == 'on') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaD);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+                    
+                    
+                    if ($respA == '') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaA);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respB == '') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaB);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respC == '') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaC);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respD == '') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaD);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+                    header('Location: ../Vistas/creaPreguntas.php');
                 }
 
-                if ($respValida_B == 'on') {
-                    $respCorrecta = $respCorrecta . $respuestaValida_B . $separador;
-                }
 
-                if ($respValida_C == 'on') {
-                    $respCorrecta = $respCorrecta . $respuestaValida_C . $separador;
-                }
-
-                if ($respValida_D == 'on') {
-                    $respCorrecta = $respCorrecta . $respuestaValida_D . $separador;
-                }
-
-                $preguntaNueva = new Pregunta($tipo, $descripcion, $respuestaValida_A, $respuestaValida_B, $respuestaValida_C, $respuestaValida_D, $respCorrecta);
-                $_SESSION['preguntaNueva'] = $preguntaNueva;
-                if (Gestion::addPregunta($preguntaNueva)) {
-                    header('Location: Vista/profesorAddPreguntas.php');
-                }
+               
                 break;
         }
     }

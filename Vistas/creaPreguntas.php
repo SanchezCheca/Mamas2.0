@@ -83,7 +83,7 @@ and open the template in the editor.
                                 if (!isset($_SESSION['tipopregunta'])) {
                                     ?>
                                     <option disabled selected>Selecciona una opción</option>
-                                    <option value="1">Tipo Test</option>
+                                    <option value="1">Numerico</option>
                                     <option value="2">Desarrollo</option>
                                     <option value="3">Opciones</option>
                                     <?php
@@ -93,7 +93,7 @@ and open the template in the editor.
                                     switch ($tipo) {
                                         case 1:
                                             ?>
-                                            <option value="1" selected>Tipo Test</option>
+                                            <option value="1" selected>Numerico</option>
                                             <option value="2">Desarrollo</option>
                                             <option value="3">Opciones</option>
 
@@ -101,14 +101,14 @@ and open the template in the editor.
                                             break;
                                         case 2:
                                             ?>
-                                            <option value="1" >Tipo Test</option>
+                                            <option value="1" >Numerico</option>
                                             <option value="2" selected>Desarrollo</option>
                                             <option value="3">Opciones</option>
                                             <?php
                                             break;
                                         case 3:
                                             ?>
-                                            <option value="1" >Tipo Test</option>
+                                            <option value="1" >Numerico</option>
                                             <option value="2" >Desarrollo</option>
                                             <option value="3" selected>Opciones</option>
                                         <?php
@@ -149,36 +149,20 @@ and open the template in the editor.
 
                                 case 1:
                                     ?>
-                                    <div class="w-100 text-center">
-                                        <h3>Seleccione la respuesta correcta</h3>
-                                        <input type="radio" class="mr-2" id="opcionA" name="opcion" value="a">
-                                        <input type="text" name="inputA">
-                                        <input type="radio" class="ml-2" id="opcionB" name="opcion" value="b">
-                                        <input type="text" name="inputB">
-                                    </div>
-                                    <div class="w-100 text-center mt-2">
-                                        <input type="radio" class="mr-2" id="opcionC" name="opcion" value="c">
-                                        <input type="text" name="inputC">
-                                        <input type="radio" class="ml-2" id="opcionD" name="opcion" value="d">
-                                        <input type="text" name="inputD">
-                                    </div>
-                                    <?php
-                                    break;
-
-
-                                case 2:
-                                    ?>
-                                    <div class="w-100 text-center">
+                                  <div class="w-100 text-center">
                                         <h3>Respuesta</h3>
-                                        <textarea id="desarrollo" name="desarrollo" rows="5" class="w-50"></textarea>
+                                        <input type="number" id="num" name="numerico" class="w-50">
                                     </div>
                                     <?php
                                     break;
+
+
+                                
                                 case 3:
                                     ?>
                                     <div class="w-100 text-center">
                                         <h3>Seleccione las respuestas correctas</h3>
-                                        <label class="mr-2"><input type="checkbox" id="comboA" name="comoboa">
+                                        <label class="mr-2"><input type="checkbox" id="comboA" name="comboa">
                                             <input type="text" name="inputa"></label>
                                         <label class="ml-2"><input type="checkbox" id="comboB" name="combob">
                                             <input type="text" name="inputb"></label>
@@ -197,14 +181,16 @@ and open the template in the editor.
                             ?>
                             <div class="w-100 text-center">
                                 <h3>Respuesta</h3>
-                                <textarea id="ta_resp_texto" name="ta_resp_correcta_texto" rows="5" class="w-50"></textarea>
+                                <textarea id="resp" name="respu" rows="5" class="w-50"></textarea>
                             </div>
                             <?php
                         }
                         ?>
+                        <input type="number" name="valor" placeholder="Valor de la pregunta"> 
                         <div class="w-100 text-center mt-3">
                             <button type="submit" name="anadirPregunta" class="btn btn-outline-success">Añadir pregunta</button>
                         </div>
+                        
                     </form>
 
 

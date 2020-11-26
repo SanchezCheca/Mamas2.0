@@ -7,6 +7,7 @@
  * @author daniel
  */
 require_once 'Variables.php';
+require_once '../Modelo/Opcion.php';
 
 class AccesoADatos {
 
@@ -337,5 +338,45 @@ class AccesoADatos {
 
         return $resultado;
     }
+    
+     public static function addPregunta($preguntados) {
+           self::new();
+           
+         $anadido=false;
+          $query = "INSERT INTO preguntas VALUES(NULL, '" . $preguntados->getCuerpo() . "'," . $preguntados->getTipo() . "," . $preguntados->getValor() . ")";
+           if (self::$conexion->query($query)) {
+            $anadido = true;
+        }
+        self::closeDB();
 
+        return $anadido;
+     }
+
+     
+     public static function getIdPregunta($titulo) {
+         self::new();
+          $query = "Select id from preguntas where cuerpo='" . $titulo . "'";
+          
+          if($resultado = self::$conexion->query($query)){
+              if($fila= mysqli_fetch_array($resultado)){
+                  $id = $fila['id'];
+              }
+          }
+            self::closeDB();
+        return $id;
+     }
+     
+      public static function addOpciones($opciones) {
+           self::new();
+           
+         $anadido=false;
+          $query = "INSERT INTO opciones VALUES(NULL, " . $opciones->getIdPregunta() . "," . $opciones->getEsCorrecta() . ",'" . $opciones->getCuerpo() . "')";
+           if (self::$conexion->query($query)) {
+            $anadido = true;
+        }
+        self::closeDB();
+
+        return $anadido;
+      }
+     
 }
