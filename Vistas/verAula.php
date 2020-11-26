@@ -39,25 +39,20 @@
                 ?>
                 <div class="row my-4">
                     <?php
-                    /**
-                     * Si el usuario iniciado es el profesor a cargo del aula da la opción de editarla:
-                     * Mostrando el botón
-                     * Mostrando el aula como formulario
-                     */
+                    //Si el usuario iniciado es el profesor a cargo del aula da la opción de editarla
                     if ($usuarioIniciado->getRol() >= 1 && $aula->getIdProfesor() == $usuarioIniciado->getId()) {
-                        ?>
-                        <div class="col-md-3"></div>
-                        <div class="col-10 col-md-6 d-flex justify-content-center">
-                            <h1 class="h1-responsive centrar"><?php echo $aula->getNombre(); ?></h1>
-                        </div>
-                        <div class="col-2 col-md-1">
-                            <a href="verAula.php?editar=1">
-                                <img class="img-responsive" height="40em" src="../images/ajustes.png" alt="Editar aula">
-                                <i>Editar</i>
-                            </a>
-                        </div>
-                        <div class="col-md-2"></div>
-                        <?php
+                            ?>
+                            <div class="col-md-3"></div>
+                            <div class="col-10 col-md-6 d-flex justify-content-center">
+                                <h1 class="h1-responsive"><?php echo $aula->getNombre(); ?></h1>
+                            </div>
+                            <div class="col-2 col-md-1">
+                                <form name="botonEditar" action="editarAula.php" method="POST">
+                                    <input type="submit" class="btn btn-grey" name="editar" value="Editar">
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <?php
                     } else {
                         ?>
                         <div class="col-12 d-flex justify-content-center">
