@@ -343,7 +343,7 @@ class AccesoADatos {
            self::new();
            
          $anadido=false;
-          $query = "INSERT INTO preguntas VALUES(NULL, '" . $preguntados->getCuerpo() . "'," . $preguntados->getTipo() . "," . $preguntados->getValor() . ")";
+          $query = "INSERT INTO preguntas VALUES(id, '" . $preguntados->getCuerpo() . "'," . $preguntados->getTipo() . "," . $preguntados->getValor() . ")";
            if (self::$conexion->query($query)) {
             $anadido = true;
         }
