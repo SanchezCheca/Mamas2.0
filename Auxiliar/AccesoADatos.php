@@ -333,6 +333,34 @@ class AccesoADatos {
         self::closeDB();
         return $aula;
     }
+    
+    /**
+     * Devuelve todos los usuarios con rol 0 (alumno), activos y que NO se encuentren en el aula con id $idAula
+     * @param type $idAula
+     */
+    public static function getAlumnosExceptoAula($idAula) {
+        self::new();
+        $usuarios = [];
+        
+        $query = 'SELECT * FROM usuarios WHERE '
+                . 'rol=0 AND '
+                . 'activo=1 AND '
+                . 'id NOT IN (SELECT idAlumno FROM aula_alumno WHERE idAula=' . $idAula . ')';
+        if ($resultado = self::$conexion->query($query)) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $id = $fila['id'];
+                $correo = $fila['correo'];
+                $nombre = $fila['nombre'];
+                
+                $usuario = new Usuario($id, 0, $correo, $nombre, 1, null);
+                $usuarios[] = $usuario;
+            }
+            $resultado->free();
+        }
+        
+        self::closeDB();
+        return $usuarios;
+    }
 
     public static function getUsuarios() {
         self::new();

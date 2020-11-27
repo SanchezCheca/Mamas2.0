@@ -134,8 +134,16 @@ if (isset($_REQUEST['verAula'])) {
     $aula = AccesoADatos::getAula($idAula);
     $_SESSION['aula'] = $aula;
     
-    $alumnos = AccesoADatos::getAlumnosDeAula($idAula);
-    $_SESSION['alumnosAula'] = $alumnos;
+    $alumnosAula = AccesoADatos::getAlumnosDeAula($idAula);
+    $_SESSION['alumnosAula'] = $alumnosAula;
     
     header('Location: ../Vistas/verAula.php');
+}
+
+if (isset($_REQUEST['irAEditarAula'])) {
+    $idAula = $_REQUEST['idAula'];
+    $todosAlumnosExceptoAula = AccesoADatos::getAlumnosExceptoAula($idAula);
+    $_SESSION['todosAlumnosExceptoAula'] = $todosAlumnosExceptoAula;
+    
+    header('Location: ../Vistas/editarAula.php');
 }

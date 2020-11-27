@@ -47,8 +47,9 @@
                                 <h1 class="h1-responsive"><?php echo $aula->getNombre(); ?></h1>
                             </div>
                             <div class="col-2 col-md-1">
-                                <form name="botonEditar" action="editarAula.php" method="POST">
-                                    <input type="submit" class="btn btn-grey" name="editar" value="Editar">
+                                <form name="botonEditar" action="../Controladores/controladorPrincipal.php" method="POST">
+                                    <input type="hidden" name="idAula" value="<?php echo $aula->getId(); ?>">
+                                    <input type="submit" class="btn btn-grey" name="irAEditarAula" value="Editar">
                                 </form>
                             </div>
                             <div class="col-md-2"></div>
