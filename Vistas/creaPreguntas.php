@@ -55,7 +55,7 @@ and open the template in the editor.
                             <ul class="navbar-nav ml-auto  offset-3 ">
                                 <li class="nav-item">
                                     <form action="../Controladores/controladorCRUD.php" method="POST" name="volver">
-                                        <button type="submit" class=" waves-effect  btn btn-primary" name="cerrarSesion" >Cerrar Sesión</button>
+                                        <button type="submit" class=" waves-effect  btn btn-primary" name="volverEx">Volver</button>
                                     </form>
                                 </li>
                             </ul>
