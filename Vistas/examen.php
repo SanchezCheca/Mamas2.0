@@ -83,36 +83,37 @@ and open the template in the editor.
                             $examenAux = $listaExamenes[$i];
                             ?>
 
-
-                            <div class="card mt-5">
-                                <div class="card-header">
-                                    <input class="float-left" type="text" id="nombreExamen" name="nombreExamen" value="<?php echo $examenAux->getNombre() ?>" readonly>
-                                    <?php
-                                    if ($examenAux->getOpcion() == 1) {
-                                        ?>
-                                    <select class="float-right" name="opcion">
-                                            <option value="1" selected>Activado</option>
-                                            <option value="2">Desactivado</option>
-                                        </select>
+                            <form action="../Controladores/controladorPrincipal.php" name="examen" method="POST">
+                                <div class="card mt-5">
+                                    <div class="card-header">
+                                        <input type="hidden" name="idExamen" value="<?php $examenAux->getId()?>">
+                                        <input class="float-left" type="text" id="nombreExamen" name="nombreExamen" value="<?php echo $examenAux->getNombre() ?>" readonly>
                                         <?php
-                                    } else {
+                                        if ($examenAux->getOpcion() == 1) {
+                                            ?>
+                                            <select class="float-right" name="opcion">
+                                                <option value="1" selected>Activado</option>
+                                                <option value="2">Desactivado</option>
+                                            </select>
+                                            <?php
+                                        } else {
+                                            ?>
+
+                                            <select class="float-right" name="opcion">
+                                                <option value="1">Activado</option>
+                                                <option  value="2" selected>Desactivado</option>
+                                            </select>
+                                            <?php
+                                        }
                                         ?>
-
-                                        <select class="float-right" name="opcion">
-                                            <option value="1">Activado</option>
-                                            <option  value="2" selected>Desactivado</option>
-                                        </select>
-                                        <?php
-                                    }
-                                    ?>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">Fecha inicio:  <input type="text" id="fi" name="fechaInicio" value="<?php echo $examenAux->getFechaInicio() ?>" readonly> </p> 
+                                        <p class="card-text">Fecha de entrega: <input type="text" id="ff" name="fechaFin" value="<?php echo $examenAux->getFechaFin() ?>" readonly> </p>
+                                        <button type="submit" class="btn btn-primary" name="verExamen">Ver Examen</button>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text">Fecha inicio:  <input type="text" id="fi" name="fechaInicio" value="<?php echo $examenAux->getFechaInicio() ?>" readonly> </p> 
-                                    <p class="card-text">Fecha de entrega: <input type="text" id="ff" name="fehcaFin" value="<?php echo $examenAux->getFechaFin() ?>" readonly> </p>
-                                    <a href="<?php echo $ruta . 'anadirPreguntas.php'; ?>" class="btn btn-primary">Ver Examen</a>
-                                </div>
-                            </div>
-
+                            </form>
                             <?php
                         }
                     }

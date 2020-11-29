@@ -8,6 +8,7 @@
  */
 require_once 'Variables.php';
 require_once '../Modelo/Opcion.php';
+require_once '../Modelo/Pregunta.php';
 require_once '../Modelo/Examen.php';
 
 class AccesoADatos {
@@ -383,7 +384,7 @@ class AccesoADatos {
         self::new();
         $add = false;
 
-        
+
         $fechaI = date(DATE_RFC3339, strtotime($examen->getFechaInicio()));
         $fechaF = date(DATE_RFC3339, strtotime($examen->getFechaFin()));
 
@@ -414,6 +415,51 @@ class AccesoADatos {
 
         self::closeDB();
         return $examenes;
+    }
+
+    public static function getPreguntas() {
+        self::new();
+        $preguntas = [];
+
+
+        $sentencia = "SELECT * FROM preguntas;";
+
+        if ($resultado = mysqli_query(self::$conexion, $sentencia)) {
+            while ($fila = mysqli_fetch_array($resultado)) {
+                $preguntaAux = new Pregunta($fila[0], $fila[1], $fila[2], $fila[3]);
+                $preguntas[] = $preguntaAux;
+            }
+        }
+
+        self::closeDB();
+        return $preguntas;
+    }
+
+    public static function addPreguntaExamen($idExamen, $idPregunta) {
+        self::new();
+        $add = false;
+        $sentencia = "INSERT INTO examen_pregunta VALUES(" . $idExamen . "," . $idPregunta . ")";
+
+        if (mysqli_query(self::$conexion, $sentencia)) {
+            $add = true;
+        }
+        self::closeDB();
+        return $add;
+    }
+    
+    public static function getIdExamen($titulo) {
+        self::new();
+        
+        $sentencia = "SELECT id FROM examenes WHERE titulo = '".$titulo."'";
+        
+        if($resultado = mysqli_query(self::$conexion, $sentencia)){
+            if ($fila = mysqli_fetch_array($resultado)) {
+                $idExamen = $fila[0];
+            }
+        }
+        
+        self::closeDB();
+        return $idExamen;
     }
 
 }

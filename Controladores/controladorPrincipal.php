@@ -263,7 +263,7 @@ if (isset($_REQUEST['crearExamen'])) {
         $fechaFin = $_REQUEST['fechaFin'];
         $opcion = $_REQUEST['opciones'];
         $usuarioAux = $_SESSION['usuarioIniciado'];
-        $examen = new Examen('NULL',$nombre, $usuarioAux->getId(), 'default', $fechaInicio, $fechaFin, $opcion);
+        $examen = new Examen('NULL', $nombre, $usuarioAux->getId(), 'default', $fechaInicio, $fechaFin, $opcion);
 
         if (AccesoADatos::addExamen($examen)) {
             $examenesCreados = AccesoADatos::getListaExamenes();
@@ -272,3 +272,58 @@ if (isset($_REQUEST['crearExamen'])) {
         }
     }
 }
+
+
+
+if (isset($_REQUEST['verExamen'])) {
+    $titulo = $_REQUEST['nombreExamen'];
+    $id = AccesoADatos::getIdExamen($titulo);
+    $_SESSION['tituloExamen'] = $titulo;
+    $_SESSION['idExamen'] = $id;
+
+    $preguntas = AccesoADatos::getPreguntas();
+    $tipoNumerico = [];
+    $tipoTexto = [];
+    $tipoOpciones = [];
+    for ($i = 0; $i < sizeof($preguntas); $i++) {
+        $preguntaAux = $preguntas[$i];
+
+        $tipo = $preguntaAux->getTipo();
+
+        switch ($tipo) {
+            case 1:
+                $tipoNumerico[] = $preguntaAux;
+                $_SESSION['preguntaNumerico'] = $tipoNumerico;
+                break;
+
+            case 2:
+                $tipoTexto[] = $preguntaAux;
+                $_SESSION['preguntaTexto'] = $tipoTexto;
+                break;
+
+            case 3:
+                $tipoOpciones[] = $preguntaAux;
+                $_SESSION['preguntaOpciones'] = $tipoOpciones;
+                break;
+        }
+    }
+
+    header('Location: ../Vistas/anadirPreguntas.php');
+}
+
+
+if (isset($_REQUEST['addPregunta'])) {
+    $idExamen = $_SESSION['idExamen'];
+    $tituloPregunta = $_REQUEST['pregunta'];
+    $idPregunta = AccesoADatos::getIdPregunta($tituloPregunta);
+    
+    if (AccesoADatos::addPreguntaExamen($idExamen, $idPregunta)) {
+        header('Location: ../Vistas/anadirPreguntas.php');
+    }
+}
+
+
+
+
+
+

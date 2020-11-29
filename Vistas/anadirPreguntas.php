@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Añadir preguntas</title>
-         <!-- MDB icon -->
+        <!-- MDB icon -->
         <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -21,18 +21,56 @@ and open the template in the editor.
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
+        <script>
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+
+            function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            }
+
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+            }
+        </script>
     </head>
     <body>
-         <div class="container">
+        <?php
+        require_once '../Modelo/Pregunta.php';
+        require_once '../Modelo/Examen.php';
+        session_start();
+
+        if (isset($_SESSION['preguntaNumerico'])) {
+            $tipoNumerico = $_SESSION['preguntaNumerico'];
+        }
+        if (isset($_SESSION['preguntaTexto'])) {
+            $tipoTexto = $_SESSION['preguntaTexto'];
+        }
+        if (isset($_SESSION['preguntaOpciones'])) {
+            $tipoOpciones = $_SESSION['preguntaOpciones'];
+        }
+        if (isset($_SESSION['idExamen'])) {
+            $id = $_SESSION['idExamen'];
+        }
+        if (isset($_SESSION['tituloExamen'])) {
+            $titulo = $_SESSION['tituloExamen'];
+        }
+        ?>
+
+        <div class="container">
             <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
 
                 <!-- Navbar -->
 
                 <div class="container">
+
                     <div class="col-md-6">
                         <!-- Brand -->
 
-                        <h2 class="font-weight-bold">Nombre del examen</h2>
+                        <h2 class="font-weight-bold"><?php echo $titulo ?></h2>
                     </div>
                     <div class="col-md-6">
                         <!-- Collapse -->
@@ -56,19 +94,131 @@ and open the template in the editor.
                     </div>
                 </div>
 
+
             </header>
-             
-             
-             <main class="row">
-                 <div class="col-md-12 col-sm-12 mx-auto mt-5">
-                     <h1>Soy el main</h1>
-                 </div>
-             </main>
-             
-              <?php include '../Recursos/footer.php'; ?>
-         </div>
+
+
+            <main class="row mt-5">
+                <div class="row vh-80 d-flex flex-column justify-content-center ">
+                    <div class="container">
+
+                        <div class="accordion" id="accordionExample275">
+
+                            <?php
+                            if (isset($tipoTexto)) {
+                                ?>
+
+                                <div class="card z-depth-0 bordered">
+                                    <div class="card-header" id="headingOne2">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne2"
+                                                    aria-expanded="true" aria-controls="collapseOne2">
+                                                Preguntas de tipo texto
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne2" class="collapse" aria-labelledby="headingOne2"
+                                         data-parent="#accordionExample275">
+                                        <div class="card-body" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                            <?php
+                                            for ($i = 0; $i < sizeof($tipoTexto); $i++) {
+                                                $preguntaTextoAux = $tipoTexto[$i];
+                                                ?>
+                                            <input id="texto-"<?php echo $i?> type="text" name="pregunta" readonly value="<?php echo $preguntaTextoAux->getCuerpo() ?>" draggable="true" ondragstart="drag(event)">
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+                            }
+                            ?>
+
+                            <?php
+                            if (isset($tipoNumerico)) {
+                                ?>
+
+                                <div class="card z-depth-0 bordered">
+                                    <div class="card-header" id="headingTwo2">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                                    data-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+                                                Preguntas tipo numerico
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2"
+                                         data-parent="#accordionExample275">
+                                        <div class="card-body" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                            <?php
+                                            for ($i = 0; $i < sizeof($tipoNumerico); $i++) {
+                                                $preguntaNumAux = $tipoNumerico[$i];
+                                                ?>
+                                                <input id="numerico-"<?php echo $i?> type="text" name="pregunta" readonly value="<?php echo $preguntaNumAux->getCuerpo() ?>"draggable="true" ondragstart="drag(event)">
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+                            }
+                            ?>
+
+                            <?php
+                            if (isset($tipoOpciones)) {
+                                ?>
+                                <div class="card z-depth-0 bordered">
+                                    <div class="card-header" id="headingThree2">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                                    data-target="#collapseThree2" aria-expanded="false" aria-controls="collapseThree2">
+                                                Preguntas de opciones
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseThree2" class="collapse" aria-labelledby="headingThree2"
+                                         data-parent="#accordionExample275">
+                                        <div class="card-body" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                            <?php
+                                            for ($i = 0; $i < sizeof($tipoOpciones); $i++) {
+                                                $preguntaOpcAux = $tipoOpciones[$i];
+                                                ?>
+                                                <input id="opciones-"<?php echo $i?> type="text" name="pregunta" readonly value="<?php echo $preguntaOpcAux->getCuerpo() ?>" draggable="true" ondragstart="drag(event)">
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+                            }
+                            ?>
+                        </div>
+
+                        <!-- Formulario Añadir pregunta. -->
+                        <div>
+                            <h3><?php echo $titulo ?></h3>
+                            <form action="../Controladores/controladorPrincipal.php" method="POST">
+                                <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 200px; widows: 400px; border: 1px double black;">
+
+                                </div>
+                                <button type="submit" class="btn blue-gradient w-100" name="addPregunta">Añadir</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+
+            <?php include '../Recursos/footer.php'; ?>
+        </div>
     </body>
-        <!-- jQuery -->
+    <!-- jQuery -->
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="../js/popper.min.js"></script>
@@ -78,5 +228,5 @@ and open the template in the editor.
     <script type="text/javascript" src="../js/mdb.min.js"></script>
     <!-- Your custom scripts (optional) -->
     <script type="text/javascript"></script>
-   
+
 </html>

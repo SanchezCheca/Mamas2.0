@@ -59,3 +59,7 @@ if (isset($_REQUEST['volverEx'])) {
          header('Location: ../Vistas/examen.php');
 
 }
+if (isset($_REQUEST['volver'])) {
+         header('Location: ../index.php');
+
+}
