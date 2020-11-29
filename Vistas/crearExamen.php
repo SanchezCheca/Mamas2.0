@@ -74,13 +74,13 @@ and open the template in the editor.
 
                         <div class="my-3">
                             <label for="exampleForm2">Fecha de inicio: </label>
-                            <input type="text" id="exampleForm2" name="fechaInicio" class="form-control ">
+                            <input type="datetime-local" id="exampleForm2" name="fechaInicio" class="form-control ">
                         </div>
 
 
                         <div class="my-3">
                             <label for="exampleForm2">Fin del examen: </label>
-                            <input type="text" id="exampleForm2" name="fechaFin" class="form-control ">
+                            <input type="datetime-local" id="exampleForm2" name="fechaFin" class="form-control ">
                         </div>
 
 
