@@ -45,7 +45,7 @@ if (isset($_SESSION['usuarioIniciado'])) {
                     //Si ha iniciado sesión
                     ?>
                     <li class="nav-item">
-                        <a class=" waves-effect  btn btn-primary" href="#">Exámenes</a>
+                        <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'Vistas/examen.php'; ?>">Exámenes</a>
                     </li>
                     <li class="nav-item">
                         <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'Vistas/aulas.php'; ?>">Aulas</a>

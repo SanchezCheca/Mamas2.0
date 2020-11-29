@@ -7,8 +7,8 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Crear Examen</title>
-        <!-- MDB icon -->
+        <title>Añadir preguntas</title>
+         <!-- MDB icon -->
         <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -21,12 +21,9 @@ and open the template in the editor.
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
-       
     </head>
-
     <body>
-
-        <div class="container">
+         <div class="container">
             <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
 
                 <!-- Navbar -->
@@ -35,7 +32,7 @@ and open the template in the editor.
                     <div class="col-md-6">
                         <!-- Brand -->
 
-                        <h2 class="font-weight-bold">Examenes</h2>
+                        <h2 class="font-weight-bold">Nombre del examen</h2>
                     </div>
                     <div class="col-md-6">
                         <!-- Collapse -->
@@ -60,45 +57,18 @@ and open the template in the editor.
                 </div>
 
             </header>
-
-
-            <main class="row ">
-                <div class="row">
-                    <div class="col-md-12 mt-5 mx-auto">
-                        <form class="border border-light p-5" action="../Controladores/controladorPrincipal.php" method="POST">
-
-                            <p class="h4 mb-4 text-center">Crear Examen</p>
-
-                            Nombre del Examen: <input type="text" name="nombreExamen" id="defaultLoginFormEmail" class="form-control mb-4">
-                            
-                          Fecha de inicio: <input class="form-control w-auto" type="datetime-local" name="fechaInicio" value=""/>
-                          Fin del examen: <input class="form-control w-auto" type="datetime-local" name="fechaFin" value=""/>
-
-
-                            <select name="opciones" class="browser-default custom-select mb-4" id="select">
-                                <option value="" disabled selected>Elige una Opción</option>
-                                <option value="1">Activado</option>
-                                <option value="2">Desactivado</option>
-
-                            </select>
-                            <button class="btn btn-info btn-block my-4" type="submit" name="crearExamen">Crear</button>
-
-
-                        </form>
-                    </div>
-                </div>
-
-            </main>
-
-            <?php include '../Recursos/footer.php'; ?>
-        </div>
-
-
-
+             
+             
+             <main class="row">
+                 <div class="col-md-12 col-sm-12 mx-auto mt-5">
+                     <h1>Soy el main</h1>
+                 </div>
+             </main>
+             
+              <?php include '../Recursos/footer.php'; ?>
+         </div>
     </body>
-
-
-    <!-- jQuery -->
+        <!-- jQuery -->
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="../js/popper.min.js"></script>

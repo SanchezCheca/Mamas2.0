@@ -5,6 +5,7 @@ require_once '../Modelo/Usuario.php';
 require_once '../Modelo/Aula.php';
 require_once '../Modelo/Pregunta.php';
 require_once '../Modelo/Opcion.php';
+require_once '../Modelo/Examen.php';
 session_start();
 
 //---------------------VIENE DE FORMULARIO DE REGISTRO
@@ -210,8 +211,8 @@ if (isset($_REQUEST['anadirPregunta'])) {
                             
                         }
                     }
-                    
-                    
+
+
                     if ($respA == '') {
                         $idPregunta = AccesoADatos::getIdPregunta($titulo);
                         $opciones = new Opcion('null', $idPregunta, 0, $respValidaA);
@@ -247,8 +248,27 @@ if (isset($_REQUEST['anadirPregunta'])) {
                 }
 
 
-               
+
                 break;
+        }
+    }
+}
+
+
+if (isset($_REQUEST['crearExamen'])) {
+
+    if (isset($_SESSION['usuarioIniciado'])) {
+        $nombre = $_REQUEST['nombreExamen'];
+        $fechaInicio = $_REQUEST['fechaInicio'];
+        $fechaFin = $_REQUEST['fechaFin'];
+        $opcion = $_REQUEST['opciones'];
+        $usuarioAux = $_SESSION['usuarioIniciado'];
+        $examen = new Examen('NULL',$nombre, $usuarioAux->getId(), 'default', $fechaInicio, $fechaFin, $opcion);
+
+        if (AccesoADatos::addExamen($examen)) {
+            $examenesCreados = AccesoADatos::getListaExamenes();
+            $_SESSION['listaExamenes'] = $examenesCreados;
+            header('Location: ../Vistas/examen.php');
         }
     }
 }

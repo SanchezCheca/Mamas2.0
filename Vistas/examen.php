@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Examenes</title>
-          <!-- MDB icon -->
+        <!-- MDB icon -->
         <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -22,11 +22,14 @@ and open the template in the editor.
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
     </head>
-    
+
     <body>
-        
+        <?php
+        require_once '../Modelo/Examen.php';
+        session_start();
+        ?>
         <div class="container">
-             <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
+            <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
 
                 <!-- Navbar -->
 
@@ -60,44 +63,73 @@ and open the template in the editor.
                 </div>
 
             </header>
-            
-            
-        <main class="row ">
 
-            <div class="col-md-8 mx-auto mt-5 vh-80 d-flex flex-column justify-content-center align-items-center">
 
-                <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir">
+            <main class="row ">
 
-                    <button type="submit" name="anadirExamen" class="btn btn-rounded btn-primary  mb-5   marginmio"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Examen</button>
+                <div class="col-md-8 mx-auto mt-5 vh-80 d-flex flex-column justify-content-center align-items-center">
 
-                </form>
-            </div>
-            <div class="container">
-                    <div class="card mt-5">
-                        <div class="card-header  ">
-                           <input class="float-right ml-5" type="text" id="nombreExamen" readonly> 
-                            <input class="float-right " type="text" id="actdesac" readonly> 
-                        </div>
-                        <div class="card-body">
+                    <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir">
 
-                            <p class="card-text">Fecha inicio:  <input type="text" id="fi" readonly> </p> 
-                            <p class="card-text">Fecha de entrega: <input type="text" id="ff" readonly> </p>
-                            <a href="#!" class="btn btn-primary">Ver Examen</a>
-                        </div>
-                    </div>
+                        <button type="submit" name="anadirExamen" class="btn btn-rounded btn-primary  mb-5   marginmio"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Examen</button>
 
+                    </form>
                 </div>
-        </main>
-            
-             <?php include '../Recursos/footer.php'; ?>
+                <div class="container">
+                    <?php
+                    if (isset($_SESSION['listaExamenes'])) {
+                        $listaExamenes = $_SESSION['listaExamenes'];
+                        for ($i = 0; $i < sizeof($listaExamenes); $i++) {
+                            $examenAux = $listaExamenes[$i];
+                            ?>
+
+
+                            <div class="card mt-5">
+                                <div class="card-header">
+                                    <input class="float-left" type="text" id="nombreExamen" name="nombreExamen" value="<?php echo $examenAux->getNombre() ?>" readonly>
+                                    <?php
+                                    if ($examenAux->getOpcion() == 1) {
+                                        ?>
+                                    <select class="float-right" name="opcion">
+                                            <option value="1" selected>Activado</option>
+                                            <option value="2">Desactivado</option>
+                                        </select>
+                                        <?php
+                                    } else {
+                                        ?>
+
+                                        <select class="float-right" name="opcion">
+                                            <option value="1">Activado</option>
+                                            <option  value="2" selected>Desactivado</option>
+                                        </select>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Fecha inicio:  <input type="text" id="fi" name="fechaInicio" value="<?php echo $examenAux->getFechaInicio() ?>" readonly> </p> 
+                                    <p class="card-text">Fecha de entrega: <input type="text" id="ff" name="fehcaFin" value="<?php echo $examenAux->getFechaFin() ?>" readonly> </p>
+                                    <a href="<?php echo $ruta . 'anadirPreguntas.php'; ?>" class="btn btn-primary">Ver Examen</a>
+                                </div>
+                            </div>
+
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
+
+            </main>
+
+            <?php include '../Recursos/footer.php'; ?>
         </div>
-     
-    
-     
+
+
+
     </body>
-    
-    
-     <!-- jQuery -->
+
+
+    <!-- jQuery -->
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="../js/popper.min.js"></script>

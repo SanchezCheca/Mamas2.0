@@ -8,6 +8,7 @@
  */
 require_once 'Variables.php';
 require_once '../Modelo/Opcion.php';
+require_once '../Modelo/Examen.php';
 
 class AccesoADatos {
 
@@ -195,7 +196,7 @@ class AccesoADatos {
      * @param type $pass
      */
     public static function insertarUsuario($correo, $nombre, $pass) {
-        
+
 
         //ENCRIPTA LA CONTRASEÑA
         $passEncriptada = crypt($pass);
@@ -204,8 +205,8 @@ class AccesoADatos {
         $query = 'INSERT INTO usuarios VALUES(default, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
         if (!self::$conexion->query($query)) {
             $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
-            $resultado=false;
-        }else{
+            $resultado = false;
+        } else {
             $resultado = true;
         }
         self::closeDB();
@@ -338,45 +339,81 @@ class AccesoADatos {
 
         return $resultado;
     }
-    
-     public static function addPregunta($preguntados) {
-           self::new();
-           
-         $anadido=false;
-          $query = "INSERT INTO preguntas VALUES(id, '" . $preguntados->getCuerpo() . "'," . $preguntados->getTipo() . "," . $preguntados->getValor() . ")";
-           if (self::$conexion->query($query)) {
+
+    public static function addPregunta($preguntados) {
+        self::new();
+
+        $anadido = false;
+        $query = "INSERT INTO preguntas VALUES(id, '" . $preguntados->getCuerpo() . "'," . $preguntados->getTipo() . "," . $preguntados->getValor() . ")";
+        if (self::$conexion->query($query)) {
             $anadido = true;
         }
         self::closeDB();
 
         return $anadido;
-     }
+    }
 
-     
-     public static function getIdPregunta($titulo) {
-         self::new();
-          $query = "Select id from preguntas where cuerpo='" . $titulo . "'";
-          
-          if($resultado = self::$conexion->query($query)){
-              if($fila= mysqli_fetch_array($resultado)){
-                  $id = $fila['id'];
-              }
-          }
-            self::closeDB();
+    public static function getIdPregunta($titulo) {
+        self::new();
+        $query = "Select id from preguntas where cuerpo='" . $titulo . "'";
+
+        if ($resultado = self::$conexion->query($query)) {
+            if ($fila = mysqli_fetch_array($resultado)) {
+                $id = $fila['id'];
+            }
+        }
+        self::closeDB();
         return $id;
-     }
-     
-      public static function addOpciones($opciones) {
-           self::new();
-           
-         $anadido=false;
-          $query = "INSERT INTO opciones VALUES(NULL, " . $opciones->getIdPregunta() . "," . $opciones->getEsCorrecta() . ",'" . $opciones->getCuerpo() . "')";
-           if (self::$conexion->query($query)) {
+    }
+
+    public static function addOpciones($opciones) {
+        self::new();
+
+        $anadido = false;
+        $query = "INSERT INTO opciones VALUES(NULL, " . $opciones->getIdPregunta() . "," . $opciones->getEsCorrecta() . ",'" . $opciones->getCuerpo() . "')";
+        if (self::$conexion->query($query)) {
             $anadido = true;
         }
         self::closeDB();
 
         return $anadido;
-      }
-     
+    }
+
+    public static function addExamen($examen) {
+        self::new();
+        $add = false;
+
+        
+        $fechaI = date(DATE_RFC3339, strtotime($examen->getFechaInicio()));
+        $fechaF = date(DATE_RFC3339, strtotime($examen->getFechaFin()));
+
+
+        $sentencia = "INSERT INTO examenes VALUES(NULL,'" . $examen->getNombre() . "'," . $examen->getIdProfesor() . ", default," . $examen->getOpcion() . ",'" . $fechaI . "','" . $fechaF . "')";
+
+
+        if (mysqli_query(self::$conexion, $sentencia)) {
+            $add = true;
+        }
+
+        self::closeDB();
+        return $add;
+    }
+
+    public static function getListaExamenes() {
+        self::new();
+        $examenes = [];
+
+        $sentencia = "SELECT * FROM examenes";
+
+        if ($resultado = mysqli_query(self::$conexion, $sentencia)) {
+            while ($fila = mysqli_fetch_array($resultado)) {
+                $examenAux = new Examen($fila[0], $fila[1], $fila[2], $fila[3], $fila[5], $fila[6], $fila[4]);
+                $examenes[] = $examenAux;
+            }
+        }
+
+        self::closeDB();
+        return $examenes;
+    }
+
 }
