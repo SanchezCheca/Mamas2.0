@@ -19,6 +19,8 @@ if (isset($_REQUEST['eliminar'])) {
 
 
     if (AccesoADatos::eliminarUsuario($id)) {
+         $usuarios = AccesoADatos::getUsuarios();
+    $_SESSION['usuarios'] = $usuarios;
         header('Location: ../Vistas/administracionUsuario.php');
     }
     die();
@@ -32,6 +34,8 @@ if (isset($_REQUEST['editar'])) {
     $activado = $_REQUEST['activado'];
 
     if (AccesoADatos::editarUsuario($id, $nombre, $email, $rol, $activado)) {
+         $usuarios = AccesoADatos::getUsuarios();
+    $_SESSION['usuarios'] = $usuarios;
         header('Location: ../Vistas/administracionUsuario.php');
     }
     die();
