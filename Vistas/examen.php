@@ -110,7 +110,8 @@ and open the template in the editor.
                                     <div class="card-body">
                                         <p class="card-text">Fecha inicio:  <input type="text" id="fi" name="fechaInicio" value="<?php echo $examenAux->getFechaInicio() ?>" readonly> </p> 
                                         <p class="card-text">Fecha de entrega: <input type="text" id="ff" name="fechaFin" value="<?php echo $examenAux->getFechaFin() ?>" readonly> </p>
-                                        <button type="submit" class="btn btn-primary" name="verExamen">Ver Examen</button>
+                                        <button type="submit" class="btn btn-primary " name="verExamen"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir preguntas</button>
+                                         <button type="submit" class="btn btn-primary" name="verExamen"><i class="fas fa-trash-alt pr-2" style="font-size: 20px" aria-hidden="true"></i>Borrar examen</button>
                                     </div>
                                 </div>
                             </form>
