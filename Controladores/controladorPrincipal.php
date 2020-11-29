@@ -103,7 +103,7 @@ if (isset($_REQUEST['crearAula'])) {
         $mensaje = 'Se ha creado el aula "' . $nombre . '" con ' . count($alumnos) . ' alumno(s).';
 
         //Actualiza las aulas del usuario
-        $aula = new Aula($idAula, $nombre, $usuarioIniciado->getId());
+        $aula = new Aula($idAula, $nombre, $usuarioIniciado->getId(), $usuarioIniciado->getNombre());
         $aulasUsuario = $usuarioIniciado->getAulas();
 
         if ($aulasUsuario != null) {

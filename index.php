@@ -9,7 +9,6 @@
 
         <!-- Mi CSS -->
         <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/footerAbajo.css">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -22,7 +21,6 @@
         crossorigin="anonymous"></script>
 
         <script src="https://www.google.com/recaptcha/api.js?render=6LdGnuoZAAAAAJ8DW3PDVk_1XBeLLqMYc41gNGPd"></script>
-        <title>Mis aulas - Mamas 2.0</title>
 
         <!-- Recursos MDBootstrap -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -44,11 +42,11 @@
         </script>
 
 
-        <title>Página principal</title>
+        <title>Página principal - Mamas 2.0</title>
     </head>
-    <body style="height: 100%;" onload="validacion()">
-        <?php include 'Recursos/header.php'; ?>
-        <div class="container-fluid">
+    <body onload="validacion()">
+        <div class="container-fluid principal p-0 m-0">
+            <?php include 'Recursos/header.php'; ?>
             <main class="row col-md-12 align-items-center justify-content-center">
 
                 <!-- Default form login -->
@@ -80,13 +78,7 @@
 
                     <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                 </form>
-                <!-- Default form login -->
-
             </main>
-
-
-            <!-- Footer -->
-            
 
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
                     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -94,7 +86,7 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
-            
+
             <script src="js/validacion.js"></script> 
 
             <!-- jQuery -->
@@ -106,9 +98,8 @@
             <!-- MDB core JavaScript -->
             <script type="text/javascript" src="js/mdb.min.js"></script>
 
-
+            <?php include 'Recursos/footer.php'; ?>
         </div>
-        <?php include 'Recursos/footer.php'; ?>
-    </body>
 
+    </body>
 </html>

@@ -38,7 +38,7 @@ try {
     }
     
     
-    header('Location: Vistas/contrasena.php');
+    header('Location: index.php');
 } catch (Exception $e) {
     echo 'El mensaje no se ha podido enviar, error: ', $mail->ErrorInfo;
 }

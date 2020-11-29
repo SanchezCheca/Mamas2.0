@@ -22,9 +22,7 @@ if (isset($_SESSION['usuarioIniciado'])) {
 ?>
 
 <!-- Navigation -->
-<div class="container-fluid">
 <header>
-    
         <!--Navbar -->
         <nav class="px-5 navbar navbar-expand-lg navbar-dark primary-color-dark">
             <a class="navbar-brand" href="<?php echo $ruta . 'index.php'; ?>">Mamás2.0</a>
@@ -81,7 +79,6 @@ if (isset($_SESSION['usuarioIniciado'])) {
     
     <!--/.Navbar -->
 </header>
-</div>
 
 <!-- Mensajes de error/alerta -->
 <div class="row bg-warning mensaje">
