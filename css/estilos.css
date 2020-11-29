@@ -1,6 +1,7 @@
 .mensaje
 {
     position: absolute;
+    z-index: 1080;
     width: auto;
     left: 1vh;
     top: 10vh;
@@ -16,7 +17,15 @@
     cursor: s-resize;
 }
 
-.centrar
+.principal
 {
-    text-align: center;
+    position: relative;
+    min-height: 100vh;
+}
+
+footer
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

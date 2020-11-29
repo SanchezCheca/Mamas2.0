@@ -17,7 +17,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-        <title>Mis aulas - Mamas 2.0</title>
 
         <!-- Recursos MDBootstrap -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -26,21 +25,22 @@
         <link rel="stylesheet" href="../css/mdb.min.css">
         <link rel="stylesheet" href="../css/style.css">
 
-        <title>Mis aulas - Mamas 2.0</title>
+        <title>Aula - Mamas 2.0</title>
 
     </head>
     <body>
-        <?php include '../Recursos/header.php'; ?>
-        <div class="container">
-            <?php
-            if (isset($_SESSION['aula'])) {
-                $aula = $_SESSION['aula'];
-                $alumnosAula = $_SESSION['alumnosAula'];
-                ?>
-                <div class="row my-4">
-                    <?php
-                    //Si el usuario iniciado es el profesor a cargo del aula da la opción de editarla
-                    if ($usuarioIniciado->getRol() >= 1 && $aula->getIdProfesor() == $usuarioIniciado->getId()) {
+        <div class="container-fluid principal p-0 m-0">
+            <?php include '../Recursos/header.php'; ?>
+            <main class="row col-12 align-items-center justify-content-center p-4">
+                <?php
+                if (isset($_SESSION['aula'])) {
+                    $aula = $_SESSION['aula'];
+                    $alumnosAula = $_SESSION['alumnosAula'];
+                    ?>
+                    <div class="row my-4 border border-light p-4">
+                        <?php
+                        //Si el usuario iniciado es el profesor a cargo del aula da la opción de editarla
+                        if ($usuarioIniciado->getRol() >= 1 && $aula->getIdProfesor() == $usuarioIniciado->getId()) {
                             ?>
                             <div class="col-md-3"></div>
                             <div class="col-10 col-md-6 d-flex justify-content-center">
@@ -54,58 +54,60 @@
                             </div>
                             <div class="col-md-2"></div>
                             <?php
-                    } else {
+                        } else {
+                            ?>
+                            <div class="col-12 d-flex justify-content-center">
+                                <h1 class="h1-responsive"><?php echo $aula->getNombre(); ?></h1>
+                            </div>
+                            <?php
+                        }
                         ?>
                         <div class="col-12 d-flex justify-content-center">
-                            <h1 class="h1-responsive"><?php echo $aula->getNombre(); ?></h1>
+                            <p class="lead">Profesor a cargo: <a href="perfil.php?idUsuario=<?php echo $aula->getIdProfesor(); ?>" target="blank"><?php echo $aula->getNombreProfesor(); ?></a></p>
                         </div>
-                        <?php
-                    }
-                    ?>
-                    <div class="col-12 d-flex justify-content-center">
-                        <p class="lead">Profesor a cargo: <a href="perfil.php?idUsuario=<?php echo $aula->getIdProfesor(); ?>" target="blank"><?php echo $aula->getNombreProfesor(); ?></a></p>
-                    </div>
-                    <div class="col-12 mt-3 d-flex justify-content-center">
-                        <h4 class="h4-responsive">Alumnos</h4>
-                    </div>
+                        <div class="col-12 mt-3 d-flex justify-content-center">
+                            <h4 class="h4-responsive">Alumnos</h4>
+                        </div>
 
-                    <!-- Tabla de alumnos -->
-                    <div class="col-md-3"></div>
-                    <div class="col-12 col-md-6">
-                        <table class="table table-hover" id="tablaAlumnos">
-                            <caption>Listado de alumnos</caption>
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Correo</th>
-                                    <th scope="col">ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($alumnosAula as $o) {
-                                    echo '<tr>';
+                        <!-- Tabla de alumnos -->
+                        <div class="col-md-3"></div>
+                        <div class="col-12 col-md-6">
+                            <table class="table table-hover" id="tablaAlumnos">
+                                <caption>Listado de alumnos</caption>
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Correo</th>
+                                        <th scope="col">ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($alumnosAula as $o) {
+                                        echo '<tr>';
 
-                                    echo '<td>' . $o->getNombre() . '</td>';
-                                    echo '<td>' . $o->getCorreo() . '</td>';
-                                    echo '<td>' . $o->getId() . '</td>';
+                                        echo '<td>' . $o->getNombre() . '</td>';
+                                        echo '<td>' . $o->getCorreo() . '</td>';
+                                        echo '<td>' . $o->getId() . '</td>';
 
-                                    echo '</tr>';
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-3"></div>
                     </div>
-                    <div class="col-md-3"></div>
-                </div>
-                <?php
-            } else {
-                $mensaje = 'Ha ocurrido algun error';
-                $_SESSION['mensaje'] = $mensaje;
-                header('Location: ../Vistas/aulas.php');
-            }
-            ?>
+                    <?php
+                } else {
+                    $mensaje = 'Ha ocurrido algun error';
+                    $_SESSION['mensaje'] = $mensaje;
+                    header('Location: ../Vistas/aulas.php');
+                }
+                ?>
+            </main>
+            <?php include '../Recursos/footer.php'; ?>
         </div>
-        <?php include '../Recursos/footer.php'; ?>
+
     </body>
 </html>

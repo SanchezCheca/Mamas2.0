@@ -64,24 +64,25 @@ class AccesoADatos {
                 $aulas = null;
                 if ($rol == 0) {
                     //El usuario es un alumno
-                    $consultaAulas = 'SELECT * FROM aulas WHERE id = (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
-                    $resultadoAulas = self::$conexion->query($consultaAulas);
+                    $consultaAulas = 'SELECT * FROM aulas WHERE id IN (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
 
-                    while ($filaAula = $resultadoAulas->fetch_assoc()) {
-                        $idAula = $filaAula['id'];
-                        $idProfesor = $filaAula['idProfesor'];
-                        $nombreAula = $filaAula['nombre'];
+                    if ($resultadoAulas = self::$conexion->query($consultaAulas)) {
+                        while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                            $idAula = $filaAula['id'];
+                            $idProfesor = $filaAula['idProfesor'];
+                            $nombreAula = $filaAula['nombre'];
 
-                        //Recupera el NOMBRE del profesor a cargo
-                        $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $idProfesor;
-                        $resultadoExtra = self::$conexion->query($consultaExtra);
-                        $nombreProfesor = null;
-                        if ($filaExtra = $resultadoExtra->fetch_assoc()) {
-                            $nombreProfesor = $filaExtra['nombre'];
+                            //Recupera el NOMBRE del profesor a cargo
+                            $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $idProfesor;
+                            $resultadoExtra = self::$conexion->query($consultaExtra);
+                            $nombreProfesor = null;
+                            if ($filaExtra = $resultadoExtra->fetch_assoc()) {
+                                $nombreProfesor = $filaExtra['nombre'];
+                            }
+
+                            $aula = new Aula($idAula, $nombreAula, $idProfesor, $nombreProfesor);
+                            $aulas[] = $aula;
                         }
-
-                        $aula = new Aula($idAula, $nombreAula, $idProfesor, $nombreProfesor);
-                        $aulas[] = $aula;
                     }
                 } else {
                     //El usuario es un profesor
@@ -101,7 +102,7 @@ class AccesoADatos {
             }
         }
         $result->free();
-        $resultadoAulas->free();
+
         self::closeDB();
 
         return $usuario;

@@ -25,84 +25,88 @@
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/mdb.min.css">
         <link rel="stylesheet" href="../css/style.css">
-        
-        
+
+
         <title>Crear aula - Mamas 2.0</title>
-        
+
         <!-- JS necesario -->
         <script src="../js/aulas.js"></script>
 
     </head>
     <body onload="cargar()">
-        <div class="container">
-            <?php include '../Recursos/header.php'; ?>;
-            <?php
-            if (isset($_SESSION['listaAlumnos'])) {
-                $listaAlumnos = $_SESSION['listaAlumnos'];
-            }
-            ?>
-            <!-- Formulario aceptar -->
-            <div class="row">
-                <div class="col-12 d-flex justify-content-center py-2">
-                    <form id="formularioAula" name="crearAula" action="../Controladores/controladorPrincipal.php" method="POST">
-                        <div class="form-group d-flex justify-content-center">
-                            <input type="text" name="nombre" class="form-control" placeholder="Nombre del Aula" required>
-                            <input type="submit" class="btn btn-success" name="crearAula" value="Crear Aula">
-                        </div>
-                    </form>
+        <div class="container-fluid principal p-0 m-0">
+            <?php include '../Recursos/header.php'; ?>
+            <main class="row col-12 align-items-center justify-content-center p-4">
+                
+                <?php
+                if (isset($_SESSION['listaAlumnos'])) {
+                    $listaAlumnos = $_SESSION['listaAlumnos'];
+                }
+                ?>
+                
+                <!-- Formulario aceptar -->
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center py-2">
+                        <form id="formularioAula" name="crearAula" action="../Controladores/controladorPrincipal.php" method="POST">
+                            <div class="form-inline d-flex justify-content-center">
+                                <input type="text" name="nombre" class="form-control" placeholder="Nombre del Aula" required>
+                                <input type="submit" class="btn btn-success" name="crearAula" value="Crear">
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Caja para añadir alumnos --> 
-            <div class="row justify-content-center" id="cajaGeneral">
-                <div class="col-sm-3"></div>
-                <div class="col-12 col-sm-6" id="cajaCrear">
-                    <h4>Añadir alumnos</h4>
-                    <table class="table table-hover" id="tablaAdded">
-                        <caption>Alumnos añadidos</caption>
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col"></th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
-                    <table class="table table-hover" id="tablaAlumnos">
-                        <caption>Listado de alumnos</caption>
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col"></th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($listaAlumnos as $o) {
-                                echo '<tr>';
+                <!-- Caja para añadir alumnos --> 
+                <div class="row d-flex justify-content-center" id="cajaGeneral">
+                    <div class="col-sm-3"></div>
+                    <div class="col-12 col-sm-6" id="cajaCrear">
+                        <h4>Añadir alumnos</h4>
+                        <table class="table table-hover" id="tablaAdded">
+                            <caption>Alumnos añadidos</caption>
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col"></th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                echo '<td>' . $o->id . '</td>';
-                                echo '<td>' . $o->correo . '</td>';
-                                echo '<td>' . $o->nombre . '</td>';
-                                echo '<td><div class="bg-info text-light d-flex justify-content-center rounded annadir">Añadir</div></td>';
+                            </tbody>
+                        </table>
+                        <table class="table table-hover" id="tablaAlumnos">
+                            <caption>Listado de alumnos</caption>
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col"></th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($listaAlumnos as $o) {
+                                    echo '<tr>';
 
-                                echo '</tr>';
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                    echo '<td>' . $o->id . '</td>';
+                                    echo '<td>' . $o->correo . '</td>';
+                                    echo '<td>' . $o->nombre . '</td>';
+                                    echo '<td><div class="bg-info text-light d-flex justify-content-center rounded annadir">Añadir</div></td>';
+
+                                    echo '</tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-3"></div>
                 </div>
-                <div class="col-sm-3"></div>
-            </div>
-
-            
+            </main>
+            <?php include '../Recursos/footer.php'; ?>
         </div>
-        <?php include '../Recursos/footer.php'; ?>
+
+
     </body>
 </html>
