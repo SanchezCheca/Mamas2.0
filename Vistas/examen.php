@@ -64,61 +64,58 @@ and open the template in the editor.
 
             </header>
 
-
-            <main class="row ">
-
-                <div class="col-md-8 mx-auto mt-5 vh-80 d-flex flex-column justify-content-center align-items-center">
-
-                    <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir">
-
-                        <button type="submit" name="anadirExamen" class="btn btn-rounded btn-primary  mb-5   marginmio"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Examen</button>
-
+            <main class="row mt-5">
+                <div class="col-md-12">
+                    <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir" class="row">
+                        <button type="submit" name="anadirExamen" class="col-md-3 mx-auto btn btn-rounded btn-primary  mb-5   marginmio"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Examen</button>
                     </form>
                 </div>
-                <div class="container">
-                    <?php
-                    if (isset($_SESSION['listaExamenes'])) {
-                        $listaExamenes = $_SESSION['listaExamenes'];
-                        for ($i = 0; $i < sizeof($listaExamenes); $i++) {
-                            $examenAux = $listaExamenes[$i];
-                            ?>
+                <div class="col-md-12">
+                    <div class="row">
+                        <?php
+                        if (isset($_SESSION['listaExamenes'])) {
+                            $listaExamenes = $_SESSION['listaExamenes'];
+                            for ($i = 0; $i < sizeof($listaExamenes); $i++) {
+                                $examenAux = $listaExamenes[$i];
+                                ?>
 
-                            <form action="../Controladores/controladorPrincipal.php" name="examen" method="POST">
-                                <div class="card mt-5">
-                                    <div class="card-header">
-                                        <input type="hidden" name="idExamen" value="<?php $examenAux->getId()?>">
-                                        <input class="float-left" type="text" id="nombreExamen" name="nombreExamen" value="<?php echo $examenAux->getNombre() ?>" readonly>
-                                        <?php
-                                        if ($examenAux->getOpcion() == 1) {
-                                            ?>
-                                            <select class="float-right" name="opcion">
-                                                <option value="1" selected>Activado</option>
-                                                <option value="2">Desactivado</option>
-                                            </select>
+                                <form action="../Controladores/controladorPrincipal.php" name="examen" method="POST" class="col-md-6">
+                                    <div class="card mt-5 mx-2">
+                                        <div class="card-header">
+                                            <input type="hidden" name="idExamen" value="<?php $examenAux->getId() ?>">
+                                            <input class="float-left" type="text" id="nombreExamen" name="nombreExamen" value="<?php echo $examenAux->getNombre() ?>" readonly>
                                             <?php
-                                        } else {
-                                            ?>
+                                            if ($examenAux->getOpcion() == 1) {
+                                                ?>
+                                                <select class="float-right" name="opcion">
+                                                    <option value="1" selected>Activado</option>
+                                                    <option value="2">Desactivado</option>
+                                                </select>
+                                                <?php
+                                            } else {
+                                                ?>
 
-                                            <select class="float-right" name="opcion">
-                                                <option value="1">Activado</option>
-                                                <option  value="2" selected>Desactivado</option>
-                                            </select>
-                                            <?php
-                                        }
-                                        ?>
+                                                <select class="float-right" name="opcion">
+                                                    <option value="1">Activado</option>
+                                                    <option  value="2" selected>Desactivado</option>
+                                                </select>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">Fecha inicio:  <input type="text" id="fi" name="fechaInicio" value="<?php echo $examenAux->getFechaInicio() ?>" readonly> </p> 
+                                            <p class="card-text">Fecha de entrega: <input type="text" id="ff" name="fechaFin" value="<?php echo $examenAux->getFechaFin() ?>" readonly> </p>
+                                            <button type="submit" class="btn btn-primary " name="verExamen"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir preguntas</button>
+                                            <button type="submit" class="btn btn-primary" name="verExamen"><i class="fas fa-trash-alt pr-2" style="font-size: 20px" aria-hidden="true"></i>Borrar examen</button>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <p class="card-text">Fecha inicio:  <input type="text" id="fi" name="fechaInicio" value="<?php echo $examenAux->getFechaInicio() ?>" readonly> </p> 
-                                        <p class="card-text">Fecha de entrega: <input type="text" id="ff" name="fechaFin" value="<?php echo $examenAux->getFechaFin() ?>" readonly> </p>
-                                        <button type="submit" class="btn btn-primary " name="verExamen"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir preguntas</button>
-                                         <button type="submit" class="btn btn-primary" name="verExamen"><i class="fas fa-trash-alt pr-2" style="font-size: 20px" aria-hidden="true"></i>Borrar examen</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <?php
+                                </form>
+                                <?php
+                            }
                         }
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
 
             </main>

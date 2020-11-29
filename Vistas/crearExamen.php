@@ -21,7 +21,7 @@ and open the template in the editor.
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
-       
+
     </head>
 
     <body>
@@ -62,30 +62,40 @@ and open the template in the editor.
             </header>
 
 
-            <main class="row ">
-                <div class="row">
-                    <div class="col-md-12 mt-5 mx-auto">
-                        <form class="border border-light p-5" action="../Controladores/controladorPrincipal.php" method="POST">
+            <main class="row mt-5">
+                <div class="col-md-7 mt-5 mx-auto">
+                    <form class="border border-light p-5" action="../Controladores/controladorPrincipal.php" method="POST">
 
-                            <p class="h4 mb-4 text-center">Crear Examen</p>
+                        <p class="h4 mb-4 text-center">Crear Examen</p>
+                        <div class="my-3">
+                            <label for="exampleForm2">Nombre del examen: </label>
+                            <input type="text" id="exampleForm2" name="nombreExamen" class="form-control ">
+                        </div>
 
-                            Nombre del Examen: <input type="text" name="nombreExamen" id="defaultLoginFormEmail" class="form-control mb-4">
-                            
-                          Fecha de inicio: <input class="form-control w-auto" type="datetime-local" name="fechaInicio" value=""/>
-                          Fin del examen: <input class="form-control w-auto" type="datetime-local" name="fechaFin" value=""/>
-
-
-                            <select name="opciones" class="browser-default custom-select mb-4" id="select">
-                                <option value="" disabled selected>Elige una Opción</option>
-                                <option value="1">Activado</option>
-                                <option value="2">Desactivado</option>
-
-                            </select>
-                            <button class="btn btn-info btn-block my-4" type="submit" name="crearExamen">Crear</button>
+                        <div class="my-3">
+                            <label for="exampleForm2">Fecha de inicio: </label>
+                            <input type="text" id="exampleForm2" name="fechaInicio" class="form-control ">
+                        </div>
 
 
-                        </form>
-                    </div>
+                        <div class="my-3">
+                            <label for="exampleForm2">Fin del examen: </label>
+                            <input type="text" id="exampleForm2" name="fechaFin" class="form-control ">
+                        </div>
+
+
+
+
+                        <select name="opciones" class="browser-default custom-select mb-4 " id="select">
+                            <option value="" disabled selected>Elige una Opción</option>
+                            <option value="1">Activado</option>
+                            <option value="2">Desactivado</option>
+
+                        </select>
+                        <button class="btn btn-info btn-block my-4" type="submit" name="crearExamen">Crear</button>
+
+
+                    </form>
                 </div>
 
             </main>
@@ -108,5 +118,5 @@ and open the template in the editor.
     <script type="text/javascript" src="../js/mdb.min.js"></script>
     <!-- Your custom scripts (optional) -->
     <script type="text/javascript"></script>
-   
+
 </html>

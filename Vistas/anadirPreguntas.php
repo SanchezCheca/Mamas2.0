@@ -99,10 +99,10 @@ and open the template in the editor.
 
 
             <main class="row mt-5">
-                <div class="row vh-80 d-flex flex-column justify-content-center ">
-                    <div class="container">
+                <div class="col-md-12 vh-80 d-flex flex-column justify-content-center ">
+                    <div class="container row">
 
-                        <div class="accordion" id="accordionExample275">
+                        <div class="accordion col-md-6" id="accordionExample275">
 
                             <?php
                             if (isset($tipoTexto)) {
@@ -201,10 +201,10 @@ and open the template in the editor.
                         </div>
 
                         <!-- Formulario Añadir pregunta. -->
-                        <div>
+                        <div class="col-md-6">
                             <h3><?php echo $titulo ?></h3>
                             <form action="../Controladores/controladorPrincipal.php" method="POST">
-                                <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 200px; widows: 400px; border: 1px double black;">
+                                <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 150px; border: 1px double black;">
 
                                 </div>
                                 <button type="submit" class="btn blue-gradient w-100" name="addPregunta">Añadir</button>
