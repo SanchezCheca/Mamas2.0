@@ -72,7 +72,15 @@ class AccesoADatos {
                         $idProfesor = $filaAula['idProfesor'];
                         $nombreAula = $filaAula['nombre'];
 
-                        $aula = new Aula($idAula, $nombreAula, $idProfesor);
+                        //Recupera el NOMBRE del profesor a cargo
+                        $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $idProfesor;
+                        $resultadoExtra = self::$conexion->query($consultaExtra);
+                        $nombreProfesor = null;
+                        if ($filaExtra = $resultadoExtra->fetch_assoc()) {
+                            $nombreProfesor = $filaExtra['nombre'];
+                        }
+
+                        $aula = new Aula($idAula, $nombreAula, $idProfesor, $nombreProfesor);
                         $aulas[] = $aula;
                     }
                 } else {
@@ -84,7 +92,7 @@ class AccesoADatos {
                         $idAula = $filaAula['id'];
                         $nombreAula = $filaAula['nombre'];
 
-                        $aula = new Aula($idAula, $nombreAula, $id);
+                        $aula = new Aula($idAula, $nombreAula, $id, $nombre);
                         $aulas[] = $aula;
                     }
                 }
@@ -107,6 +115,7 @@ class AccesoADatos {
     public static function getAulas($rol, $id) {
         //Contraseña correcta, carga las aulas del alumno/profesor
         $aulas = null;
+        self::new();
         if ($rol == 0) {
             //El usuario es un alumno
             $consultaAulas = 'SELECT * FROM aulas WHERE id = (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
@@ -116,23 +125,46 @@ class AccesoADatos {
                 $idAula = $filaAula['id'];
                 $idProfesor = $filaAula['idProfesor'];
                 $nombreAula = $filaAula['nombre'];
+                
+                self::closeDB();
+                self::new();
 
-                $aula = new Aula($idAula, $nombreAula, $idProfesor);
+                //Recupera el NOMBRE del profesor a cargo
+                $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $idProfesor;
+                $resultadoExtra = self::$conexion->query($consultaExtra);
+                $nombreProfesor = null;
+                if ($filaExtra = $resultadoExtra->fetch_assoc()) {
+                    $nombreProfesor = $filaExtra['nombre'];
+                }
+
+                $aula = new Aula($idAula, $nombreAula, $idProfesor, $nombreProfesor);
                 $aulas[] = $aula;
             }
         } else {
             //El usuario es un profesor
-            $consultaAulas = 'SELECT * FROM aulas WHERE idProfesor = ' . $id;
+            $consultaAulas = 'SELECT * FROM aulas WHERE idProfesor=' . $id;
             $resultadoAulas = self::$conexion->query($consultaAulas);
 
             while ($filaAula = $resultadoAulas->fetch_assoc()) {
                 $idAula = $filaAula['id'];
                 $nombreAula = $filaAula['nombre'];
+                
+                self::closeDB();
+                self::new();
 
-                $aula = new Aula($idAula, $nombreAula, $id);
+                //Recupera el NOMBRE del profesor a cargo
+                $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $id;
+                $resultadoExtra = self::$conexion->query($consultaExtra);
+                $nombreProfesor = null;
+                if ($filaExtra = $resultadoExtra->fetch_assoc()) {
+                    $nombreProfesor = $filaExtra['nombre'];
+                }
+
+                $aula = new Aula($idAula, $nombreAula, $id, $nombreProfesor);
                 $aulas[] = $aula;
             }
         }
+        self::closeDB();
         return $aulas;
     }
 
@@ -194,7 +226,7 @@ class AccesoADatos {
      * @param type $pass
      */
     public static function insertarUsuario($correo, $nombre, $pass) {
-        
+
 
         //ENCRIPTA LA CONTRASEÑA
         $passEncriptada = crypt($pass);
@@ -203,8 +235,8 @@ class AccesoADatos {
         $query = 'INSERT INTO usuarios VALUES(default, 0, "' . $correo . '", "' . $passEncriptada . '", "' . $nombre . '", 0)';
         if (!self::$conexion->query($query)) {
             $resultado = 'Error al insertar: ' . mysqli_error(self::$conexion);
-            $resultado=false;
-        }else{
+            $resultado = false;
+        } else {
             $resultado = true;
         }
         self::closeDB();
@@ -258,6 +290,23 @@ class AccesoADatos {
     }
 
     /**
+     * Actualiza el nombre de un aula dada
+     * @param type $idAula
+     * @param type $nombre
+     * @return type
+     */
+    public static function editarAula($idAula, $nombre) {
+        $resultado = null;
+
+        self::new();
+        $query = 'UPDATE aulas SET nombre="' . $nombre . '" WHERE id=' . $idAula;
+        $resultado = self::$conexion->query($query);
+        self::closeDB();
+
+        return $resultado;
+    }
+
+    /**
      * Asigna el alumno con id $idAlumno al aula con id $idAula
      */
     public static function asignarAlumnoAula($idAula, $idAlumno) {
@@ -271,6 +320,116 @@ class AccesoADatos {
         self::closeDB();
 
         return $resultado;
+    }
+
+    /**
+     * Retira a un alumno con id $idAlumno del aula con id $idAula
+     */
+    public static function retirarAlumnoAula($idAula, $idAlumno) {
+        $resultado = true;
+
+        self::new();
+        $query = 'DELETE FROM aula_alumno WHERE idAula=' . $idAula . ' AND idAlumno=' . $idAlumno;
+        if (!self::$conexion->query($query)) {
+            $resultado = 'Error al eliminar: ' . mysqli_error(self::$conexion);
+        }
+        self::closeDB();
+
+        return $resultado;
+    }
+
+    /**
+     * Devuelve un vector con todos los alumnos que pertenecen al aula definida por su id
+     * @param type $idAula
+     */
+    public static function getAlumnosDeAula($idAula) {
+        $alumnos = [];
+
+        self::new();
+        $query = 'SELECT id, nombre, correo FROM usuarios WHERE id IN (SELECT idAlumno FROM aula_alumno WHERE idAula=' . $idAula . ') ORDER BY nombre';
+        if ($resultado = self::$conexion->query($query)) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $id = $fila['id'];
+                $nombre = $fila['nombre'];
+                $correo = $fila['correo'];
+
+                $alumnos[] = new Usuario($id, null, $correo, $nombre, null, null); //Devuelve solo los valores importantes para mostrar una lista
+            }
+        }
+        $resultado->free();
+        self::closeDB();
+        return $alumnos;
+    }
+
+    /**
+     * Recupera un aula por su id
+     * @param type $id
+     */
+    public static function getAula($id) {
+        $aula = null;
+        $query = 'SELECT * FROM aulas WHERE id=' . $id;
+
+        self::new();
+        $resultado = self::$conexion->query($query);
+        if ($fila = $resultado->fetch_assoc()) {
+            $id = $fila['id'];
+            $idProfesor = $fila['idProfesor'];
+            $nombre = $fila['nombre'];
+
+            //Recupera el NOMBRE del profesor a cargo
+            $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $idProfesor;
+            $resultadoExtra = self::$conexion->query($consultaExtra);
+            $nombreProfesor = null;
+            if ($filaExtra = $resultadoExtra->fetch_assoc()) {
+                $nombreProfesor = $filaExtra['nombre'];
+            }
+
+            $aula = new Aula($id, $nombre, $idProfesor, $nombreProfesor);
+        }
+        $resultado->free();
+        self::closeDB();
+        return $aula;
+    }
+
+    /**
+     * Devuelve todos los usuarios con rol 0 (alumno), activos y que NO se encuentren en el aula con id $idAula
+     * @param type $idAula
+     */
+    public static function getAlumnosExceptoAula($idAula) {
+        self::new();
+        $usuarios = [];
+
+        $query = 'SELECT * FROM usuarios WHERE '
+                . 'rol=0 AND '
+                . 'activo=1 AND '
+                . 'id NOT IN (SELECT idAlumno FROM aula_alumno WHERE idAula=' . $idAula . ')';
+        if ($resultado = self::$conexion->query($query)) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $id = $fila['id'];
+                $correo = $fila['correo'];
+                $nombre = $fila['nombre'];
+
+                $usuario = new Usuario($id, 0, $correo, $nombre, 1, null);
+                $usuarios[] = $usuario;
+            }
+            $resultado->free();
+        }
+
+        self::closeDB();
+        return $usuarios;
+    }
+    
+    /**
+     * Elimina el aula con id dado
+     * @param type $idAula
+     */
+    public static function eliminarAula($idAula) {
+        self::new();
+        
+        $query = 'DELETE FROM aulas WHERE id=' . $idAula;
+        self::$conexion->query($query);
+        
+        self::closeDB();
     }
 
     public static function getUsuarios() {

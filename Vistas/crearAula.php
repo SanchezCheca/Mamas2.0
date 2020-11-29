@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Mi CSS -->
-        <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="../css/estilos.css">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -46,7 +46,7 @@
                 <div class="col-12 d-flex justify-content-center py-2">
                     <form id="formularioAula" name="crearAula" action="../Controladores/controladorPrincipal.php" method="POST">
                         <div class="form-group d-flex justify-content-center">
-                            <input type="text" name="nombre" class="form-control" placeholder="Nombre del Aula">
+                            <input type="text" name="nombre" class="form-control" placeholder="Nombre del Aula" required>
                             <input type="submit" class="btn btn-success" name="crearAula" value="Crear Aula">
                         </div>
                     </form>
@@ -101,7 +101,8 @@
                 <div class="col-sm-3"></div>
             </div>
 
-            <?php include '../Recursos/footer.php'; ?>
+            
         </div>
+        <?php include '../Recursos/footer.php'; ?>
     </body>
 </html>

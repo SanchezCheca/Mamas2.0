@@ -22,10 +22,11 @@ if (isset($_SESSION['usuarioIniciado'])) {
 ?>
 
 <!-- Navigation -->
+<div class="container-fluid">
 <header>
-    <div class="container-fluid">
+    
         <!--Navbar -->
-        <nav class="mb-1 px-5 navbar navbar-expand-lg navbar-dark default-color">
+        <nav class="px-5 navbar navbar-expand-lg navbar-dark primary-color-dark">
             <a class="navbar-brand" href="<?php echo $ruta . 'index.php'; ?>">Mamás2.0</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
                     aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,10 +78,10 @@ if (isset($_SESSION['usuarioIniciado'])) {
                 ?>
             </div>
         </nav>
-    </div>
+    
     <!--/.Navbar -->
 </header>
-
+</div>
 
 <!-- Mensajes de error/alerta -->
 <div class="row bg-warning mensaje">
