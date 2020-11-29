@@ -1,12 +1,6 @@
 <!DOCTYPE html>
-
-
-<html lang="en">
+<html lang="es">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +17,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-        <title>Mis aulas - Mamas 2.0</title>
 
         <!-- Recursos MDBootstrap -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -32,30 +25,21 @@
         <link rel="stylesheet" href="../css/mdb.min.css">
         <link rel="stylesheet" href="../css/style.css">
 
-        <!-- Bootstrap CSS -->
+        <title>ADMIN - Mamas 2.0</title>
 
-        <title>Página principal</title>
         <!-- MDB icon -->
         <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-        <!-- Google Fonts Roboto -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <!-- Material Design Bootstrap -->
-        <link rel="stylesheet" href="../css/mdb.min.css">
         <!-- Your custom styles (optional) -->
-        <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
     </head>
     <body style="height: 100%;">
-        <div  class="container-fluid principal p-0 m-0">
+        <div class="container-fluid principal p-0 m-0">
             <?php include '../Recursos/header.php'; ?>
             <main class="row col-12 align-items-center justify-content-center">
                 <div class="col-md-8 mx-auto d-flex flex-column justify-content-center align-items-center">
-                    <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir">
-                        <button type="submit" name="cargar" class="btn btn-rounded btn-primary mt-4"><i class="fas fa-redo-alt pr-2" style="font-size: 20px" aria-hidden="true"></i>Cargar Usuarios</button>
+                    <form class="form-inline mt-4" action="../Controladores/controladorCRUD.php" method="POST" name="anadir">
+                        <button type="submit" name="cargar" class="btn btn-rounded btn-primary"><i class="fas fa-redo-alt pr-2" style="font-size: 20px" aria-hidden="true"></i>Cargar Usuarios</button>
+                        <button type="submit" class="waves-effect btn btn-primary" name="anadir" >+ Añadir Usuario</button>
                     </form>
                     <div class="table-responsive text-nowrap ">
                         <table class="table ">
@@ -67,7 +51,6 @@
                                     <th scope="col"><i class="fas fa-dice pr-2" style="font-size: 30px"></i>Rol</th>
                                     <th scope="col"><i class="fas fa-check pr-2" style="font-size: 30px"></i>Activado</th>
                                     <th scope="col"><i class="fas fa-user pr-2" style="font-size: 30px"></i>Editar/Eliminar</th>
-
                             </thead>
                             <tbody>
                                 <?php
@@ -95,33 +78,12 @@
                                 }
                             }
                             ?>
-
-
-
                             </tbody>
                         </table>
-
-
                     </div>
-
                 </div>
-
-
             </main>
             <?php include '../Recursos/footer.php'; ?>
         </div>
-
-        <!-- jQuery -->
-        <script type="text/javascript" src="../js/jquery.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="../js/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="../js/mdb.min.js"></script>
-        <!-- Your custom scripts (optional) -->
-        <script type="text/javascript"></script>
-
-
     </body>
 </html>
