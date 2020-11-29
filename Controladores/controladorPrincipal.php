@@ -225,3 +225,49 @@ if (isset($_REQUEST['eliminarAula'])) {
         header('Location: ../index.php');
     }
 }
+
+/**
+ * VIENE DE 'EDITAR PERFIL' EN LA VISTA 'PERFIL'
+ */
+if (isset($_REQUEST['irAEditarPerfil'])) {
+    header('Location: ../Vistas/editarPerfil.php');
+}
+
+/**
+ * VIENE DE 'RECUPERAR CONTRASEÑA' EN LA VISTA 'PERFIL'
+ */
+if (isset($_REQUEST['irARecuperarPass'])) {
+    header('Location: ../Vistas/contrasena.php');
+}
+
+/**
+ * VIENE DE 'CANCELAR' EN LA VISTA 'EDITAR PERFIL'
+ */
+if (isset($_REQUEST['cancelarEditarPerfil'])) {
+    header('Location: ../Vistas/perfil.php');
+}
+
+/**
+ * VIENE DE 'EDITAR PERFIL'
+ */
+if (isset($_REQUEST['editarPerfil'])) {
+    if (isset($_SESSION['usuarioIniciado'])) {
+        $usuarioIniciado = $_SESSION['usuarioIniciado'];
+        $nombre = $_REQUEST['nombre'];
+        $correo = $_REQUEST['correo'];
+        
+        AccesoADatos::editarPerfil($usuarioIniciado->getId(), $nombre, $correo);
+        
+        //Actualiza el usuario
+        $usuarioIniciado = AccesoADatos::getUsuarioPorId($usuarioIniciado->getId());
+        $_SESSION['usuarioIniciado'] = $usuarioIniciado;
+        
+        $mensaje = 'Has modificado tu perfil';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../Vistas/perfil.php');
+    } else {
+        $mensaje = 'Ha ocurrido algún error';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../index.php');
+    }
+}

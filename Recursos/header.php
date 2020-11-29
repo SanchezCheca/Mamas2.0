@@ -68,7 +68,7 @@ if (isset($_SESSION['usuarioIniciado'])) {
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-default"
                                  aria-labelledby="navbarDropdownMenuLink-333">
-                                <a class="dropdown-item" href="#">Mi perfil</a>
+                                <a class="dropdown-item" href="<?php echo $ruta . 'Vistas/perfil.php'; ?>">Mi perfil</a>
                                 <a class="dropdown-item" href="<?php echo $ruta . 'Controladores/controladorPrincipal.php?cerrarSesion=1'; ?>">Cerrar sesión</a>
                             </div>
                         </li>
