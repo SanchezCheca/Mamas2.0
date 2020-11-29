@@ -125,7 +125,7 @@ class AccesoADatos {
                 $idAula = $filaAula['id'];
                 $idProfesor = $filaAula['idProfesor'];
                 $nombreAula = $filaAula['nombre'];
-                
+
                 self::closeDB();
                 self::new();
 
@@ -148,7 +148,7 @@ class AccesoADatos {
             while ($filaAula = $resultadoAulas->fetch_assoc()) {
                 $idAula = $filaAula['id'];
                 $nombreAula = $filaAula['nombre'];
-                
+
                 self::closeDB();
                 self::new();
 
@@ -191,7 +191,44 @@ class AccesoADatos {
             $nombre = $fila['nombre'];
             $activo = $fila['activo'];
 
-            $usuario = new Usuario($id, $rol, $correo, $nombre, $activo);
+            //RECUPERA LAS AULAS
+            $aulas = null;
+            if ($rol == 0) {
+                //El usuario es un alumno
+                $consultaAulas = 'SELECT * FROM aulas WHERE id = (SELECT idAula FROM aula_alumno WHERE idAlumno = ' . $id . ')';
+                $resultadoAulas = self::$conexion->query($consultaAulas);
+
+                while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                    $idAula = $filaAula['id'];
+                    $idProfesor = $filaAula['idProfesor'];
+                    $nombreAula = $filaAula['nombre'];
+
+                    //Recupera el NOMBRE del profesor a cargo
+                    $consultaExtra = 'SELECT nombre FROM usuarios WHERE id=' . $idProfesor;
+                    $resultadoExtra = self::$conexion->query($consultaExtra);
+                    $nombreProfesor = null;
+                    if ($filaExtra = $resultadoExtra->fetch_assoc()) {
+                        $nombreProfesor = $filaExtra['nombre'];
+                    }
+
+                    $aula = new Aula($idAula, $nombreAula, $idProfesor, $nombreProfesor);
+                    $aulas[] = $aula;
+                }
+            } else {
+                //El usuario es un profesor
+                $consultaAulas = 'SELECT * FROM aulas WHERE idProfesor = ' . $id;
+                $resultadoAulas = self::$conexion->query($consultaAulas);
+
+                while ($filaAula = $resultadoAulas->fetch_assoc()) {
+                    $idAula = $filaAula['id'];
+                    $nombreAula = $filaAula['nombre'];
+
+                    $aula = new Aula($idAula, $nombreAula, $id, $nombre);
+                    $aulas[] = $aula;
+                }
+            }
+
+            $usuario = new Usuario($id, $rol, $correo, $nombre, $activo, $aulas);
         }
         $result->free();
         self::closeDB();
@@ -418,17 +455,32 @@ class AccesoADatos {
         self::closeDB();
         return $usuarios;
     }
-    
+
     /**
      * Elimina el aula con id dado
      * @param type $idAula
      */
     public static function eliminarAula($idAula) {
         self::new();
-        
+
         $query = 'DELETE FROM aulas WHERE id=' . $idAula;
         self::$conexion->query($query);
-        
+
+        self::closeDB();
+    }
+
+    /**
+     * Edita el nombre y correo del perfil en cuestion
+     * @param type $id
+     * @param type $nombre
+     * @param type $correo
+     */
+    public static function editarPerfil($id, $nombre, $correo) {
+        self::new();
+
+        $query = 'UPDATE usuarios SET nombre="' . $nombre . '", correo="' . $correo . '" WHERE id=' . $id;
+        self::$conexion->query($query);
+
         self::closeDB();
     }
 

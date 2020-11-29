@@ -63,7 +63,7 @@
                     }
                     ?>
                     <div class="col-12 d-flex justify-content-center">
-                        <p class="lead">Profesor a cargo: <a href="verPerfil.php?perfil=<?php echo $aula->getIdProfesor(); ?>" target="blank"><?php echo $aula->getNombreProfesor(); ?></a></p>
+                        <p class="lead">Profesor a cargo: <a href="perfil.php?idUsuario=<?php echo $aula->getIdProfesor(); ?>" target="blank"><?php echo $aula->getNombreProfesor(); ?></a></p>
                     </div>
                     <div class="col-12 mt-3 d-flex justify-content-center">
                         <h4 class="h4-responsive">Alumnos</h4>
