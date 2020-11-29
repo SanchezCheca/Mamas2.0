@@ -55,10 +55,18 @@
                                 <div class="row">
                                     <!-- Botones de control -->
                                     <div class="col-md-3"></div>
-                                    <div class="col-12 col-md-6 d-flex justify-content-center mb-5">
+                                    <div class="col-12 col-md-6 d-flex justify-content-center mb-5" id="contenedorFormulario">
                                         <input type="submit" class="btn btn-success" name="editarAula" value="Guardar cambios">
-                                        <input type="reset" class="btn btn-warning" value="Cancelar">
-                                        <input type="submit" class="btn btn-danger" value="Eliminar aula">
+                                        <input type="submit" class="btn btn-warning" name="cancelarEdicionAula" value="Cancelar">
+                                        <button id="eliminarAula" class="btn btn-danger">Eliminar Aula</button>
+                                        <div class="row" id="estamosSeguros">
+                                            <div class="col-6">
+                                                <input type="submit" name="eliminarAula" class="btn btn-danger" value="SI">
+                                            </div>
+                                            <div class="col-6">
+                                                <button id="noEstoySeguro" class="btn btn-primary">NO</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-3"></div>
 

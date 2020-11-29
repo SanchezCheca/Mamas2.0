@@ -130,20 +130,98 @@ if (isset($_REQUEST['crearAula'])) {
  */
 if (isset($_REQUEST['verAula'])) {
     $idAula = $_REQUEST['idAula'];
-    
+
     $aula = AccesoADatos::getAula($idAula);
     $_SESSION['aula'] = $aula;
-    
+
     $alumnosAula = AccesoADatos::getAlumnosDeAula($idAula);
     $_SESSION['alumnosAula'] = $alumnosAula;
-    
+
     header('Location: ../Vistas/verAula.php');
 }
 
+/**
+ * Lleva a 'Editar Aula'
+ */
 if (isset($_REQUEST['irAEditarAula'])) {
     $idAula = $_REQUEST['idAula'];
     $todosAlumnosExceptoAula = AccesoADatos::getAlumnosExceptoAula($idAula);
     $_SESSION['todosAlumnosExceptoAula'] = $todosAlumnosExceptoAula;
-    
+
     header('Location: ../Vistas/editarAula.php');
+}
+
+/**
+ * Devuelve a 'ver aula'
+ */
+if (isset($_REQUEST['cancelarEdicionAula'])) {
+    header('Location: ../Vistas/verAula.php');
+}
+
+/**
+ * ---------------------VIENE DE EDITAR AULA
+ */
+if (isset($_REQUEST['editarAula'])) {
+    if (isset($_REQUEST['idAula']) && isset($_SESSION['usuarioIniciado'])) {
+        $usuarioIniciado = $_SESSION['usuarioIniciado'];
+        $idAula = $_REQUEST['idAula'];
+        $nombre = $_REQUEST['nombre'];
+
+        if (isset($_REQUEST['alumnosRetirados'])) {
+            $alumnosRetirados = $_REQUEST['alumnosRetirados'];
+            foreach ($alumnosRetirados as $idAlumno) {
+                AccesoADatos::retirarAlumnoAula($idAula, $idAlumno);
+            }
+        }
+
+        if (isset($_REQUEST['alumnosAdded'])) {
+            $alumnosAdded = $_REQUEST['alumnosAdded'];
+            foreach ($alumnosAdded as $idAlumno) {
+                AccesoADatos::asignarAlumnoAula($idAula, $idAlumno);
+            }
+        }
+
+        AccesoADatos::editarAula($idAula, $nombre);
+
+        //Actualiza el aula
+        $aula = AccesoADatos::getAula($idAula);
+        $_SESSION['aula'] = $aula;
+        //Actualiza las aulas del usuario
+        $aulasUsuario = AccesoADatos::getAulas($usuarioIniciado->getRol(), $usuarioIniciado->getId());
+        $usuarioIniciado->setAulas($aulasUsuario);
+
+        $mensaje = 'Has actualizado el aula. ' . count($alumnosAdded) . ' alumnos añadidos y ' . count($alumnosRetirados) . ' retirados.';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../Vistas/verAula.php');
+    } else {
+        $mensaje = 'Ha ocurrido algún error';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../index.php');
+    }
+}
+
+/**
+ * VIENE DE EDITAR AULA, QUERIENDO ELIMINARLA
+ */
+if (isset($_REQUEST['eliminarAula'])) {
+    if (isset($_REQUEST['idAula']) && isset($_SESSION['usuarioIniciado'])) {
+        $usuarioIniciado = $_SESSION['usuarioIniciado'];
+        $idAula = $_REQUEST['idAula'];
+        $nombre = $_REQUEST['nombre'];
+        
+        AccesoADatos::eliminarAula($idAula);
+        
+        //Actualiza las aulas del usuario
+        $aulasUsuario = AccesoADatos::getAulas($usuarioIniciado->getRol(), $usuarioIniciado->getId());
+        $usuarioIniciado->setAulas($aulasUsuario);
+        
+        $mensaje = 'Has eliminado el aula "' . $nombre . '".';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../Vistas/aulas.php');
+        
+    } else {
+        $mensaje = 'Ha ocurrido algún error';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../index.php');
+    }
 }

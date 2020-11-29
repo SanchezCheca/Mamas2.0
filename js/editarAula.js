@@ -51,14 +51,14 @@ function cargar() {
                 }
             }
         }
-        
+
         //BOTON 'Anadir'
         if (e.target.tagName == 'DIV' && e.target.textContent == 'Añadir') {
             var fila = e.target.parentNode.parentNode;
             fila.lastChild.innerHTML = '<div class="bg-warning lighten-3 text-black d-flex justify-content-center rounded retirar">No añadir</div>'
-            
+
             var id = fila.lastChild.previousElementSibling.textContent;
-            
+
             //Crea el atributo oculto que llevara la informacion del alumno
             var atributoOculto = document.createElement('input');
             atributoOculto.setAttribute('type', 'hidden');
@@ -66,18 +66,18 @@ function cargar() {
             atributoOculto.setAttribute('value', id);
 
             formulario.appendChild(atributoOculto);
-            
+
             //Cambia la fila de tabla
             cuerpoAlumnosAula.appendChild(fila);
         }
-        
+
         //BOTON 'No anadir'
         if (e.target.tagName == 'DIV' && e.target.textContent == 'No añadir') {
             var fila = e.target.parentNode.parentNode;
             fila.lastChild.innerHTML = '<div class="bg-success lighten-3 text-light d-flex justify-content-center rounded retirar">Añadir</div>'
-            
+
             var id = fila.lastChild.previousElementSibling.textContent;
-            
+
             //Busca el atributo oculto que lleva la informacion del alumno
             var alumnosAdded = document.querySelectorAll('#formularioAula input');
             for (var i = 0; i < alumnosAdded.length; i++) {
@@ -85,19 +85,38 @@ function cargar() {
                     alumnosAdded[i].remove();
                 }
             }
-            
+
             //Cambia la fila de tabla
             cuerpoAlumnos.appendChild(fila);
         }
     }
-    
+
     //BOTON ANADIR NUEVOS ALUMNOS
     var botonAdd = document.getElementById('botonAdd');
-    
+
     botonAdd.addEventListener('click', function () {
         cajaTablaAlumnos.appendChild(tablaAlumnos);
         cajaTablaAlumnos.insertBefore(tituloAlumnos, tablaAlumnos);
         botonAdd.remove();
     });
+
+    //CONTENIDO PARA ELIMINAR
+    var contenedorFormulario = document.getElementById('contenedorFormulario');
+    var botonEliminarAula = document.getElementById('eliminarAula');
+    var estamosSeguros = document.getElementById('estamosSeguros');
+    var noEstoySeguro = document.getElementById('noEstoySeguro');
+
+    estamosSeguros.remove();
+
+    botonEliminarAula.addEventListener('click', function () {
+        botonEliminarAula.remove();
+        contenedorFormulario.appendChild(estamosSeguros);
+    });
+
+    noEstoySeguro.addEventListener('click', function () {
+        estamosSeguros.remove();
+        contenedorFormulario.appendChild(botonEliminarAula);
+    });
+
 
 }
