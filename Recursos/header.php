@@ -35,21 +35,18 @@ if (isset($_SESSION['usuarioIniciado'])) {
                 //Pinta la barra completa si ha iniciado sesion
                 if (isset($usuarioIniciado)) {
                     ?>
-                <form action="<?php echo $ruta . 'Controladores/controladorPrincipal.php'; ?>" method="POST" >
-                    <li class="nav-item">
-                        <input type="submit" name="cargarExamen" value="Exámenes" class="waves-effect    btn btn-primary">
-                    </li>
-                    </form>
-                    <li class="nav-item">
-                        <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'Vistas/aulas.php'; ?>">Aulas</a>
-                    </li>
-                    <?php
-                    //Muestra enlace al CRUD de usuarios
-                    if ($usuarioIniciado->getRol() == 2) {
-                        ?>
-                    <li>
-                        <a class="waves-effect btn btn-primary" href="<?php echo $ruta . 'Vistas/administracionUsuario.php'; ?>">Administrar usuarios</a>
-                    </li>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $ruta . 'index.php'; ?>">Inicio
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $ruta . 'Vistas/aulas.php'; ?>">Aulas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Exámenes</a>
+                        </li>
                         <?php
                         //Si es administrador, muestra enlace al CRUD de usuarios
                         if ($usuarioIniciado->getRol() == 2) {

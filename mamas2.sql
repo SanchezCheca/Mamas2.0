@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 20-11-2020 a las 11:59:58
+-- Tiempo de generación: 18-11-2020 a las 13:32:45
 -- Versión del servidor: 5.7.32-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.24-0ubuntu0.18.04.7
 
@@ -31,31 +31,6 @@ CREATE TABLE `aulas` (
   `idProfesor` int(10) NOT NULL,
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `aulas`
---
-
-INSERT INTO `aulas` (`id`, `idProfesor`, `nombre`) VALUES
-(1, 1, 'Aula primera');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `aula_alumno`
---
-
-CREATE TABLE `aula_alumno` (
-  `idAula` int(10) NOT NULL,
-  `idAlumno` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `aula_alumno`
---
-
-INSERT INTO `aula_alumno` (`idAula`, `idAlumno`) VALUES
-(1, 4);
 
 -- --------------------------------------------------------
 
@@ -170,10 +145,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `rol`, `correo`, `pass`, `nombre`, `activo`) VALUES
-(1, 2, 'daniel@daniel.com', '$1$vbO9DPzc$BvyUpqeW1bAynUbkQjq8d0', 'Daniel', 1),
-(4, 0, 'daniel2@daniel2.com', '$1$Mjro8HJw$wvQRoNrhgmanNtT0QhrOa.', 'Daniel2', 1),
-(5, 0, 'daniel3@daniel3.com', '$1$ItmYaHmO$LPfgl4vDKaOU/nxvBsd7r0', 'daniel3', 1),
-(6, 0, 'daniel4@daniel4.com', '$1$y/ZJY4H4$EKz46Z652EnsN6f3VQAEH1', 'daniel4', 0);
+(1, 0, 'daniel@daniel.com', '$1$vbO9DPzc$BvyUpqeW1bAynUbkQjq8d0', 'Daniel', 1),
+(4, 0, 'daniel2@daniel2.com', '$1$Mjro8HJw$wvQRoNrhgmanNtT0QhrOa.', 'Daniel2', 0),
+(5, 0, 'daniel3@daniel3.com', '$1$ItmYaHmO$LPfgl4vDKaOU/nxvBsd7r0', 'daniel3', 0);
 
 --
 -- Índices para tablas volcadas
@@ -229,7 +203,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `aulas`
 --
 ALTER TABLE `aulas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `examenes`
 --
@@ -259,7 +233,7 @@ ALTER TABLE `soluciones`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
