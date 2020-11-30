@@ -44,9 +44,11 @@ if (isset($_SESSION['usuarioIniciado'])) {
                 if (isset($usuarioIniciado)) {
                     //Si ha iniciado sesión
                     ?>
+                <form action="<?php echo $ruta . 'Controladores/controladorPrincipal.php'; ?>" method="POST" >
                     <li class="nav-item">
-                        <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'Vistas/examen.php'; ?>">Exámenes</a>
+                        <input type="submit" name="cargarExamen" value="Exámenes" class="waves-effect    btn btn-primary">
                     </li>
+                    </form>
                     <li class="nav-item">
                         <a class=" waves-effect  btn btn-primary" href="<?php echo $ruta . 'Vistas/aulas.php'; ?>">Aulas</a>
                     </li>

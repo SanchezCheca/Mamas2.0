@@ -324,12 +324,11 @@ if (isset($_REQUEST['addPregunta'])) {
 
 
 
-if (isset($_REQUEST['examenes'])) {
+if (isset($_REQUEST['cargarExamen'])) {
      $examenesCreados = AccesoADatos::getListaExamenes();
             $_SESSION['listaExamenes'] = $examenesCreados;
               header('Location: ../Vistas/examen.php');
 }
-
 
 
 
