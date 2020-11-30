@@ -48,3 +48,22 @@ if (isset($_REQUEST['anadir'])) {
     header('Location: ../Vistas/registroAdmin.php');
 }
 
+if (isset($_REQUEST['creaPreguntas'])) {
+     header('Location: ../Vistas/creaPreguntas.php');
+}
+
+
+
+if (isset($_REQUEST['anadirExamen'])) {
+         header('Location: ../Vistas/crearExamen.php');
+
+}
+
+if (isset($_REQUEST['volverEx'])) {
+         header('Location: ../Vistas/examen.php');
+
+}
+if (isset($_REQUEST['volver'])) {
+         header('Location: ../index.php');
+
+}

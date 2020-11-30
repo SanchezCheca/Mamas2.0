@@ -5,6 +5,9 @@
 .vh-10{
     height: 10vh;
 }
+.vh-70{
+    height: 70vh;
+}
 
 .boton{
     border-radius: 70px;
