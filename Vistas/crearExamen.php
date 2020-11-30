@@ -36,8 +36,8 @@
         <div class="container-fluid principal p-0 m-0">
             <?php include '../Recursos/header.php'; ?>
             <main class="row col-12 align-items-center justify-content-center p-4">
-                <div class="col-md-7 mt-5 mx-auto">
-                    <form class="border border-light p-5" action="../Controladores/controladorPrincipal.php" method="POST">
+                <div class="col-md-7 mt-5 mx-auto text-white">
+                    <form class="border border-light p-5 unique-color rounded" action="../Controladores/controladorPrincipal.php" method="POST">
 
                         <p class="h4 mb-4 text-center">Crear Examen</p>
                         <div class="my-3">
@@ -62,7 +62,7 @@
                         <select name="opciones" class="browser-default custom-select mb-4 " id="select">
                             <option value="" disabled selected>Elige una Opción</option>
                             <option value="1">Activado</option>
-                            <option value="2">Desactivado</option>
+                            <option value="0">Desactivado</option>
 
                         </select>
                         <button class="btn btn-info btn-block my-4" type="submit" name="crearExamen">Crear</button>

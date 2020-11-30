@@ -338,6 +338,17 @@ if (isset($_REQUEST['addPregunta'])) {
 
 
 if (isset($_REQUEST['irAExamenes'])) {
+    if (isset($_SESSION['usuarioIniciado'])) {
+        $usuarioIniciado = $_SESSION['usuarioIniciado'];
+        
+        
+        
+    } else {
+        $mensaje = 'Ha ocurrido algún error';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../index.php');
+    }
+    
     $examenesCreados = AccesoADatos::getListaExamenes();
     $_SESSION['listaExamenes'] = $examenesCreados;
     header('Location: ../Vistas/examen.php');

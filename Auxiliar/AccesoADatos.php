@@ -612,16 +612,22 @@ class AccesoADatos {
         return $add;
     }
 
-    public static function getListaExamenes() {
+    public static function getListaExamenes($rol) {
         self::new();
-        $examenes = [];
 
-        $sentencia = "SELECT * FROM examenes";
-
-        if ($resultado = mysqli_query(self::$conexion, $sentencia)) {
-            while ($fila = mysqli_fetch_array($resultado)) {
-                $examenAux = new Examen($fila[0], $fila[1], $fila[2], $fila[3], $fila[5], $fila[6], $fila[4]);
-                $examenes[] = $examenAux;
+        if ($rol == 0) {
+            //El usuario es un alumno
+            $examenes = [];
+            $query = 'SELECT '
+        } else {
+            //El usuario es un profesor
+            $examenes = [];
+            $sentencia = "SELECT * FROM examenes";
+            if ($resultado = mysqli_query(self::$conexion, $sentencia)) {
+                while ($fila = mysqli_fetch_array($resultado)) {
+                    $examenAux = new Examen($fila[0], $fila[1], $fila[2], $fila[3], $fila[5], $fila[6], $fila[4]);
+                    $examenes[] = $examenAux;
+                }
             }
         }
 
@@ -658,18 +664,18 @@ class AccesoADatos {
         self::closeDB();
         return $add;
     }
-    
+
     public static function getIdExamen($titulo) {
         self::new();
-        
-        $sentencia = "SELECT id FROM examenes WHERE titulo = '".$titulo."'";
-        
-        if($resultado = mysqli_query(self::$conexion, $sentencia)){
+
+        $sentencia = "SELECT id FROM examenes WHERE titulo = '" . $titulo . "'";
+
+        if ($resultado = mysqli_query(self::$conexion, $sentencia)) {
             if ($fila = mysqli_fetch_array($resultado)) {
                 $idExamen = $fila[0];
             }
         }
-        
+
         self::closeDB();
         return $idExamen;
     }
