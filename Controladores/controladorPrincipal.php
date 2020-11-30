@@ -329,7 +329,7 @@ if (isset($_REQUEST['addPregunta'])) {
     $idExamen = $_SESSION['idExamen'];
     $tituloPregunta = $_REQUEST['pregunta'];
     $idPregunta = AccesoADatos::getIdPregunta($tituloPregunta);
-    
+
     if (AccesoADatos::addPreguntaExamen($idExamen, $idPregunta)) {
         header('Location: ../Vistas/anadirPreguntas.php');
     }
@@ -337,10 +337,10 @@ if (isset($_REQUEST['addPregunta'])) {
 
 
 
-if (isset($_REQUEST['cargarExamen'])) {
-     $examenesCreados = AccesoADatos::getListaExamenes();
-            $_SESSION['listaExamenes'] = $examenesCreados;
-              header('Location: ../Vistas/examen.php');
+if (isset($_REQUEST['irAExamenes'])) {
+    $examenesCreados = AccesoADatos::getListaExamenes();
+    $_SESSION['listaExamenes'] = $examenesCreados;
+    header('Location: ../Vistas/examen.php');
 }
 
 
@@ -433,17 +433,16 @@ if (isset($_REQUEST['eliminarAula'])) {
         $usuarioIniciado = $_SESSION['usuarioIniciado'];
         $idAula = $_REQUEST['idAula'];
         $nombre = $_REQUEST['nombre'];
-        
+
         AccesoADatos::eliminarAula($idAula);
-        
+
         //Actualiza las aulas del usuario
         $aulasUsuario = AccesoADatos::getAulas($usuarioIniciado->getRol(), $usuarioIniciado->getId());
         $usuarioIniciado->setAulas($aulasUsuario);
-        
+
         $mensaje = 'Has eliminado el aula "' . $nombre . '".';
         $_SESSION['mensaje'] = $mensaje;
         header('Location: ../Vistas/aulas.php');
-        
     } else {
         $mensaje = 'Ha ocurrido algún error';
         $_SESSION['mensaje'] = $mensaje;
@@ -480,13 +479,13 @@ if (isset($_REQUEST['editarPerfil'])) {
         $usuarioIniciado = $_SESSION['usuarioIniciado'];
         $nombre = $_REQUEST['nombre'];
         $correo = $_REQUEST['correo'];
-        
+
         AccesoADatos::editarPerfil($usuarioIniciado->getId(), $nombre, $correo);
-        
+
         //Actualiza el usuario
         $usuarioIniciado = AccesoADatos::getUsuarioPorId($usuarioIniciado->getId());
         $_SESSION['usuarioIniciado'] = $usuarioIniciado;
-        
+
         $mensaje = 'Has modificado tu perfil';
         $_SESSION['mensaje'] = $mensaje;
         header('Location: ../Vistas/perfil.php');
