@@ -3,7 +3,9 @@
 require_once '../Auxiliar/AccesoADatos.php';
 require_once '../Modelo/Usuario.php';
 require_once '../Modelo/Aula.php';
-
+require_once '../Modelo/Pregunta.php';
+require_once '../Modelo/Opcion.php';
+require_once '../Modelo/Examen.php';
 session_start();
 
 //---------------------VIENE DE FORMULARIO DE REGISTRO
