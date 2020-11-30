@@ -1,70 +1,42 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>Examenes</title>
-        <!-- MDB icon -->
-        <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-        <!-- Google Fonts Roboto -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <!-- Material Design Bootstrap -->
-        <link rel="stylesheet" href="../css/mdb.min.css">
-        <!-- Your custom styles (optional) -->
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Mi CSS -->
+        <link rel="stylesheet" href="../css/estilos.css">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+              integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+        <!-- Recursos MDBootstrap -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/mdb.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+
+        <title>Exámenes - Mamas 2.0</title>
     </head>
 
     <body>
         <?php
         require_once '../Modelo/Examen.php';
-        session_start();
         ?>
-        <div class="container">
-            <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
-
-                <!-- Navbar -->
-
-                <div class="container">
-                    <div class="col-md-6">
-                        <!-- Brand -->
-
-                        <h2 class="font-weight-bold">Examenes</h2>
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Collapse -->
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <!-- Links -->
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                            <!-- Left -->
-                            <ul class="navbar-nav ml-auto  offset-3 ">
-                                <li class="nav-item">
-                                    <form action="../Controladores/controladorCRUD.php" method="POST" name="volver">
-                                        <button type="submit" class=" waves-effect  btn btn-primary" name="creaPreguntas" >Crear Preguntas</button>
-                                        <button type="submit" class=" waves-effect  btn btn-primary" name="volver" >Volver</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </header>
-
-            <main class="row mt-5">
+        <div class="container-fluid principal p-0 m-0">
+            <?php include '../Recursos/header.php'; ?>
+            <main class="row col-12 align-items-center justify-content-center p-4">
                 <div class="col-md-12">
                     <form action="../Controladores/controladorCRUD.php" method="POST" name="anadir" class="row">
                         <button type="submit" name="anadirExamen" class="col-md-3 mx-auto btn btn-rounded btn-primary  mb-5   marginmio"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir Examen</button>
