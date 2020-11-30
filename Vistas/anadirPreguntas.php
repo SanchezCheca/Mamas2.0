@@ -21,6 +21,7 @@ and open the template in the editor.
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
+        <link rel="stylesheet" href="../css/estilos.css">
         <script>
             function allowDrop(ev) {
                 ev.preventDefault();
@@ -60,7 +61,7 @@ and open the template in the editor.
         }
         ?>
 
-        <div class="container">
+        <div class="container-fluid principal p-0 m-0">
             <header class="row align-items-center navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar bg-primary">
 
                 <!-- Navbar -->

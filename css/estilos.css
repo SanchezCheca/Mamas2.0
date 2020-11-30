@@ -29,3 +29,8 @@ footer
     bottom: 0;
     width: 100%;
 }
+
+.huecoFooter
+{
+    height: 10vh;
+}
