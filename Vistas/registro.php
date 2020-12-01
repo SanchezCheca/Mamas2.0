@@ -45,7 +45,7 @@
             <main class="row col-12 align-items-center justify-content-center p-4">
 
                 <!-- Default form register -->
-                <form class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php" method="POST" novalidate>
+                <form id="registro" class="text-center border border-light p-5 mt-5 align-self-center" action="../Controladores/controladorPrincipal.php" method="POST" novalidate>
 
                     <h2 class=" mb-4 display-4">Registrarse</h2>
 

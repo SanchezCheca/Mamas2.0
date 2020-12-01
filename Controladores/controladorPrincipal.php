@@ -340,18 +340,15 @@ if (isset($_REQUEST['addPregunta'])) {
 if (isset($_REQUEST['irAExamenes'])) {
     if (isset($_SESSION['usuarioIniciado'])) {
         $usuarioIniciado = $_SESSION['usuarioIniciado'];
-        
-        
-        
+
+        $examenesCreados = AccesoADatos::getListaExamenes($usuarioIniciado->getRol());
+        $_SESSION['listaExamenes'] = $examenesCreados;
+        header('Location: ../Vistas/examen.php');
     } else {
         $mensaje = 'Ha ocurrido algún error';
         $_SESSION['mensaje'] = $mensaje;
         header('Location: ../index.php');
     }
-    
-    $examenesCreados = AccesoADatos::getListaExamenes();
-    $_SESSION['listaExamenes'] = $examenesCreados;
-    header('Location: ../Vistas/examen.php');
 }
 
 
@@ -422,6 +419,8 @@ if (isset($_REQUEST['editarAula'])) {
         //Actualiza el aula
         $aula = AccesoADatos::getAula($idAula);
         $_SESSION['aula'] = $aula;
+        $alumnosAula = AccesoADatos::getAlumnosDeAula($idAula);
+        $_SESSION['alumnosAula'] = $alumnosAula;
         //Actualiza las aulas del usuario
         $aulasUsuario = AccesoADatos::getAulas($usuarioIniciado->getRol(), $usuarioIniciado->getId());
         $usuarioIniciado->setAulas($aulasUsuario);

@@ -615,13 +615,12 @@ class AccesoADatos {
     public static function getListaExamenes($rol) {
         self::new();
 
+        $examenes = [];
         if ($rol == 0) {
             //El usuario es un alumno
-            $examenes = [];
-            $query = 'SELECT '
+            // $query = 'SELECT '
         } else {
             //El usuario es un profesor
-            $examenes = [];
             $sentencia = "SELECT * FROM examenes";
             if ($resultado = mysqli_query(self::$conexion, $sentencia)) {
                 while ($fila = mysqli_fetch_array($resultado)) {
