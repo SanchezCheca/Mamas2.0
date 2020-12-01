@@ -44,7 +44,7 @@ if (isset($_SESSION['usuarioIniciado'])) {
                     </li>
                     <li class="nav-item">
                         <form name="irAExamenes" action="<?php echo $ruta . 'Controladores/controladorPrincipal.php'; ?>" method="POST">
-                            <input class="nav-link" type="submit" name="irAExamenes" value="Exámenes">
+                            <input class="nav-link primary-color-dark text-light" style="border: none" type="submit" name="irAExamenes" value="Exámenes">
                         </form>
                     </li>
                     <?php
