@@ -8,6 +8,7 @@ require_once '../Modelo/Opcion.php';
 require_once '../Modelo/Examen.php';
 session_start();
 
+//-----------------------------------CÓDIGO DE DANIEL-----------------------------------
 //---------------------VIENE DE FORMULARIO DE REGISTRO
 if (isset($_REQUEST['registro'])) {
     $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -141,231 +142,6 @@ if (isset($_REQUEST['preguntas'])) {
         header('Location: ../Vistas/creaPreguntas.php');
     }
 }
-
-//---------------------AÑADIR PREGUNTAS
-if (isset($_REQUEST['anadirPregunta'])) {
-    if (isset($_SESSION['tipopregunta'])) {
-        $tipo = $_SESSION['tipopregunta'];
-
-        switch ($tipo) {
-            case 1:
-                $valor = $_REQUEST['valor'];
-                $titulo = $_REQUEST['titulo'];
-                $respuesta = $_REQUEST['numerico'];
-                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
-
-                if (AccesoADatos::addPregunta($preguntados)) {
-                    $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                    $opciones = new Opcion('null', $idPregunta, 1, $respuesta);
-                    if (AccesoADatos::addOpciones($opciones)) {
-
-
-                        header('Location: ../Vistas/creaPreguntas.php');
-                    }
-                }
-                break;
-
-
-            case 2:
-                $valor = $_REQUEST['valor'];
-                $titulo = $_REQUEST['titulo'];
-                $respuesta = $_REQUEST['desarrollo'];
-                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
-                if (AccesoADatos::addPregunta($preguntados)) {
-                    header('Location: ../Vistas/creaPreguntas.php');
-                }
-                break;
-
-
-            case 3:
-                $valor = $_REQUEST['valor'];
-                //Mirar opciones
-                $titulo = $_REQUEST['titulo'];
-                $respA = $_REQUEST['comboa'];
-                $respB = $_REQUEST['combob'];
-                $respC = $_REQUEST['comboc'];
-                $respD = $_REQUEST['combod'];
-
-                $respValidaA = $_REQUEST['inputa'];
-                $respValidaB = $_REQUEST['inputb'];
-                $respValidaC = $_REQUEST['inputc'];
-                $respValidaD = $_REQUEST['inputd'];
-                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
-
-                if (AccesoADatos::addPregunta($preguntados)) {
-                    if ($respA == 'on') {
-                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaA);
-                        if (AccesoADatos::addOpciones($opciones)) {
-                            
-                        }
-                    }
-
-                    if ($respB == 'on') {
-                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaB);
-                        if (AccesoADatos::addOpciones($opciones)) {
-                            
-                        }
-                    }
-
-                    if ($respC == 'on') {
-                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaC);
-                        if (AccesoADatos::addOpciones($opciones)) {
-                            
-                        }
-                    }
-
-                    if ($respD == 'on') {
-                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaD);
-                        if (AccesoADatos::addOpciones($opciones)) {
-                            
-                        }
-                    }
-
-
-                    if ($respA == '') {
-                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaA);
-                        if (AccesoADatos::addOpciones($opciones)) {
-                            
-                        }
-                    }
-
-                    if ($respB == '') {
-                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaB);
-                        if (AccesoADatos::addOpciones($opciones)) {
-                            
-                        }
-                    }
-
-                    if ($respC == '') {
-                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaC);
-                        if (AccesoADatos::addOpciones($opciones)) {
-                            
-                        }
-                    }
-
-                    if ($respD == '') {
-                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
-                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaD);
-                        if (AccesoADatos::addOpciones($opciones)) {
-                            
-                        }
-                    }
-                    header('Location: ../Vistas/creaPreguntas.php');
-                }
-
-
-
-                break;
-        }
-    }
-}
-
-
-if (isset($_REQUEST['crearExamen'])) {
-
-    if (isset($_SESSION['usuarioIniciado'])) {
-        $nombre = $_REQUEST['nombreExamen'];
-        $fechaInicio = $_REQUEST['fechaInicio'];
-        $fechaFin = $_REQUEST['fechaFin'];
-        $opcion = $_REQUEST['opciones'];
-        $usuarioAux = $_SESSION['usuarioIniciado'];
-        $idAula = $_REQUEST['aula'];
-
-        $examen = new Examen('NULL', $nombre, $usuarioAux->getId(), 'default', $fechaInicio, $fechaFin, $opcion);
-        
-        $idExamen = AccesoADatos::addExamen($examen);
-
-        if ($idExamen != null) {
-            $examenesCreados = AccesoADatos::getListaExamenes(1);
-            $_SESSION['listaExamenes'] = $examenesCreados;
-            
-            if ($idAula) {
-                AccesoADatos::asignarAulaExamen($idAula, $idExamen);
-            }
-            
-            $mensaje = 'Has creado el examen "' . $nombre . '"';
-            $_SESSION['mensaje'] = $mensaje;
-            
-            header('Location: ../Vistas/examen.php');
-        }
-    }
-}
-
-
-
-if (isset($_REQUEST['verExamen'])) {
-    $titulo = $_REQUEST['nombreExamen'];
-    $id = AccesoADatos::getIdExamen($titulo);
-    $_SESSION['tituloExamen'] = $titulo;
-    $_SESSION['idExamen'] = $id;
-
-    $preguntas = AccesoADatos::getPreguntas();
-    $tipoNumerico = [];
-    $tipoTexto = [];
-    $tipoOpciones = [];
-    for ($i = 0; $i < sizeof($preguntas); $i++) {
-        $preguntaAux = $preguntas[$i];
-
-        $tipo = $preguntaAux->getTipo();
-
-        switch ($tipo) {
-            case 1:
-                $tipoNumerico[] = $preguntaAux;
-                $_SESSION['preguntaNumerico'] = $tipoNumerico;
-                break;
-
-            case 2:
-                $tipoTexto[] = $preguntaAux;
-                $_SESSION['preguntaTexto'] = $tipoTexto;
-                break;
-
-            case 3:
-                $tipoOpciones[] = $preguntaAux;
-                $_SESSION['preguntaOpciones'] = $tipoOpciones;
-                break;
-        }
-    }
-
-    header('Location: ../Vistas/anadirPreguntas.php');
-}
-
-
-if (isset($_REQUEST['addPregunta'])) {
-    $idExamen = $_SESSION['idExamen'];
-    $tituloPregunta = $_REQUEST['pregunta'];
-    $idPregunta = AccesoADatos::getIdPregunta($tituloPregunta);
-
-    if (AccesoADatos::addPreguntaExamen($idExamen, $idPregunta)) {
-        header('Location: ../Vistas/anadirPreguntas.php');
-    }
-}
-
-
-
-if (isset($_REQUEST['irAExamenes'])) {
-    if (isset($_SESSION['usuarioIniciado'])) {
-        $usuarioIniciado = $_SESSION['usuarioIniciado'];
-
-        $examenesCreados = AccesoADatos::getListaExamenes($usuarioIniciado->getRol());
-        $_SESSION['listaExamenes'] = $examenesCreados;
-        header('Location: ../Vistas/examen.php');
-    } else {
-        $mensaje = 'Ha ocurrido algún error';
-        $_SESSION['mensaje'] = $mensaje;
-        header('Location: ../index.php');
-    }
-}
-
-
-
-
 
 /**
  * ---------------------BOTON "Ver Aula"
@@ -511,6 +287,228 @@ if (isset($_REQUEST['editarPerfil'])) {
         $mensaje = 'Has modificado tu perfil';
         $_SESSION['mensaje'] = $mensaje;
         header('Location: ../Vistas/perfil.php');
+    } else {
+        $mensaje = 'Ha ocurrido algún error';
+        $_SESSION['mensaje'] = $mensaje;
+        header('Location: ../index.php');
+    }
+}
+
+//-----------------------------------CÓDIGO DE NÉSTOR-----------------------------------
+//---------------------AÑADIR PREGUNTAS
+if (isset($_REQUEST['anadirPregunta'])) {
+    if (isset($_SESSION['tipopregunta'])) {
+        $tipo = $_SESSION['tipopregunta'];
+
+        switch ($tipo) {
+            case 1:
+                $valor = $_REQUEST['valor'];
+                $titulo = $_REQUEST['titulo'];
+                $respuesta = $_REQUEST['numerico'];
+                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
+
+                if (AccesoADatos::addPregunta($preguntados)) {
+                    $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                    $opciones = new Opcion('null', $idPregunta, 1, $respuesta);
+                    if (AccesoADatos::addOpciones($opciones)) {
+
+
+                        header('Location: ../Vistas/creaPreguntas.php');
+                    }
+                }
+                break;
+
+
+            case 2:
+                $valor = $_REQUEST['valor'];
+                $titulo = $_REQUEST['titulo'];
+                $respuesta = $_REQUEST['desarrollo'];
+                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
+                if (AccesoADatos::addPregunta($preguntados)) {
+                    header('Location: ../Vistas/creaPreguntas.php');
+                }
+                break;
+
+
+            case 3:
+                $valor = $_REQUEST['valor'];
+                //Mirar opciones
+                $titulo = $_REQUEST['titulo'];
+                $respA = $_REQUEST['comboa'];
+                $respB = $_REQUEST['combob'];
+                $respC = $_REQUEST['comboc'];
+                $respD = $_REQUEST['combod'];
+
+                $respValidaA = $_REQUEST['inputa'];
+                $respValidaB = $_REQUEST['inputb'];
+                $respValidaC = $_REQUEST['inputc'];
+                $respValidaD = $_REQUEST['inputd'];
+                $preguntados = new Pregunta('null', $titulo, $tipo, $valor);
+
+                if (AccesoADatos::addPregunta($preguntados)) {
+                    if ($respA == 'on') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaA);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respB == 'on') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaB);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respC == 'on') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaC);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respD == 'on') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 1, $respValidaD);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+
+                    if ($respA == '') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaA);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respB == '') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaB);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respC == '') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaC);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+
+                    if ($respD == '') {
+                        $idPregunta = AccesoADatos::getIdPregunta($titulo);
+                        $opciones = new Opcion('null', $idPregunta, 0, $respValidaD);
+                        if (AccesoADatos::addOpciones($opciones)) {
+                            
+                        }
+                    }
+                    header('Location: ../Vistas/creaPreguntas.php');
+                }
+
+
+
+                break;
+        }
+    }
+}
+
+
+if (isset($_REQUEST['crearExamen'])) {
+
+    if (isset($_SESSION['usuarioIniciado'])) {
+        $nombre = $_REQUEST['nombreExamen'];
+        $fechaInicio = $_REQUEST['fechaInicio'];
+        $fechaFin = $_REQUEST['fechaFin'];
+        $opcion = $_REQUEST['opciones'];
+        $usuarioAux = $_SESSION['usuarioIniciado'];
+        $idAula = $_REQUEST['aula'];
+
+        $examen = new Examen('NULL', $nombre, $usuarioAux->getId(), 'default', $fechaInicio, $fechaFin, $opcion);
+
+        $idExamen = AccesoADatos::addExamen($examen);
+
+        if ($idExamen != null) {
+            $examenesCreados = AccesoADatos::getListaExamenes(1);
+            $_SESSION['listaExamenes'] = $examenesCreados;
+
+            if ($idAula) {
+                AccesoADatos::asignarAulaExamen($idAula, $idExamen);
+            }
+
+            $mensaje = 'Has creado el examen "' . $nombre . '"';
+            $_SESSION['mensaje'] = $mensaje;
+
+            header('Location: ../Vistas/examen.php');
+        }
+    }
+}
+
+
+
+if (isset($_REQUEST['verExamen'])) {
+    $titulo = $_REQUEST['nombreExamen'];
+    $id = AccesoADatos::getIdExamen($titulo);
+    $_SESSION['tituloExamen'] = $titulo;
+    $_SESSION['idExamen'] = $id;
+
+    $preguntas = AccesoADatos::getPreguntas();
+    $tipoNumerico = [];
+    $tipoTexto = [];
+    $tipoOpciones = [];
+    for ($i = 0; $i < sizeof($preguntas); $i++) {
+        $preguntaAux = $preguntas[$i];
+
+        $tipo = $preguntaAux->getTipo();
+
+        switch ($tipo) {
+            case 1:
+                $tipoNumerico[] = $preguntaAux;
+                $_SESSION['preguntaNumerico'] = $tipoNumerico;
+                break;
+
+            case 2:
+                $tipoTexto[] = $preguntaAux;
+                $_SESSION['preguntaTexto'] = $tipoTexto;
+                break;
+
+            case 3:
+                $tipoOpciones[] = $preguntaAux;
+                $_SESSION['preguntaOpciones'] = $tipoOpciones;
+                break;
+        }
+    }
+
+    header('Location: ../Vistas/anadirPreguntas.php');
+}
+
+
+if (isset($_REQUEST['addPregunta'])) {
+    $idExamen = $_SESSION['idExamen'];
+    $tituloPregunta = $_REQUEST['pregunta'];
+    $idPregunta = AccesoADatos::getIdPregunta($tituloPregunta);
+
+    if (AccesoADatos::addPreguntaExamen($idExamen, $idPregunta)) {
+        header('Location: ../Vistas/anadirPreguntas.php');
+    }
+}
+
+
+
+if (isset($_REQUEST['irAExamenes'])) {
+    if (isset($_SESSION['usuarioIniciado'])) {
+        $usuarioIniciado = $_SESSION['usuarioIniciado'];
+
+        $examenesCreados = AccesoADatos::getListaExamenes($usuarioIniciado->getRol());
+        $_SESSION['listaExamenes'] = $examenesCreados;
+        header('Location: ../Vistas/examen.php');
     } else {
         $mensaje = 'Ha ocurrido algún error';
         $_SESSION['mensaje'] = $mensaje;

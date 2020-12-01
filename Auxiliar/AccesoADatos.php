@@ -35,6 +35,8 @@ class AccesoADatos {
         self::$conexion->close();
     }
 
+    //-----------------------------------CÓDIGO DE DANIEL-----------------------------------
+    
     /**
      * Devuelve un objeto Usuario si existe y la combinación correo-pass es correcta
      * Si no, devuelve null
@@ -507,6 +509,7 @@ class AccesoADatos {
         self::closeDB();
     }
 
+    //-----------------------------------CÓDIGO DE NÉSTOR-----------------------------------
     public static function getUsuarios() {
         self::new();
         $usuarios = [];
