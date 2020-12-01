@@ -21,9 +21,7 @@ if (isset($_SESSION['usuarioIniciado'])) {
 }
 ?>
 
-<!-- Navigation -->
 <header>
-    <!--Navbar -->
     <nav class="px-5 navbar navbar-expand-lg navbar-dark primary-color-dark">
         <a class="navbar-brand" href="<?php echo $ruta . 'index.php'; ?>">Mamás2.0</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
@@ -46,7 +44,7 @@ if (isset($_SESSION['usuarioIniciado'])) {
                     </li>
                     <li class="nav-item">
                         <form name="irAExamenes" action="<?php echo $ruta . 'Controladores/controladorPrincipal.php'; ?>" method="POST">
-                            <input class="nav-link" type="submit" name="irAExamenes" value="Exámenes">
+                            <input class="nav-link primary-color-dark text-light" style="border: none" type="submit" name="irAExamenes" value="Exámenes">
                         </form>
                     </li>
                     <?php

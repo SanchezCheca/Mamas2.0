@@ -52,7 +52,7 @@
                                 ?>
 
                                 <form action="../Controladores/controladorPrincipal.php" name="examen" method="POST" class="col-md-6">
-                                    <div class="card mt-5 mx-2">
+                                    <div class="card mt-5 mx-2 unique-color">
                                         <div class="card-header">
                                             <input type="hidden" name="idExamen" value="<?php $examenAux->getId() ?>">
                                             <input class="float-left" type="text" id="nombreExamen" name="nombreExamen" value="<?php echo $examenAux->getNombre() ?>" readonly>
@@ -76,8 +76,8 @@
                                             ?>
                                         </div>
                                         <div class="card-body">
-                                            <p class="card-text">Fecha inicio:  <input type="text" id="fi" name="fechaInicio" value="<?php echo $examenAux->getFechaInicio() ?>" readonly> </p> 
-                                            <p class="card-text">Fecha de entrega: <input type="text" id="ff" name="fechaFin" value="<?php echo $examenAux->getFechaFin() ?>" readonly> </p>
+                                            <p class="card-text text-white">Fecha inicio:  <input type="text" id="fi" name="fechaInicio" value="<?php echo $examenAux->getFechaInicio() ?>" readonly> </p> 
+                                            <p class="card-text text-white">Fecha de entrega: <input type="text" id="ff" name="fechaFin" value="<?php echo $examenAux->getFechaFin() ?>" readonly> </p>
                                             <button type="submit" class="btn btn-primary " name="verExamen"><i class="fas fa-plus pr-2" style="font-size: 20px" aria-hidden="true"></i>Añadir preguntas</button>
                                             <button type="submit" class="btn btn-primary" name="verExamen"><i class="fas fa-trash-alt pr-2" style="font-size: 20px" aria-hidden="true"></i>Borrar examen</button>
                                         </div>
@@ -94,8 +94,6 @@
 
             <?php include '../Recursos/footer.php'; ?>
         </div>
-
-
 
     </body>
 

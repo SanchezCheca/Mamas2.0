@@ -69,7 +69,7 @@ function validacion()
 
 function validacionRegistro()
 {
-     const form = document.getElementsByTagName('form')[0];
+    const form = document.getElementById('registro');
 
     const mail = document.getElementById('mail');
     const mailError = document.getElementById('mailError');
