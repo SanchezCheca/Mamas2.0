@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="../css/estilos.css">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/miestilo.css">
-        
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
               integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -50,23 +50,35 @@
                             <input type="datetime-local" id="exampleForm2" name="fechaInicio" class="form-control ">
                         </div>
 
-
                         <div class="my-3">
                             <label for="exampleForm2">Fin del examen: </label>
                             <input type="datetime-local" id="exampleForm2" name="fechaFin" class="form-control ">
                         </div>
 
-
-
-
-                        <select name="opciones" class="browser-default custom-select mb-4 " id="select">
+                        <select name="opciones" class="browser-default custom-select mb-4 " id="select" required>
                             <option value="" disabled selected>Elige una Opción</option>
                             <option value="1">Activado</option>
                             <option value="0">Desactivado</option>
-
                         </select>
-                        <button class="btn btn-info btn-block my-4" type="submit" name="crearExamen">Crear</button>
 
+                        <div class="my-3">
+                            <label>Aula:</label>
+                            <select name="aula" class="browser-default custom-select mb-4">
+                                <option value="" disabled selected>Elige un aula</option>
+                                <?php
+                                if (isset($_SESSION['aulas'])) {
+                                    $aulas = $_SESSION['aulas'];
+                                    foreach ($aulas as $aula) {
+                                        ?>
+                                        <option value="<?php echo $aula->getId(); ?>"><?php echo $aula->getNombre(); ?></option>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-info btn-block my-4" type="submit" name="crearExamen">Crear</button>
 
                     </form>
                 </div>

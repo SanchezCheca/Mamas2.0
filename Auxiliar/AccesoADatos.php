@@ -7,6 +7,7 @@
  * @author daniel
  */
 require_once 'Variables.php';
+require_once '../Modelo/Aula.php';
 require_once '../Modelo/Opcion.php';
 require_once '../Modelo/Pregunta.php';
 require_once '../Modelo/Examen.php';
@@ -488,6 +489,24 @@ class AccesoADatos {
         self::closeDB();
     }
 
+    /**
+     * Asigna un examen a un aula
+     * @param type $idExamen
+     * @param type $idAula
+     */
+    public static function asignarAulaExamen($idAula, $idExamen) {
+        self::new();
+        $resultado = null;
+
+        $query = 'INSERT INTO aula_examen VALUES(' . $idAula . ', ' . $idExamen . ')';
+        if ($resultado = self::$conexion->query($query)) {
+            $resultado = true;
+        }
+
+        return $resultado;
+        self::closeDB();
+    }
+
     public static function getUsuarios() {
         self::new();
         $usuarios = [];
@@ -594,7 +613,7 @@ class AccesoADatos {
 
     public static function addExamen($examen) {
         self::new();
-        $add = false;
+        $add = null;
 
 
         $fechaI = date(DATE_RFC3339, strtotime($examen->getFechaInicio()));
@@ -605,7 +624,12 @@ class AccesoADatos {
 
 
         if (mysqli_query(self::$conexion, $sentencia)) {
-            $add = true;
+            $query = 'SELECT id FROM examenes ORDER BY id DESC LIMIT 1';
+            $resultado = self::$conexion->query($query);
+
+            if ($fila = $resultado->fetch_assoc()) {
+                $add = $fila['id'];
+            }
         }
 
         self::closeDB();

@@ -276,11 +276,23 @@ if (isset($_REQUEST['crearExamen'])) {
         $fechaFin = $_REQUEST['fechaFin'];
         $opcion = $_REQUEST['opciones'];
         $usuarioAux = $_SESSION['usuarioIniciado'];
-        $examen = new Examen('NULL', $nombre, $usuarioAux->getId(), 'default', $fechaInicio, $fechaFin, $opcion);
+        $idAula = $_REQUEST['aula'];
 
-        if (AccesoADatos::addExamen($examen)) {
-            $examenesCreados = AccesoADatos::getListaExamenes();
+        $examen = new Examen('NULL', $nombre, $usuarioAux->getId(), 'default', $fechaInicio, $fechaFin, $opcion);
+        
+        $idExamen = AccesoADatos::addExamen($examen);
+
+        if ($idExamen != null) {
+            $examenesCreados = AccesoADatos::getListaExamenes(1);
             $_SESSION['listaExamenes'] = $examenesCreados;
+            
+            if ($idAula) {
+                AccesoADatos::asignarAulaExamen($idAula, $idExamen);
+            }
+            
+            $mensaje = 'Has creado el examen "' . $nombre . '"';
+            $_SESSION['mensaje'] = $mensaje;
+            
             header('Location: ../Vistas/examen.php');
         }
     }
